@@ -1,17 +1,26 @@
 package soundtastic.soundtasitc.note;
 
+import android.test.AndroidTestCase;
+
 import junit.framework.TestCase;
+import java.io.File;
+import java.io.IOException;
+import android.util.Log;
 
+import soundtastic.soundtasitc.midi.MidiException;
+import soundtastic.soundtasitc.midi.ProjectToMidiConverter;
 
-public class createMidiStructTest extends TestCase {
+public class createMidiStructTest extends AndroidTestCase {
 
-    public void setUp() throws Exception {
-        super.setUp();
+    private File file;
 
+    protected void setUp() {
+        file = new File(getContext().getCacheDir(), "test.midi");
+        Log.d("FILE",getContext().getCacheDir());
     }
 
-    public void tearDown() throws Exception {
-
+    protected void tearDown() {
+        file.delete();
     }
 
     public void testCreateProject()
@@ -35,5 +44,19 @@ public class createMidiStructTest extends TestCase {
         firstTrack.addNoteEvent(480, note1_end);
 
         testProject.addTrack("first", firstTrack);
+
+        ProjectToMidiConverter converter = new ProjectToMidiConverter();
+
+
+        try{
+            converter.writeProjectAsMidi(testProject, file);
+             File newFile = ProjectToMidiConverter.getMidiFileFromProjectName(ProjectToMidiConverter.removeMidiExtensionFromString(file.getName()));
+        }catch(IOException e){
+            e.printStackTrace();
+        } catch (MidiException e) {
+            e.printStackTrace();
+        }
+
+
     }
 }

@@ -7,19 +7,25 @@ import java.util.TimerTask;
 import java.util.Timer;
 import android.text.format.Time;
 import  java.io.File;
-
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
+import java.beans.PropertyChangeSupport;
 /**
  * Created by Dino on 22.04.2015.
  */
 public class Recorder {
+
+PropertyChangeSupport pcs = new PropertyChangeSupport(this);
 
     private ExtAudioRecorder recorder;
     private String filePath;
     private boolean uncompressed = false;
     private int audioSource =  MediaRecorder.AudioSource.MIC;
     private int sampleRate = 44100;
+    private long elapsedSeconds;
     private Time startTime = new Time();
     private Time endTime = new Time();
+    private Timer timer;
     private int channelConfig = AudioFormat.CHANNEL_CONFIGURATION_MONO ;
     private int audioFormat = AudioFormat.ENCODING_PCM_16BIT;
 
@@ -80,13 +86,25 @@ public class Recorder {
         recorder.prepare();
         recorder.start();
         startTime.setToNow();
+        timer = new Timer();
+        TimerTask task = new TimerTask() {
+            @Override
+            public void run() {
+               Time time = new Time();
+                time.setToNow();
+                long oldTime = elapsedSeconds;
+                elapsedSeconds = (time.toMillis(true) - startTime.toMillis(true)) / 1000;
+                pcs.firePropertyChange("elapsedSeconds",oldTime,elapsedSeconds);
+            }
+        };
+        timer.scheduleAtFixedRate(task, 1000, 1000);
     }
 
     public void stopRecording()
     {
         recorder.stop();
         recorder.release();
-        endTime.setToNow();
+       timer.cancel();
     }
 
     public boolean isRecording()
@@ -94,10 +112,6 @@ public class Recorder {
         return recorder.getState() == ExtAudioRecorder.State.RECORDING;
     }
 
-    public Time getDifference()
-    {
-
-    }
 
     public boolean deleteLastRecording()
     {
@@ -109,5 +123,10 @@ public class Recorder {
         }
         return deleted;
     }
+
+    public void addRecordingTimeChangeListener(PropertyChangeListener listener) {
+        pcs.addPropertyChangeListener(listener);
+    }
+
 
 }

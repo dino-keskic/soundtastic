@@ -8,6 +8,7 @@ import junit.framework.TestCase;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.io.File;
+import java.util.Random;
 
 public class RecorderTest extends TestCase {
 
@@ -46,12 +47,13 @@ public class RecorderTest extends TestCase {
 
         Recorder recorder =  new Recorder(filePath);
         recorder.addRecordingTimeChangeListener(pcl);
-
-        recorder.recordForNSeconds(10);
+         Random r = new Random();
+        int testDur = r.nextInt(20)+1;
+        recorder.recordForNSeconds(testDur);
         while(recorder.isRecording()) {}
         File file = new File(filePath);
 
-        assertEquals(10, duration);
+        assertEquals(testDur, duration);
     }
 
 }

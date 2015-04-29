@@ -3,6 +3,7 @@ package soundtastic.soundtasitc.recording;
 import android.media.AudioFormat;
 import android.media.MediaRecorder;
 
+import java.security.InvalidParameterException;
 import java.util.TimerTask;
 import java.util.Timer;
 import android.text.format.Time;
@@ -67,7 +68,8 @@ PropertyChangeSupport pcs = new PropertyChangeSupport(this);
     public void recordForNSeconds(int n)
     {
 
-
+         if(n == 0)
+             throw new InvalidParameterException("duration should be greater than 0!");
        startRecording();
         Timer timer = new Timer();
         TimerTask timerTask = new TimerTask() {

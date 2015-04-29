@@ -1,6 +1,7 @@
 package soundtastic.soundtasitc;
 
 
+import android.content.Intent;
 import android.content.DialogInterface;
 import android.media.MediaPlayer;
 import android.support.v7.app.ActionBarActivity;
@@ -25,6 +26,8 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
     ImageButton buttonStopRec;
     ImageButton buttonDiscardRec;
 
+    ImageButton buttonMedia;
+
     public MediaPlayer mediaPlayer = null;
 
     @Override
@@ -40,6 +43,8 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
         buttonRewind = (ImageButton) findViewById(R.id.buttonRewind);
 
         buttonRec = (ImageButton) findViewById(R.id.buttonRec);
+
+        buttonMedia = (ImageButton) findViewById(R.id.media);
 
         buttonPauseRec = (ImageButton) findViewById(R.id.buttonPauseRec);
         buttonPauseRec.setVisibility(View.INVISIBLE);
@@ -58,6 +63,8 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
         buttonPauseRec.setOnClickListener(this);
         buttonDiscardRec.setOnClickListener(this);
         buttonStopRec.setOnClickListener(this);
+
+        buttonMedia.setOnClickListener(this);
     }
 
     @Override
@@ -126,6 +133,14 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
                 buttonStopRec.setVisibility(View.INVISIBLE);
                 buttonDiscardRec.setVisibility(View.INVISIBLE);
                 break;
+            /*case R.id.media:
+                newActivity(v);
+                break;*/
         }
+    }
+
+    public void newActivity(View view) {
+        Intent intent = new Intent(this, PlayMIDIActivity.class);
+        startActivity(intent);
     }
 }

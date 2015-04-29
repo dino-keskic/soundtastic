@@ -4,7 +4,6 @@ import android.test.ActivityInstrumentationTestCase2;
 
 import com.robotium.solo.Solo;
 
-import soundtastic.soundtasitc.;
 
 /**
  * Created by Dominik on 22.04.2015.

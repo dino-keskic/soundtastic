@@ -16,7 +16,7 @@ public class createMidiStructTest extends AndroidTestCase {
 
     protected void setUp() {
         file = new File(getContext().getCacheDir(), "test.midi");
-        Log.d("FILE",getContext().getCacheDir());
+        Log.d("FILE", String.valueOf(getContext().getCacheDir()));
     }
 
     protected void tearDown() {

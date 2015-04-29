@@ -1,5 +1,6 @@
 package soundtastic.soundtasitc.note;
 
+import android.os.Environment;
 import android.test.AndroidTestCase;
 
 import junit.framework.TestCase;
@@ -14,17 +15,28 @@ public class createMidiStructTest extends AndroidTestCase {
 
     private File file;
 
-    protected void setUp() {
-        file = new File(getContext().getCacheDir(), "test.midi");
-        Log.d("FILE", String.valueOf(getContext().getCacheDir()));
+    protected void setUp() throws IOException {
+        file = new File(Environment.getExternalStorageDirectory().getAbsolutePath() + "/xxXXxx321/", "test.midi");
+
+        File folder = new File(Environment.getExternalStorageDirectory() + "/xxXXxx321");
+        boolean success = true;
+        if (!folder.exists()) {
+            success = folder.mkdir();
+            Log.d("MIDIF231", String.valueOf(success));
+        }
+
+        //file.createNewFile();
+
+        Log.d("MIDIF231", String.valueOf(Environment.getExternalStorageDirectory().getAbsolutePath()));
     }
 
     protected void tearDown() {
-        file.delete();
+        /*file.delete();*/
     }
 
     public void testCreateProject()
     {
+        Log.d("second", "Das ist eindeutig! noch immer...");
         Project testProject = new Project("testProject", 60);
         assertEquals(testProject.getName(), "testProject");
 
@@ -47,16 +59,19 @@ public class createMidiStructTest extends AndroidTestCase {
 
         ProjectToMidiConverter converter = new ProjectToMidiConverter();
 
-
+        Log.d("MIDIF231", "before Try");
         try{
             converter.writeProjectAsMidi(testProject, file);
-             File newFile = ProjectToMidiConverter.getMidiFileFromProjectName(ProjectToMidiConverter.removeMidiExtensionFromString(file.getName()));
+            /* File newFile = ProjectToMidiConverter.getMidiFileFromProjectName(file);
+                     //ProjectToMidiConverter.removeMidiExtensionFromString(file.getName()));
+            newFile.createNewFile();*/
+            Log.d("MIDIF231", "fileName" + file.getAbsoluteFile());
         }catch(IOException e){
+            Log.d("MIDIF231", "exception createNewFile");
             e.printStackTrace();
         } catch (MidiException e) {
+            Log.d("MIDIF231", "SCHEISSE!");
             e.printStackTrace();
         }
-
-
     }
 }

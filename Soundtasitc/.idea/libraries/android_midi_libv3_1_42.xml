@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="android-midi-libv3-1-42">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/app/libs/android-midi-libv3-1-42.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

@@ -14,8 +14,11 @@ import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.MediaController;
+import android.widget.TextView;
 
 
 public class PlayMIDIActivity extends ActionBarActivity implements MediaController.MediaPlayerControl {
@@ -23,6 +26,8 @@ public class PlayMIDIActivity extends ActionBarActivity implements MediaControll
     private MediaPlayer mediaPlayer = null;
     private MusicController controller = null;
     private boolean musicBound = false;
+
+    ListView list = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,14 +39,14 @@ public class PlayMIDIActivity extends ActionBarActivity implements MediaControll
         musicBound = true;
         controller = new MusicController(this);
         controller.setMediaPlayer(this);
-        boolean songs = findMusicInFolder();
+        Cursor songs = findMusicInFolder();
         //controller.setAnchorView();
-        if(songs)
-            Log.d("HMM", "YES");
-        else
-           Log.d("HMM", "Nope");
 
         controller.setEnabled(true);
+
+        list = (ListView) findViewById(R.id.song_list);
+
+
     }
 
     @Override
@@ -132,21 +137,18 @@ public class PlayMIDIActivity extends ActionBarActivity implements MediaControll
             return 0;
     }
 
-    public boolean findMusicInFolder() {
+
+
+    public Cursor findMusicInFolder() {
         Cursor cursor;
-        String selection;
-        String[] projection = {MediaStore.Audio.Media.IS_MUSIC};
+        //String selection;
+        //String[] projection = {MediaStore.Audio.Media.IS_MUSIC};
         Uri uri = MediaStore.Audio.Media.EXTERNAL_CONTENT_URI;
 
         //Create query for searching media files in folder
-        selection = MediaStore.Audio.Media.IS_MUSIC + " != 0 AND " +
-                MediaStore.Audio.Media.DATA + " LIKE 'android.resource://soundtastic.soundtasitc/raw/%'";
-        cursor = managedQuery(uri, projection, selection, null, null);
-        if (cursor != null) {
-            boolean isDataPresent;
-            isDataPresent = cursor.moveToFirst();
-            return isDataPresent;
-        }
-        return false;
+        // selection = MediaStore.Audio.Media.IS_MUSIC + " != 0 AND " +
+        // MediaStore.Audio.Media.DATA + " LIKE 'android.resource://soundtastic.soundtasitc/raw/'";
+        cursor = getContentResolver().query(uri, null, null, null, null);
+        return cursor;
     }
 }

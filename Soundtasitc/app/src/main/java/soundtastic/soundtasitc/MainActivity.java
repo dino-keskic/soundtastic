@@ -133,9 +133,9 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
                 buttonStopRec.setVisibility(View.INVISIBLE);
                 buttonDiscardRec.setVisibility(View.INVISIBLE);
                 break;
-            /*case R.id.media:
+            case R.id.media:
                 newActivity(v);
-                break;*/
+                break;
         }
     }
 

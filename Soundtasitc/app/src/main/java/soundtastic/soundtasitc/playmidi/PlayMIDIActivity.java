@@ -96,7 +96,7 @@ public class PlayMIDIActivity extends ActionBarActivity implements MediaControll
 
     @Override
     public boolean isPlaying() {
-        if(mediaPlayer!=null&& musicBound)
+        if(mediaPlayer!=null && musicBound)
             return mediaPlayer.isPlaying();
         return false;
     }

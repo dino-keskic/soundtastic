@@ -17,7 +17,7 @@ public class MidiValues {
     private double chunkLength;
     private List<Integer> midiNum;
 
-    MidiValues(int bpm_, int chunkSize_, int sampleRate_) {
+    public MidiValues(int bpm_, int chunkSize_, int sampleRate_) {
         beatsPerMinute = bpm_;
         chunkSize = chunkSize_;
         sampleRate = sampleRate_;

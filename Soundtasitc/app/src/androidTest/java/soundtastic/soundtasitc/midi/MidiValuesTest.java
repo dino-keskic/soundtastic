@@ -12,6 +12,7 @@ import java.util.List;
 import android.provider.ContactsContract;
 import android.util.Log;
 
+import soundtastic.soundtasitc.WavConverter;
 import soundtastic.soundtasitc.note.MusicalInstrument;
 import soundtastic.soundtasitc.note.MusicalKey;
 import soundtastic.soundtasitc.note.NoteEvent;
@@ -101,4 +102,57 @@ public class MidiValuesTest extends TestCase {
 
 
     }
+
+    public void testMidiConversion()
+    {
+        WavConverter converter = new WavConverter();
+        MidiValues midiValues1= converter.convertToMidi("TestFile2.wav");
+        List<AbstractMap.SimpleEntry<Integer,Integer>> noteMap = midiValues.generateNoteMap();
+
+        /*
+        === print noteMap to Android Studio console
+        for(int i = 0; i < noteMap.size(); i++)
+        {
+            Log.d("noteOutPut:", noteMap.get(i).getKey().toString() + " " +
+                    noteMap.get(i).getValue().toString());
+        }
+        ===*/
+
+
+        Project testProject = new Project("testProject", midiValues.getBeatsPerMinute());
+        Track firstTrack = new Track(MusicalKey.VIOLIN, MusicalInstrument.ACOUSTIC_GRAND_PIANO);
+
+        int currentTicks = 0;
+        for(int i = 0; i < noteMap.size(); i++)
+        {
+            NoteName noteName = NoteName.getNoteNameFromMidiValue(noteMap.get(i).getKey());
+            NoteEvent note_begin = new NoteEvent(noteName, true);
+            firstTrack.addNoteEvent(currentTicks, note_begin);
+            currentTicks += midiValues.getNoteLength(noteMap.get(i).getValue()) * testProject.getBeatsPerMinute() * 8;
+
+            Log.d("NOTELENGTH", Double.toString(midiValues.getNoteLength(noteMap.get(i).getValue())));
+            Log.d("CURRENTTICKS", Integer.toString(currentTicks));
+
+            NoteEvent note_end = new NoteEvent(noteName, false);
+            firstTrack.addNoteEvent(currentTicks, note_end);
+        }
+
+        testProject.addTrack("first", firstTrack);
+
+        ProjectToMidiConverter procConverter = new ProjectToMidiConverter();
+
+        try{
+            procConverter.writeProjectAsMidi(testProject, file);
+        }catch(IOException e){
+            e.printStackTrace();
+        } catch (MidiException e) {
+            e.printStackTrace();
+        }
+
+        assertTrue(file.exists());
+
+
+
+    }
+
 }

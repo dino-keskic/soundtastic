@@ -11,6 +11,8 @@ import java.io.OutputStreamWriter;
 import java.lang.reflect.Array;
 import java.util.Arrays;
 
+import soundtastic.soundtasitc.midi.MidiValues;
+
 /**
  * Created by Dino on 29.04.2015.
  */
@@ -28,7 +30,7 @@ public class WavConverter {
     public  static final int WAV_FILE_DATA_SIZE_END = 43;
 
 
-   public  int[] convertToMidi (String filePath)
+   public  MidiValues convertToMidi (String filePath)
    {
        FileReader reader = new FileReader();
 
@@ -74,7 +76,7 @@ public class WavConverter {
            if(phase >=Math.PI*2)
                phase-=2*Math.PI;
        }*/
-
+       MidiValues midiValues = new MidiValues((int)bpm,(int)chunkSize,(int)sampleRate);
        while(k < midiData.length)
        {
            if(k == 100)
@@ -126,10 +128,13 @@ public class WavConverter {
                midiData[k] = (int)(12 * log2) + 69;
            }
         Log.d("MIDI VALUE","midi value at "+k+":"+midiData[k]);
+           midiValues.addMidiNum(midiData[k]);
            k++;
+
        }
 
-       return midiData;
+        midiValues.generateNoteMap();
+       return midiValues;
    }
 
     public int convertSampleToMidi()

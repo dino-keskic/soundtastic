@@ -27,4 +27,5 @@ public class WavReaderTest extends TestCase {
 
        assertEquals(s,"RIFF");
     }
+
 }

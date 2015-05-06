@@ -34,6 +34,7 @@ public class SoundTasticTest extends ActivityInstrumentationTestCase2<MainActivi
         mySolo.clickOnView(mySolo.getView(R.id.buttonStop));
         mySolo.clickOnView(mySolo.getView(R.id.buttonForward));
         mySolo.clickOnView(mySolo.getView(R.id.buttonRewind));
+        mySolo.clickOnView(mySolo.getView(R.id.media));
     }
 
     public void testPlay() {
@@ -73,6 +74,11 @@ public class SoundTasticTest extends ActivityInstrumentationTestCase2<MainActivi
         mySolo.clickOnView(mySolo.getView(R.id.buttonRewind));
         mySolo.sleep(2000);
         mySolo.clickOnView(mySolo.getView(R.id.buttonRewind));
+        mySolo.sleep(2000);
+    }
+
+    public void testMedia() {
+        mySolo.clickOnView(mySolo.getView(R.id.media));
         mySolo.sleep(2000);
     }
 

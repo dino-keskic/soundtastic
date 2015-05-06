@@ -1,4 +1,4 @@
-package soundtastic.soundtasitc;
+package soundtastic.soundtasitc.playmidi;
 
 import android.media.MediaPlayer;
 

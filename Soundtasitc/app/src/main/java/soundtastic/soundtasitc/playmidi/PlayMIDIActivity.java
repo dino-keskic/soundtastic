@@ -1,24 +1,17 @@
-package soundtastic.soundtasitc;
-
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
+package soundtastic.soundtasitc.playmidi;
 
 import android.media.MediaPlayer;
 import android.net.Uri;
-import android.content.ContentResolver;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.v7.app.ActionBarActivity;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.MediaController;
-import android.widget.TextView;
+
+import soundtastic.soundtasitc.R;
 
 
 public class PlayMIDIActivity extends ActionBarActivity implements MediaController.MediaPlayerControl {

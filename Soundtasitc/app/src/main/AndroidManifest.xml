@@ -19,7 +19,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".PlayMIDIActivity"
+            android:name=".playmidi.PlayMIDIActivity"
             android:label="@string/title_activity_play_midi" >
         </activity>
     </application>

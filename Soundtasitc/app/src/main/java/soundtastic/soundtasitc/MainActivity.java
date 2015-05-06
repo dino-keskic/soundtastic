@@ -1,6 +1,8 @@
 package soundtastic.soundtasitc;
 
 
+import android.app.Dialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.media.MediaPlayer;
@@ -11,7 +13,11 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.PopupWindow;
+import android.widget.SeekBar;
+import android.widget.TextView;
 
 import soundtastic.soundtasitc.playmidi.PlayMIDI;
 import soundtastic.soundtasitc.playmidi.PlayMIDIActivity;
@@ -34,9 +40,12 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
 
     ImageButton buttonMedia;
 
+
     public MediaPlayer mediaPlayer = null;
     public Recorder recorder = null;
     public Uri hmm = null;
+
+    public int bpm = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -75,6 +84,46 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
         buttonStopRec.setOnClickListener(this);
 
         buttonMedia.setOnClickListener(this);
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        if(bpm == 0) {
+            final Dialog dialog = new Dialog(this);
+            dialog.setContentView(R.layout.settings_dialog);
+            dialog.setTitle("Settings Dialog Box");
+            Button okay = (Button) dialog.findViewById(R.id.Button01);
+            final SeekBar seekBar = (SeekBar) dialog.findViewById(R.id.BPMseekBar);
+            seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+                @Override
+                public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+                    TextView beats = (TextView) dialog.findViewById(R.id.beats);
+                    beats.setText("" + (progress + 80));
+                }
+
+                @Override
+                public void onStartTrackingTouch(SeekBar seekBar) {
+
+                }
+
+                @Override
+                public void onStopTrackingTouch(SeekBar seekBar) {
+
+                }
+            });
+            okay.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    TextView beats = (TextView) dialog.findViewById(R.id.beats);
+
+                    bpm = seekBar.getProgress() + 80;
+                    dialog.cancel();
+                }
+            });
+
+            dialog.show();
+        }
     }
 
     @Override
@@ -142,6 +191,10 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
                 buttonPauseRec.setVisibility(View.INVISIBLE);
                 buttonStopRec.setVisibility(View.INVISIBLE);
                 buttonDiscardRec.setVisibility(View.INVISIBLE);
+
+                recorder.deleteLastRecording();
+                hmm = Uri.parse(Environment.getExternalStorageDirectory() + "/sampleRecording.wav");
+                recorder = new Recorder(Environment.getExternalStorageDirectory()+"/sampleRecording.wav");
                 break;
             case R.id.buttonStopRec:
                 buttonRec.setVisibility(View.VISIBLE);
@@ -152,7 +205,9 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
                 recorder.stopRecording();
                 break;
             case R.id.media:
-                newActivity(v);
+                //newActivity(v);
+                TextView beats_per = (TextView) findViewById(R.id.bpm);
+                beats_per.setText("" + bpm);
                 break;
         }
     }

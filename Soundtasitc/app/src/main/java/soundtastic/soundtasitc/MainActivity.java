@@ -2,7 +2,10 @@ package soundtastic.soundtasitc;
 
 
 import android.content.Intent;
+import android.content.res.Resources;
 import android.media.MediaPlayer;
+import android.net.Uri;
+import android.os.Environment;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -12,6 +15,8 @@ import android.widget.ImageButton;
 
 import soundtastic.soundtasitc.playmidi.PlayMIDI;
 import soundtastic.soundtasitc.playmidi.PlayMIDIActivity;
+import soundtastic.soundtasitc.recording.Recorder;
+import soundtastic.soundtasitc.recording.ExtAudioRecorder;
 
 
 public class MainActivity extends ActionBarActivity implements View.OnClickListener {
@@ -30,11 +35,15 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
     ImageButton buttonMedia;
 
     public MediaPlayer mediaPlayer = null;
+    public Recorder recorder = null;
+    public Uri hmm = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        hmm = Uri.parse(Environment.getExternalStorageDirectory() + "/sampleRecording.wav");
+        recorder = new Recorder(Environment.getExternalStorageDirectory()+"/sampleRecording.wav");
         mediaPlayer = MediaPlayer.create(this, R.raw.song);
 
         buttonPlay = (ImageButton) findViewById(R.id.buttonPlay);
@@ -97,6 +106,7 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
 
         switch(clickedButton.getId()) {
             case R.id.buttonPlay:
+                mediaPlayer = MediaPlayer.create(this, hmm);
                 PlayMIDI.play(mediaPlayer);
                 //mediaPlayer.start();
                 break;
@@ -121,6 +131,11 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
                 buttonPauseRec.setVisibility(View.VISIBLE);
                 buttonStopRec.setVisibility(View.VISIBLE);
                 buttonDiscardRec.setVisibility(View.VISIBLE);
+
+                boolean deleted = recorder.deleteLastRecording();
+                hmm = Uri.parse(Environment.getExternalStorageDirectory() + "/sampleRecording.wav");
+                recorder = new Recorder(Environment.getExternalStorageDirectory()+"/sampleRecording.wav");
+                recorder.startRecording();
                 break;
             case R.id.buttonDiscardRec:
                 buttonRec.setVisibility(View.VISIBLE);
@@ -133,6 +148,8 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
                 buttonPauseRec.setVisibility(View.INVISIBLE);
                 buttonStopRec.setVisibility(View.INVISIBLE);
                 buttonDiscardRec.setVisibility(View.INVISIBLE);
+
+                recorder.stopRecording();
                 break;
             case R.id.media:
                 newActivity(v);

@@ -1,20 +1,33 @@
 package soundtastic.soundtasitc;
 
 
+import android.app.Dialog;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.res.Resources;
 import android.media.MediaPlayer;
 import android.net.Uri;
-import android.os.Bundle;
 import android.os.Environment;
+import android.os.SystemClock;
 import android.support.v7.app.ActionBarActivity;
+import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.animation.AlphaAnimation;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
+import android.view.animation.LinearInterpolator;
+import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.ImageView;
+import android.widget.SeekBar;
+import android.widget.TextView;
 
 import soundtastic.soundtasitc.playmidi.PlayMIDI;
 import soundtastic.soundtasitc.playmidi.PlayMIDIActivity;
 import soundtastic.soundtasitc.recording.Recorder;
+import soundtastic.soundtasitc.recording.ExtAudioRecorder;
 
 
 public class Record extends ActionBarActivity implements View.OnClickListener {
@@ -26,15 +39,17 @@ public class Record extends ActionBarActivity implements View.OnClickListener {
     ImageButton buttonRewind;
 
     ImageButton buttonRec;
-    ImageButton buttonPauseRec;
-    ImageButton buttonStopRec;
-    ImageButton buttonDiscardRec;
 
     ImageButton buttonMedia;
+
+    Animation pulse = null;
 
     public MediaPlayer mediaPlayer = null;
     public Recorder recorder = null;
     public Uri hmm = null;
+
+    public int bpm = 0;
+    public boolean isRecording = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,13 +69,6 @@ public class Record extends ActionBarActivity implements View.OnClickListener {
 
         buttonMedia = (ImageButton) findViewById(R.id.media);
 
-        buttonPauseRec = (ImageButton) findViewById(R.id.buttonPauseRec);
-        buttonPauseRec.setVisibility(View.INVISIBLE);
-        buttonStopRec = (ImageButton) findViewById(R.id.buttonStopRec);
-        buttonStopRec.setVisibility(View.INVISIBLE);
-        buttonDiscardRec = (ImageButton) findViewById(R.id.buttonDiscardRec);
-        buttonDiscardRec.setVisibility(View.INVISIBLE);
-
         buttonPlay.setOnClickListener(this);
         buttonPause.setOnClickListener(this);
         buttonStop.setOnClickListener(this);
@@ -68,11 +76,42 @@ public class Record extends ActionBarActivity implements View.OnClickListener {
         buttonRewind.setOnClickListener(this);
 
         buttonRec.setOnClickListener(this);
-        buttonPauseRec.setOnClickListener(this);
-        buttonDiscardRec.setOnClickListener(this);
-        buttonStopRec.setOnClickListener(this);
 
         buttonMedia.setOnClickListener(this);
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        if(bpm == 0) {
+            final Dialog dialog = new Dialog(this);
+            dialog.setContentView(R.layout.settings_dialog);
+            dialog.setTitle("Settings Dialog Box");
+            Button okay = (Button) dialog.findViewById(R.id.Button01);
+            final SeekBar seekBar = (SeekBar) dialog.findViewById(R.id.BPMseekBar);
+            seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+                @Override
+                public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+                    TextView beats = (TextView) dialog.findViewById(R.id.beats);
+                    beats.setText("" + (progress + 60));
+                }
+                @Override
+                public void onStartTrackingTouch(SeekBar seekBar) {
+                }
+                @Override
+                public void onStopTrackingTouch(SeekBar seekBar) {
+                }
+            });
+            okay.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    TextView beats = (TextView) dialog.findViewById(R.id.beats);
+                    bpm = seekBar.getProgress() + 60;
+                    dialog.cancel();
+                }
+            });
+            dialog.show();
+        }
     }
 
     @Override
@@ -104,53 +143,48 @@ public class Record extends ActionBarActivity implements View.OnClickListener {
 
         switch(clickedButton.getId()) {
             case R.id.buttonPlay:
-                mediaPlayer = MediaPlayer.create(this, hmm);
                 PlayMIDI.play(mediaPlayer);
-                //mediaPlayer.start();
                 break;
             case R.id.buttonStop:
                 PlayMIDI.stop(mediaPlayer);
-                //mediaPlayer.start();
                 break;
             case R.id.buttonPause:
                 PlayMIDI.pause(mediaPlayer);
-                //mediaPlayer.start();
                 break;
             case R.id.buttonForward:
                 PlayMIDI.forward(mediaPlayer);
-                //mediaPlayer.start();
                 break;
             case R.id.buttonRewind:
                 PlayMIDI.rewind(mediaPlayer);
-                //mediaPlayer.start();
                 break;
             case R.id.buttonRec:
-                buttonRec.setVisibility(View.INVISIBLE);
-                buttonPauseRec.setVisibility(View.VISIBLE);
-                buttonStopRec.setVisibility(View.VISIBLE);
-                buttonDiscardRec.setVisibility(View.VISIBLE);
+                if(!isRecording) {
+                    isRecording = true;
+                    boolean deleted = recorder.deleteLastRecording();
+                    hmm = Uri.parse(Environment.getExternalStorageDirectory() + "/sampleRecording.wav");
+                    recorder = new Recorder(Environment.getExternalStorageDirectory()+"/sampleRecording.wav");
+                    recorder.startRecording();
+                    ImageView image = (ImageView)findViewById(R.id.buttonRec);
+                    pulse = new AlphaAnimation(1, 0);
+                    pulse.setDuration(60000/bpm);
+                    pulse.setInterpolator(new LinearInterpolator());
+                    pulse.setRepeatCount(Animation.INFINITE);
+                    pulse.setRepeatMode(Animation.RESTART);
+                    image.startAnimation(pulse);
+                }
+                else {
+                    isRecording = false;
+                    recorder.stopRecording();
+                    ImageView image2 = (ImageView)findViewById(R.id.buttonRec);
+                    image2.clearAnimation();
+                    mediaPlayer = MediaPlayer.create(this, hmm);
+                }
+                break;
 
-                boolean deleted = recorder.deleteLastRecording();
-                hmm = Uri.parse(Environment.getExternalStorageDirectory() + "/sampleRecording.wav");
-                recorder = new Recorder(Environment.getExternalStorageDirectory()+"/sampleRecording.wav");
-                recorder.startRecording();
-                break;
-            case R.id.buttonDiscardRec:
-                buttonRec.setVisibility(View.VISIBLE);
-                buttonPauseRec.setVisibility(View.INVISIBLE);
-                buttonStopRec.setVisibility(View.INVISIBLE);
-                buttonDiscardRec.setVisibility(View.INVISIBLE);
-                break;
-            case R.id.buttonStopRec:
-                buttonRec.setVisibility(View.VISIBLE);
-                buttonPauseRec.setVisibility(View.INVISIBLE);
-                buttonStopRec.setVisibility(View.INVISIBLE);
-                buttonDiscardRec.setVisibility(View.INVISIBLE);
-
-                recorder.stopRecording();
-                break;
             case R.id.media:
-                newActivity(v);
+                //newActivity(v);
+                TextView beats_per = (TextView) findViewById(R.id.bpm);
+                beats_per.setText("" + bpm);
                 break;
         }
     }

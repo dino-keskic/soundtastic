@@ -13,10 +13,10 @@
         android:text="Rec"
         android:id="@+id/buttonRec"
         android:background="@null"
-        android:src="@drawable/play_on"
-        android:layout_alignTop="@+id/buttonStopRec"
-        android:layout_toRightOf="@+id/buttonPauseRec"
-        android:layout_toEndOf="@+id/buttonPauseRec" />
+        android:src="@drawable/stop_on"
+        android:layout_centerVertical="true"
+        android:layout_toRightOf="@+id/buttonPause"
+        android:layout_toEndOf="@+id/buttonPause" />
 
     <TextView android:text="10"
         android:id="@+id/bpm"
@@ -24,58 +24,6 @@
         android:layout_height="wrap_content"
         android:layout_alignLeft="@+id/buttonRewind"
         android:layout_alignStart="@+id/buttonRewind" />
-
-    <ImageButton
-        style="?android:attr/buttonStyleSmall"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Pause Rec"
-        android:id="@+id/buttonPauseRec"
-        android:background="@null"
-        android:src="@drawable/pause"
-        android:onClick="onClick"
-        android:layout_centerVertical="true"
-        android:layout_toLeftOf="@+id/buttonStopRec"
-        android:layout_toStartOf="@+id/buttonStopRec" />
-
-    <ImageButton
-        style="?android:attr/buttonStyleSmall"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Stop Rec"
-        android:id="@+id/buttonStopRec"
-        android:background="@null"
-        android:src="@drawable/sound_on"
-        android:onClick="onClick"
-        android:layout_centerVertical="true"
-        android:layout_toRightOf="@+id/buttonPause"
-        android:layout_toEndOf="@+id/buttonPause" />
-
-    <ImageButton
-        style="?android:attr/buttonStyleSmall"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Save Rec"
-        android:id="@+id/buttonSaveRec"
-        android:background="@null"
-        android:src="@drawable/sound"
-        android:onClick="onClick"
-        android:layout_alignTop="@+id/buttonPauseRec"
-        android:layout_toRightOf="@+id/buttonPlay"
-        android:layout_toEndOf="@+id/buttonPlay" />
-
-    <ImageButton
-        style="?android:attr/buttonStyleSmall"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Discard Rec"
-        android:id="@+id/buttonDiscardRec"
-        android:background="@null"
-        android:src="@drawable/stop_on"
-        android:onClick="onClick"
-        android:layout_alignTop="@+id/buttonSaveRec"
-        android:layout_toRightOf="@+id/buttonRec"
-        android:layout_toEndOf="@+id/buttonRec" />
 
     <ImageButton
         style="?android:attr/buttonStyleSmall"

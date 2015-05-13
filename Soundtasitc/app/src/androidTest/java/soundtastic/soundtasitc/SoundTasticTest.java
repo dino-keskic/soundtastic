@@ -94,4 +94,12 @@ public class SoundTasticTest extends ActivityInstrumentationTestCase2<MainActivi
         mySolo.sleep(500);
     }
 
+    public void testBpm() {
+        mySolo.clickOnButton("OK");
+        mySolo.sleep(500);
+        mySolo.clickOnView(mySolo.getView(R.id.media));
+        mySolo.sleep(500);
+        mySolo.clickOnText("60");
+    }
+
 }

@@ -143,7 +143,6 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
 
         switch(clickedButton.getId()) {
             case R.id.buttonPlay:
-                mediaPlayer = MediaPlayer.create(this, hmm);
                 PlayMIDI.play(mediaPlayer);
                 break;
             case R.id.buttonStop:
@@ -172,13 +171,13 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
                     pulse.setRepeatCount(Animation.INFINITE);
                     pulse.setRepeatMode(Animation.RESTART);
                     image.startAnimation(pulse);
-                    buttonMedia.setVisibility(View.VISIBLE);
                 }
                 else {
                     isRecording = false;
                     recorder.stopRecording();
                     ImageView image2 = (ImageView)findViewById(R.id.buttonRec);
                     image2.clearAnimation();
+                    mediaPlayer = MediaPlayer.create(this, hmm);
                 }
                 break;
 

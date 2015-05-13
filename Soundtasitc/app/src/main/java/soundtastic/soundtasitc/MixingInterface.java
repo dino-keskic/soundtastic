@@ -7,6 +7,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.support.v7.app.ActionBarActivity;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -23,31 +24,30 @@ import soundtastic.soundtasitc.playmidi.PlayMIDIActivity;
 import soundtastic.soundtasitc.recording.Recorder;
 
 
-public class MainActivity extends ActionBarActivity implements View.OnClickListener {
+public class MixingInterface extends ActionBarActivity implements View.OnClickListener {
 
     //SeekBar buttonBPM;
     Button buttonAddRec1;
     Button buttonAddPiano1;
     TextView buttonTrackTitle1;
 
-    public MediaPlayer mediaPlayer = null;
-    public Recorder recorder = null;
-    public Uri hmm = null;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.mixing_interface);
 
+       // buttonBPM = (SeekBar) findViewById(R.id.mi_bpm_seekbar);
+        buttonAddRec1 = (Button) findViewById(R.id.mi_add_rec1);
+        buttonAddPiano1 = (Button) findViewById(R.id.mi_add_piano1);
+        buttonTrackTitle1 = (TextView) findViewById(R.id.mi_track_title1);
 
-        Intent mixing = new Intent(this, MixingInterface.class);
-        //mixing.putExtra("key",value);
-        this.startActivity(mixing);
-/*
- BACKUP!!!!!
-        Intent mixing = new Intent(this, Record.class);
-        //mixing.putExtra("key",value);
-        this.startActivity(mixing);
-        */
+        buttonAddRec1.setOnClickListener(this);
+       // buttonAddPiano1.setOnClickListener(this);
+
+        Spinner dropdown = (Spinner)findViewById(R.id.mi_instrument1);
+        String[] items = new String[]{"Guitar", "Piano", "Etc"};
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, items);
+        dropdown.setAdapter(adapter);
 
     }
 
@@ -76,13 +76,14 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
     @Override
     public void onClick(View v) {
 
-        ImageButton clickedButton = (ImageButton) v;
+        Button clickedButton = (Button) v;
+        Intent record = new Intent(this, Record.class);
 
+        switch(clickedButton.getId()) {
+            case R.id.mi_add_rec1:
+                startActivity(record);
+                break;
+
+        }
     }
-/*
-    public void newActivity(View view) {
-        Intent intent = new Intent(this, PlayMIDIActivity.class);
-        startActivity(intent);
-    }
-    */
 }

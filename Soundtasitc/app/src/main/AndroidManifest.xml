@@ -23,6 +23,12 @@
             android:name=".playmidi.PlayMIDIActivity"
             android:label="@string/title_activity_play_midi" >
         </activity>
+        <activity
+            android:label="MixingInterface"
+            android:name="MixingInterface" />
+        <activity
+            android:label="Record"
+            android:name="Record" />
     </application>
 
 </manifest>

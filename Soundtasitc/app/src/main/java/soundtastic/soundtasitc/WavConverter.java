@@ -63,48 +63,63 @@ public class WavConverter {
                    : byteToShort(waveData, i);
        }
 
+       waveData = null;
+
+       System.gc();
+
        int[] midiData = new int[rawSize / chunkSize];
        double[] freqData = new double[rawSize / chunkSize];
        int k = 0;
 
-     /*  int frequency = 100;
-       int samplePos = 0;
-
-       for(double phase=0; samplePos < 8 * sampleRate && samplePos < chunkSize; phase+=(2*Math.PI*frequency)/chunkSize)
-       {
-           rawData[samplePos++] = Math.sin(phase);
-           if(phase >=Math.PI*2)
-               phase-=2*Math.PI;
-       }*/
        MidiValues midiValues = new MidiValues((int)bpm,(int)chunkSize,(int)sampleRate);
        while(k < midiData.length)
        {
-           if(k == 100)
-           {
-               k+=0;
-           }
-
            double[] dataChunk = Arrays.copyOfRange(rawData,k*chunkSize,(k+1)*chunkSize);
            double[] fourierChunk = new double[chunkSize * 2];
+           int divider = 44100 / chunkSize;
+
+           /*for(int i=0; i< chunkSize; i++)
+           {
+               fourierChunk[2*i] = dataChunk[i];
+           }*/
 
            for(int i=0; i< chunkSize; i++)
            {
                fourierChunk[2*i] = dataChunk[i];
            }
 
-           DoubleFFT_1D fft = new DoubleFFT_1D(chunkSize);
+           //int fourierDataSize = divider * chunkSize *2;
+           //double[] fourierData = new double[fourierDataSize];
 
-           fft.complexForward(fourierChunk);
+           int offset = 44100 - chunkSize;
+           int fourierDataSize = offset + chunkSize *2;
+           double[] fourierData = new double[fourierDataSize];
+
+           /*for(int i = 0; i < divider; i++)
+           {
+               for(int l =0; l< chunkSize*2; l++) {
+                   fourierData[i*chunkSize*2+l] = fourierChunk[l];
+               }
+           }*/
+
+           for(int i = offset; i < fourierDataSize; i++)
+           {
+                fourierData[i] = fourierChunk[i-offset];
+           }
+
+           DoubleFFT_1D fft = new DoubleFFT_1D(fourierDataSize);
+
+           fft.complexForward(fourierData, offset);
 
            double max_fftval = -1;
            int max_i = -1;
 
-           for (int i = 0; i < fourierChunk.length; i += 2) // we are only looking at the half of the spectrum
+           for (int i = 0; i < fourierData.length; i += 2) // we are only looking at the half of the spectrum
            {
                //double hz = ((i / 2.0) / fourierChunk.length) * chunkSize;
 
                // complex numbers -> vectors, so we compute the length of the vector, which is sqrt(realpart^2+imaginarypart^2)
-               double vlen = Math.sqrt(fourierChunk[i] * fourierChunk[i] + fourierChunk[i + 1] * fourierChunk[i + 1]);
+               double vlen = Math.sqrt(fourierData[i] * fourierData[i] + fourierData[i + 1] * fourierData[i + 1]);
 
                if (max_fftval < vlen) {
                    // if this length is bigger than our stored biggest length
@@ -113,8 +128,7 @@ public class WavConverter {
                }
            }
 
-           double domFrequency = max_i * (sampleRate / 2.0) / chunkSize;
-           Log.d("FREQ", "freq value at " + k + " :" + domFrequency);
+           double domFrequency = max_i * (sampleRate / 2.0) / fourierDataSize;
            //double domFrequency = ((max_i / 2.0) / fourierChunk.length) * chunkSize*2;
            freqData[k] = domFrequency;
 
@@ -127,11 +141,26 @@ public class WavConverter {
                double log2 = Math.log10(domFrequency/440)/Math.log10(2);
                midiData[k] = (int)(12 * log2) + 69;
            }
-        Log.d("MIDI VALUE","midi value at "+k+":"+midiData[k]);
-           midiValues.addMidiNum(midiData[k]);
+
+           int n = k - 1;
+           while(n >=0)
+           {
+
+               if( midiData[n] !=0 )
+               {
+                   midiValues.addMidiNum(midiData[n]);
+                   break;
+               }
+               n--;
+           }
            k++;
 
        }
+
+       midiData = null;
+       freqData = null;
+       rawData = null;
+       System.gc();
 
         midiValues.generateNoteMap();
        return midiValues;

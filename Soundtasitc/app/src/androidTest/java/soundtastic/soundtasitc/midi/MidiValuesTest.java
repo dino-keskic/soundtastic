@@ -39,7 +39,7 @@ public class MidiValuesTest extends TestCase {
         assertTrue(folder.exists());
     }
 
-    public void testMidiValuesToMidiStruct()
+ /*   public void testMidiValuesToMidiStruct()
     {
         midiValues = new MidiValues(60, 1300, 44100);
 
@@ -66,7 +66,7 @@ public class MidiValuesTest extends TestCase {
         }
         ===*/
 
-
+/*
         Project testProject = new Project("testProject", midiValues.getBeatsPerMinute());
         Track firstTrack = new Track(MusicalKey.VIOLIN, MusicalInstrument.ACOUSTIC_GRAND_PIANO);
 
@@ -101,25 +101,24 @@ public class MidiValuesTest extends TestCase {
 
 
 
-    }
+    }*/
 
     public void testMidiConversion()
     {
         WavConverter converter = new WavConverter();
-        MidiValues midiValues1= converter.convertToMidi("TestFile2.wav");
-        List<AbstractMap.SimpleEntry<Integer,Integer>> noteMap = midiValues.generateNoteMap();
+        MidiValues midiValues1= converter.convertToMidi("TestFile4.wav");
 
-        /*
-        === print noteMap to Android Studio console
-        for(int i = 0; i < noteMap.size(); i++)
-        {
-            Log.d("noteOutPut:", noteMap.get(i).getKey().toString() + " " +
-                    noteMap.get(i).getValue().toString());
-        }
-        ===*/
+        List<AbstractMap.SimpleEntry<Integer,Integer>> noteMap = midiValues1.generateNoteMap();
+
+        //=== print noteMap to Android Studio console
+        //for(int i = 0; i < noteMap.size(); i++)
+        //{
+        //    Log.d("noteOutPut:", noteMap.get(i).getKey().toString() + " " +
+        //            noteMap.get(i).getValue().toString());
+        //}
 
 
-        Project testProject = new Project("testProject", midiValues.getBeatsPerMinute());
+        Project testProject = new Project("testProject", midiValues1.getBeatsPerMinute());
         Track firstTrack = new Track(MusicalKey.VIOLIN, MusicalInstrument.ACOUSTIC_GRAND_PIANO);
 
         int currentTicks = 0;
@@ -128,9 +127,9 @@ public class MidiValuesTest extends TestCase {
             NoteName noteName = NoteName.getNoteNameFromMidiValue(noteMap.get(i).getKey());
             NoteEvent note_begin = new NoteEvent(noteName, true);
             firstTrack.addNoteEvent(currentTicks, note_begin);
-            currentTicks += midiValues.getNoteLength(noteMap.get(i).getValue()) * testProject.getBeatsPerMinute() * 8;
+            currentTicks += midiValues1.getNoteLength(noteMap.get(i).getValue()) * testProject.getBeatsPerMinute() * 8;
 
-            Log.d("NOTELENGTH", Double.toString(midiValues.getNoteLength(noteMap.get(i).getValue())));
+            Log.d("NOTELENGTH", Double.toString(midiValues1.getNoteLength(noteMap.get(i).getValue())));
             Log.d("CURRENTTICKS", Integer.toString(currentTicks));
 
             NoteEvent note_end = new NoteEvent(noteName, false);
@@ -150,9 +149,7 @@ public class MidiValuesTest extends TestCase {
         }
 
         assertTrue(file.exists());
-
-
-
+        //assertTrue(true);
     }
 
 }

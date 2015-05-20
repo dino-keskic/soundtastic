@@ -1,14 +1,12 @@
 package soundtastic.soundtasitc;
 
 
+import android.app.Activity;
 import android.app.Dialog;
-import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.res.Resources;
 import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Environment;
-import android.os.SystemClock;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -16,7 +14,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
 import android.view.animation.LinearInterpolator;
 import android.widget.Button;
 import android.widget.ImageButton;
@@ -27,20 +24,14 @@ import android.widget.TextView;
 import soundtastic.soundtasitc.playmidi.PlayMIDI;
 import soundtastic.soundtasitc.playmidi.PlayMIDIActivity;
 import soundtastic.soundtasitc.recording.Recorder;
-import soundtastic.soundtasitc.recording.ExtAudioRecorder;
 
 
-public class Record extends ActionBarActivity implements View.OnClickListener {
+public class RecordInterface extends Activity implements View.OnClickListener {
 
-    ImageButton buttonPlay;
-    ImageButton buttonPause;
-    ImageButton buttonStop;
-    ImageButton buttonForward;
-    ImageButton buttonRewind;
-
-    ImageButton buttonRec;
-
-    ImageButton buttonMedia;
+    Button buttonPlay;
+    Button buttonRec;
+    Button buttonSave;
+    Button buttonDiscard;
 
     Animation pulse = null;
 
@@ -48,42 +39,34 @@ public class Record extends ActionBarActivity implements View.OnClickListener {
     public Recorder recorder = null;
     public Uri hmm = null;
 
-    public int bpm = 0;
+    public int bpm = 120;
     public boolean isRecording = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_record);
         hmm = Uri.parse(Environment.getExternalStorageDirectory() + "/sampleRecording.wav");
         recorder = new Recorder(Environment.getExternalStorageDirectory()+"/sampleRecording.wav");
         mediaPlayer = MediaPlayer.create(this, R.raw.song);
 
-        buttonPlay = (ImageButton) findViewById(R.id.buttonPlay);
-        buttonPause = (ImageButton) findViewById(R.id.buttonPause);
-        buttonStop = (ImageButton) findViewById(R.id.buttonStop);
-        buttonForward = (ImageButton) findViewById(R.id.buttonForward);
-        buttonRewind = (ImageButton) findViewById(R.id.buttonRewind);
+        buttonPlay = (Button) findViewById(R.id.buttonPlay);
+        buttonRec = (Button) findViewById(R.id.buttonRecord);
 
-        buttonRec = (ImageButton) findViewById(R.id.buttonRec);
-
-        buttonMedia = (ImageButton) findViewById(R.id.media);
+        buttonSave = (Button) findViewById(R.id.buttonSave);
+        buttonDiscard = (Button) findViewById(R.id.buttonDiscard);
 
         buttonPlay.setOnClickListener(this);
-        buttonPause.setOnClickListener(this);
-        buttonStop.setOnClickListener(this);
-        buttonForward.setOnClickListener(this);
-        buttonRewind.setOnClickListener(this);
-
         buttonRec.setOnClickListener(this);
 
-        buttonMedia.setOnClickListener(this);
+        buttonSave.setOnClickListener(this);
+        buttonDiscard.setOnClickListener(this);
     }
 
     @Override
     protected void onStart() {
         super.onStart();
-        if(bpm == 0) {
+        /*if(bpm == 0) {
             final Dialog dialog = new Dialog(this);
             dialog.setContentView(R.layout.settings_dialog);
             dialog.setTitle("Settings Dialog Box");
@@ -111,7 +94,7 @@ public class Record extends ActionBarActivity implements View.OnClickListener {
                 }
             });
             dialog.show();
-        }
+        }*/
     }
 
     @Override
@@ -139,16 +122,11 @@ public class Record extends ActionBarActivity implements View.OnClickListener {
     @Override
     public void onClick(View v) {
 
-        ImageButton clickedButton = (ImageButton) v;
-
-        switch(clickedButton.getId()) {
+        switch(v.getId()) {
             case R.id.buttonPlay:
                 PlayMIDI.play(mediaPlayer);
                 break;
-            case R.id.buttonStop:
-                PlayMIDI.stop(mediaPlayer);
-                break;
-            case R.id.buttonPause:
+            /*case R.id.buttonPause:
                 PlayMIDI.pause(mediaPlayer);
                 break;
             case R.id.buttonForward:
@@ -156,15 +134,15 @@ public class Record extends ActionBarActivity implements View.OnClickListener {
                 break;
             case R.id.buttonRewind:
                 PlayMIDI.rewind(mediaPlayer);
-                break;
-            case R.id.buttonRec:
+                break;*/
+            case R.id.buttonRecord:
                 if(!isRecording) {
                     isRecording = true;
                     boolean deleted = recorder.deleteLastRecording();
                     hmm = Uri.parse(Environment.getExternalStorageDirectory() + "/sampleRecording.wav");
                     recorder = new Recorder(Environment.getExternalStorageDirectory()+"/sampleRecording.wav");
                     recorder.startRecording();
-                    ImageView image = (ImageView)findViewById(R.id.buttonRec);
+                    Button image = (Button)findViewById(R.id.buttonRecord);
                     pulse = new AlphaAnimation(1, 0);
                     pulse.setDuration(60000/bpm);
                     pulse.setInterpolator(new LinearInterpolator());
@@ -175,16 +153,17 @@ public class Record extends ActionBarActivity implements View.OnClickListener {
                 else {
                     isRecording = false;
                     recorder.stopRecording();
-                    ImageView image2 = (ImageView)findViewById(R.id.buttonRec);
+                    Button image2 = (Button)findViewById(R.id.buttonRecord);
                     image2.clearAnimation();
                     mediaPlayer = MediaPlayer.create(this, hmm);
                 }
                 break;
-
-            case R.id.media:
-                //newActivity(v);
-                TextView beats_per = (TextView) findViewById(R.id.bpm);
-                beats_per.setText("" + bpm);
+            case R.id.buttonSave:
+                // Convert wav to midi and return to MixingInterface
+                this.finish();
+                break;
+            case R.id.buttonDiscard:
+                this.finish();
                 break;
         }
     }

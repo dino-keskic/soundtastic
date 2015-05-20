@@ -23,14 +23,15 @@
             android:label="@string/title_activity_play_midi" >
         </activity>
         <activity
-            android:theme="@style/NoActionBar"
             android:label="MixingInterface"
+            android:theme="@style/NoActionBar"
             android:screenOrientation="landscape"
             android:name="MixingInterface" />
         <activity
             android:label="Record"
+            android:theme="@style/NoActionBar"
             android:screenOrientation="landscape"
-            android:name="Record" />
+            android:name="RecordInterface" />
     </application>
 
 </manifest>

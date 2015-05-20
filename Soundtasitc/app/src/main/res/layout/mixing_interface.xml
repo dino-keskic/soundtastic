@@ -8,28 +8,39 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="40dp"
-        android:background="#ffcc00"
+        android:padding="@dimen/activity_title"
+        android:background="#000000"
         >
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Mixing Interface PLEASE DISABLE TITLEBAR" />
+            android:text="Mixing Interface"
+            android:textColor="#ffffff"/>
 
         <Button
+            android:id="@+id/mi_play_all"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Play" />
+            android:layout_gravity="center_horizontal"
+            android:text="Play"
+            android:textColor="#ffffff"/>
 
         <Button
+            android:id="@+id/mi_add_sounds"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="New Track" />
+            android:layout_alignParentRight="true"
+            android:text="New Track"
+            android:textColor="#ffffff"/>
 
         <Button
+            android:id="@+id/mi_export_midi"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Export Midi" />
+            android:layout_alignParentRight="true"
+            android:text="Export Midi"
+            android:textColor="#ffffff"/>
 
     </LinearLayout>
 
@@ -51,17 +62,17 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="#ffffff"
+                android:background="#cccccc"
                 >
 
                 <Button
-                    android:layout_width="70dp"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Rec"
                     android:id="@+id/mi_track_rec" />
 
                 <Button
-                    android:layout_width="70dp"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Play"
                     android:id="@+id/mi_track_play"
@@ -69,14 +80,14 @@
                     />
 
                 <TextView
-                    android:layout_width="100dp"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:id="@+id/mi_track_title1"
                     android:text="Track1: Hello Text"
                     android:layout_toRightOf="@+id/mi_add_piano1"
                     />
                 <Button
-                    android:layout_width="70dp"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Edit"
                     android:id="@+id/mi_track_edit"

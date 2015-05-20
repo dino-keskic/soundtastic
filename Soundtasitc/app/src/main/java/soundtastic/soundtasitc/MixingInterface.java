@@ -2,6 +2,7 @@ package soundtastic.soundtasitc;
 
 
 import android.app.Activity;
+import android.app.Dialog;
 import android.content.Intent;
 import android.media.MediaPlayer;
 import android.net.Uri;
@@ -29,8 +30,9 @@ public class MixingInterface extends Activity implements View.OnClickListener {
 
     public int track_nr;
     Button buttonAddRec1;
-    Button buttonAddPiano1;
+    Button buttonTrackPlay;
     Button buttonDeleteTrack;
+    Button buttonAddSounds;
     TextView buttonTrackTitle1;
 
     @Override
@@ -41,13 +43,15 @@ public class MixingInterface extends Activity implements View.OnClickListener {
         track_nr = 0;
 
         buttonAddRec1 = (Button) findViewById(R.id.mi_track_rec);
-        buttonAddPiano1 = (Button) findViewById(R.id.mi_track_play);
+        buttonTrackPlay = (Button) findViewById(R.id.mi_track_play);
         buttonTrackTitle1 = (TextView) findViewById(R.id.mi_track_title1);
         buttonDeleteTrack = (Button) findViewById(R.id.mi_track_delete);
+        buttonAddSounds = (Button) findViewById(R.id.mi_add_sounds);
 
         buttonAddRec1.setOnClickListener(this);
         buttonTrackTitle1.setOnClickListener(this);
         buttonDeleteTrack.setOnClickListener(this);
+        buttonAddSounds.setOnClickListener(this);
 
     }
 
@@ -92,6 +96,9 @@ public class MixingInterface extends Activity implements View.OnClickListener {
             case R.id.mi_track_title1:
                 track_nr = 1;
                 break;
+            case R.id.mi_add_sounds:
+                addSounds();
+                break;
 
         }
     }
@@ -105,5 +112,16 @@ public class MixingInterface extends Activity implements View.OnClickListener {
     public void deleteTrack()
     {
         buttonTrackTitle1.setText("empty");
+    }
+
+    public void addSounds()
+    {
+        final Dialog dialog = new Dialog(this);
+
+        Button mic = (Button) dialog.findViewById(R.id.add_sounds_mic);
+
+        dialog.setContentView(R.layout.add_sounds);
+        dialog.setTitle("Add sounds");
+        dialog.show();
     }
 }

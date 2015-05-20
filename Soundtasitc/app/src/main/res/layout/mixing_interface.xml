@@ -1,53 +1,144 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
-    android:layout_height="match_parent" android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
-    android:paddingBottom="@dimen/activity_vertical_margin" tools:context=".MainActivity"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity"
+    android:orientation="vertical"
     android:id="@+id/mixing_interface">
 
-    <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="@android:dimen/notification_large_icon_height"
-        android:id="@+id/logo"
-        android:padding="5dp"
-        android:src="@drawable/logo" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:padding="@dimen/activity_title"
+        android:background="#000000"
+        >
 
-    <Button
-        android:layout_width="60dp"
-        android:layout_height="wrap_content"
-        android:text="Rec"
-        android:id="@+id/mi_add_rec1"
-        android:textSize="10dp"
-        android:layout_below="@+id/logo" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Mixing Interface"
+            android:textColor="#ffffff"/>
 
-    <Button
-        android:layout_width="60dp"
-        android:layout_height="wrap_content"
-        android:text="Piano"
-        android:id="@+id/mi_add_piano1"
-        android:textSize="10dp"
-        android:layout_toRightOf="@+id/mi_add_rec1"
-        android:layout_below="@+id/logo"
-        />
+        <Button
+            android:id="@+id/mi_play_all"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:text="Play"
+            android:textColor="#ffffff"/>
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/mi_track_title1"
-        android:text="Tracktitle"
-        android:layout_toRightOf="@+id/mi_add_piano1"
-        android:layout_centerVertical="true"
-        android:layout_below="@+id/logo" />
+        <Button
+            android:id="@+id/mi_add_sounds"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:text="New Track"
+            android:textColor="#ffffff"/>
 
-    <Spinner
-        android:id="@+id/mi_instrument1"
-        android:layout_width="150dp"
-        android:layout_height="wrap_content"
-        android:background="@android:drawable/btn_dropdown"
-        android:spinnerMode="dropdown"
-        android:layout_below="@+id/logo"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" />
+        <Button
+            android:id="@+id/mi_export_midi"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:text="Export Midi"
+            android:textColor="#ffffff"/>
 
-</RelativeLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#ffff00"
+        >
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:background="#ffffff"
+            android:layout_weight=".6"
+            android:padding="@dimen/activity_vertical_margin"
+            >
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="#cccccc"
+                >
+
+                <Button
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Rec"
+                    android:id="@+id/mi_track_rec" />
+
+                <Button
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Play"
+                    android:id="@+id/mi_track_play"
+                    android:layout_toRightOf="@+id/mi_add_rec1"
+                    />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/mi_track_title1"
+                    android:text="Track1: Hello Text"
+                    android:layout_toRightOf="@+id/mi_add_piano1"
+                    />
+                <Button
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Edit"
+                    android:id="@+id/mi_track_edit"
+                    android:layout_toRightOf="@+id/mi_add_rec1"
+                    />
+
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:background="#cccccc"
+            android:layout_weight=".40"
+            android:padding="@dimen/activity_vertical_margin"
+            >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Start at bar:"/>
+
+            <SeekBar
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/seekBar" />
+
+            <CheckBox
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Enabled"
+                android:id="@+id/checkBox" />
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Copy"
+                android:id="@+id/mi_track_copy" />
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Delete"
+                android:id="@+id/mi_track_delete" />
+
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</LinearLayout>

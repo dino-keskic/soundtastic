@@ -42,13 +42,6 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
         Intent mixing = new Intent(this, MixingInterface.class);
         //mixing.putExtra("key",value);
         this.startActivity(mixing);
-/*
- BACKUP!!!!!
-        Intent mixing = new Intent(this, Record.class);
-        //mixing.putExtra("key",value);
-        this.startActivity(mixing);
-        */
-
     }
 
     @Override
@@ -78,6 +71,13 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
 
         ImageButton clickedButton = (ImageButton) v;
 
+    }
+
+    @Override
+    public void onBackPressed()
+    {
+
+        // super.onBackPressed(); // Comment this super call to avoid calling finish()
     }
 /*
     public void newActivity(View view) {

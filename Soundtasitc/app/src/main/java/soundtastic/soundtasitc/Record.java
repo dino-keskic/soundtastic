@@ -193,4 +193,11 @@ public class Record extends ActionBarActivity implements View.OnClickListener {
         Intent intent = new Intent(this, PlayMIDIActivity.class);
         startActivity(intent);
     }
+
+    @Override
+    public void onBackPressed()
+    {
+
+        // super.onBackPressed(); // Comment this super call to avoid calling finish()
+    }
 }

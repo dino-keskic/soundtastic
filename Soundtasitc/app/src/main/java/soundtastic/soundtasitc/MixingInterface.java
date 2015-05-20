@@ -86,4 +86,11 @@ public class MixingInterface extends ActionBarActivity implements View.OnClickLi
 
         }
     }
+
+    @Override
+    public void onBackPressed()
+    {
+
+        // super.onBackPressed(); // Comment this super call to avoid calling finish()
+    }
 }

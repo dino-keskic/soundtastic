@@ -10,20 +10,23 @@
         android:layout_width="wrap_content"
         android:layout_height="@android:dimen/notification_large_icon_height"
         android:id="@+id/logo"
+        android:padding="5dp"
         android:src="@drawable/logo" />
 
     <Button
-        android:layout_width="wrap_content"
+        android:layout_width="60dp"
         android:layout_height="wrap_content"
         android:text="Rec"
         android:id="@+id/mi_add_rec1"
+        android:textSize="10dp"
         android:layout_below="@+id/logo" />
 
     <Button
-        android:layout_width="wrap_content"
+        android:layout_width="60dp"
         android:layout_height="wrap_content"
         android:text="Piano"
         android:id="@+id/mi_add_piano1"
+        android:textSize="10dp"
         android:layout_toRightOf="@+id/mi_add_rec1"
         android:layout_below="@+id/logo"
         />
@@ -34,11 +37,12 @@
         android:id="@+id/mi_track_title1"
         android:text="Tracktitle"
         android:layout_toRightOf="@+id/mi_add_piano1"
+        android:layout_centerVertical="true"
         android:layout_below="@+id/logo" />
 
     <Spinner
         android:id="@+id/mi_instrument1"
-        android:layout_width="100dp"
+        android:layout_width="150dp"
         android:layout_height="wrap_content"
         android:background="@android:drawable/btn_dropdown"
         android:spinnerMode="dropdown"

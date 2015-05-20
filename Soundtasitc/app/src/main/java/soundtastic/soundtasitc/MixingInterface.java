@@ -36,16 +36,20 @@ public class MixingInterface extends ActionBarActivity implements View.OnClickLi
         super.onCreate(savedInstanceState);
         setContentView(R.layout.mixing_interface);
 
+        Intent i = getIntent();
+        ProjectInfos infos = (ProjectInfos)i.getSerializableExtra("infos");
+
        // buttonBPM = (SeekBar) findViewById(R.id.mi_bpm_seekbar);
         buttonAddRec1 = (Button) findViewById(R.id.mi_add_rec1);
         buttonAddPiano1 = (Button) findViewById(R.id.mi_add_piano1);
         buttonTrackTitle1 = (TextView) findViewById(R.id.mi_track_title1);
+        buttonTrackTitle1.setText(infos.getProjectName() + " " + infos.getBpm() + " " + infos.getTimeSignature());
 
         buttonAddRec1.setOnClickListener(this);
        // buttonAddPiano1.setOnClickListener(this);
 
         Spinner dropdown = (Spinner)findViewById(R.id.mi_instrument1);
-        String[] items = new String[]{"Guitar", "Piano", "Etc"};
+        String[] items = new String[]{"Guitar", "Piano", "Keyboard"};
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, items);
         dropdown.setAdapter(adapter);
 

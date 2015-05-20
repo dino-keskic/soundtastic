@@ -82,4 +82,11 @@ public class SoundTasticTest extends ActivityInstrumentationTestCase2<MainActivi
         mySolo.sleep(2000);
     }
 
+    public void testCreate() {
+        mySolo.clickOnView(mySolo.getView(R.id.radioGroup));
+        mySolo.sleep(2000);
+        mySolo.clickOnView(mySolo.getView(R.id.editText));
+        mySolo.sleep(2000);
+    }
+
 }

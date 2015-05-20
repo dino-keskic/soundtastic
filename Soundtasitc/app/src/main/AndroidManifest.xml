@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="soundtastic.soundtasitc" >
-    <uses-permission android:name="android.permission.RECORD_AUDIO" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
 
+    <uses-permission android:name="android.permission.RECORD_AUDIO" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -22,6 +23,14 @@
         <activity
             android:name=".playmidi.PlayMIDIActivity"
             android:label="@string/title_activity_play_midi" >
+        </activity>
+        <activity
+            android:name=".piano.PianoActivity"
+            android:label="@string/title_activity_piano" >
+        </activity>
+        <activity
+            android:name=".piano_relative"
+            android:label="@string/title_activity_piano_relative" >
         </activity>
     </application>
 

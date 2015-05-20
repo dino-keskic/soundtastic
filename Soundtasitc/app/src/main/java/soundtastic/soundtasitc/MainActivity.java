@@ -2,7 +2,6 @@ package soundtastic.soundtasitc;
 
 
 import android.content.Intent;
-import android.content.res.Resources;
 import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Environment;
@@ -13,10 +12,9 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageButton;
 
+import soundtastic.soundtasitc.piano.PianoActivity;
 import soundtastic.soundtasitc.playmidi.PlayMIDI;
-import soundtastic.soundtasitc.playmidi.PlayMIDIActivity;
 import soundtastic.soundtasitc.recording.Recorder;
-import soundtastic.soundtasitc.recording.ExtAudioRecorder;
 
 
 public class MainActivity extends ActionBarActivity implements View.OnClickListener {
@@ -158,7 +156,7 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
     }
 
     public void newActivity(View view) {
-        Intent intent = new Intent(this, PlayMIDIActivity.class);
+        Intent intent = new Intent(this, PianoActivity.class);
         startActivity(intent);
     }
 }

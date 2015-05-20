@@ -1,6 +1,7 @@
 package soundtastic.soundtasitc;
 
 
+import android.app.Activity;
 import android.content.Intent;
 import android.media.MediaPlayer;
 import android.net.Uri;
@@ -24,11 +25,12 @@ import soundtastic.soundtasitc.playmidi.PlayMIDIActivity;
 import soundtastic.soundtasitc.recording.Recorder;
 
 
-public class MixingInterface extends ActionBarActivity implements View.OnClickListener {
+public class MixingInterface extends Activity implements View.OnClickListener {
 
-    //SeekBar buttonBPM;
+    public int track_nr;
     Button buttonAddRec1;
     Button buttonAddPiano1;
+    Button buttonDeleteTrack;
     TextView buttonTrackTitle1;
 
     @Override
@@ -36,18 +38,16 @@ public class MixingInterface extends ActionBarActivity implements View.OnClickLi
         super.onCreate(savedInstanceState);
         setContentView(R.layout.mixing_interface);
 
-       // buttonBPM = (SeekBar) findViewById(R.id.mi_bpm_seekbar);
-        buttonAddRec1 = (Button) findViewById(R.id.mi_add_rec1);
-        buttonAddPiano1 = (Button) findViewById(R.id.mi_add_piano1);
+        track_nr = 0;
+
+        buttonAddRec1 = (Button) findViewById(R.id.mi_track_rec);
+        buttonAddPiano1 = (Button) findViewById(R.id.mi_track_play);
         buttonTrackTitle1 = (TextView) findViewById(R.id.mi_track_title1);
+        buttonDeleteTrack = (Button) findViewById(R.id.mi_track_delete);
 
         buttonAddRec1.setOnClickListener(this);
-       // buttonAddPiano1.setOnClickListener(this);
-
-        Spinner dropdown = (Spinner)findViewById(R.id.mi_instrument1);
-        String[] items = new String[]{"Guitar", "Piano", "Etc"};
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, items);
-        dropdown.setAdapter(adapter);
+        buttonTrackTitle1.setOnClickListener(this);
+        buttonDeleteTrack.setOnClickListener(this);
 
     }
 
@@ -76,12 +76,21 @@ public class MixingInterface extends ActionBarActivity implements View.OnClickLi
     @Override
     public void onClick(View v) {
 
+        /*
         Button clickedButton = (Button) v;
+        */
+
         Intent record = new Intent(this, Record.class);
 
-        switch(clickedButton.getId()) {
-            case R.id.mi_add_rec1:
+        switch(v.getId()) {
+            case R.id.mi_track_rec:
                 startActivity(record);
+                break;
+            case R.id.mi_track_delete:
+                deleteTrack();
+                break;
+            case R.id.mi_track_title1:
+                track_nr = 1;
                 break;
 
         }
@@ -90,7 +99,11 @@ public class MixingInterface extends ActionBarActivity implements View.OnClickLi
     @Override
     public void onBackPressed()
     {
-
         // super.onBackPressed(); // Comment this super call to avoid calling finish()
+    }
+
+    public void deleteTrack()
+    {
+        buttonTrackTitle1.setText("empty");
     }
 }

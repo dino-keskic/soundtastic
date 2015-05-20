@@ -23,6 +23,7 @@
             android:label="@string/title_activity_play_midi" >
         </activity>
         <activity
+            android:theme="@style/NoActionBar"
             android:label="MixingInterface"
             android:screenOrientation="landscape"
             android:name="MixingInterface" />

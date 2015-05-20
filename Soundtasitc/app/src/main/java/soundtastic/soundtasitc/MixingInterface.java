@@ -84,7 +84,7 @@ public class MixingInterface extends Activity implements View.OnClickListener {
         Button clickedButton = (Button) v;
         */
 
-        Intent record = new Intent(this, Record.class);
+        Intent record = new Intent(this, RecordInterface.class);
 
         switch(v.getId()) {
             case R.id.mi_track_rec:

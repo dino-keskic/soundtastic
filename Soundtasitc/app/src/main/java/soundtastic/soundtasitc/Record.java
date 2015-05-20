@@ -48,7 +48,7 @@ public class Record extends ActionBarActivity implements View.OnClickListener {
     public Recorder recorder = null;
     public Uri hmm = null;
 
-    public int bpm = 0;
+    public int bpm = 60;
     public boolean isRecording = false;
 
     @Override
@@ -80,39 +80,7 @@ public class Record extends ActionBarActivity implements View.OnClickListener {
         buttonMedia.setOnClickListener(this);
     }
 
-    @Override
-    protected void onStart() {
-        super.onStart();
-        if(bpm == 0) {
-            final Dialog dialog = new Dialog(this);
-            dialog.setContentView(R.layout.settings_dialog);
-            dialog.setTitle("Settings Dialog Box");
-            Button okay = (Button) dialog.findViewById(R.id.Button01);
-            final SeekBar seekBar = (SeekBar) dialog.findViewById(R.id.BPMseekBar);
-            seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
-                @Override
-                public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-                    TextView beats = (TextView) dialog.findViewById(R.id.beats);
-                    beats.setText("" + (progress + 60));
-                }
-                @Override
-                public void onStartTrackingTouch(SeekBar seekBar) {
-                }
-                @Override
-                public void onStopTrackingTouch(SeekBar seekBar) {
-                }
-            });
-            okay.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    TextView beats = (TextView) dialog.findViewById(R.id.beats);
-                    bpm = seekBar.getProgress() + 60;
-                    dialog.cancel();
-                }
-            });
-            dialog.show();
-        }
-    }
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -189,8 +157,8 @@ public class Record extends ActionBarActivity implements View.OnClickListener {
         }
     }
 
-    public void newActivity(View view) {
+  /*  public void newActivity(View view) {
         Intent intent = new Intent(this, PlayMIDIActivity.class);
         startActivity(intent);
-    }
+    }*/
 }

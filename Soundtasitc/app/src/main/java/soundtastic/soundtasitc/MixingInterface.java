@@ -29,10 +29,13 @@ import soundtastic.soundtasitc.recording.Recorder;
 public class MixingInterface extends Activity implements View.OnClickListener {
 
     public int track_nr;
-    Button buttonAddRec1;
-    Button buttonTrackPlay;
+
+    ImageButton buttonPlayAll;
+    ImageButton buttonTrackPlay;
+    ImageButton buttonAddRec1;
+    ImageButton buttonAddSounds;
     Button buttonDeleteTrack;
-    Button buttonAddSounds;
+
     TextView buttonTrackTitle1;
 
     @Override
@@ -42,12 +45,16 @@ public class MixingInterface extends Activity implements View.OnClickListener {
 
         track_nr = 0;
 
-        buttonAddRec1 = (Button) findViewById(R.id.mi_track_rec);
-        buttonTrackPlay = (Button) findViewById(R.id.mi_track_play);
+        buttonPlayAll = (ImageButton) findViewById(R.id.mi_play_all);
+        buttonTrackPlay = (ImageButton) findViewById(R.id.mi_track_play);
+        buttonAddRec1 = (ImageButton) findViewById(R.id.mi_track_rec);
+        buttonAddSounds = (ImageButton) findViewById(R.id.mi_add_sounds);
+
         buttonTrackTitle1 = (TextView) findViewById(R.id.mi_track_title1);
         buttonDeleteTrack = (Button) findViewById(R.id.mi_track_delete);
-        buttonAddSounds = (Button) findViewById(R.id.mi_add_sounds);
 
+        buttonPlayAll.setOnClickListener(this);
+        buttonTrackPlay.setOnClickListener(this);
         buttonAddRec1.setOnClickListener(this);
         buttonTrackTitle1.setOnClickListener(this);
         buttonDeleteTrack.setOnClickListener(this);
@@ -111,17 +118,17 @@ public class MixingInterface extends Activity implements View.OnClickListener {
 
     public void deleteTrack()
     {
-        buttonTrackTitle1.setText("empty");
+        buttonTrackPlay.setVisibility(View.INVISIBLE);
     }
 
     public void addSounds()
     {
         final Dialog dialog = new Dialog(this);
 
-        Button mic = (Button) dialog.findViewById(R.id.add_sounds_mic);
+        Button mic = (Button) dialog.findViewById(R.id.mi_add_sounds_mic);
 
         dialog.setContentView(R.layout.add_sounds);
-        dialog.setTitle("Add sounds");
+        dialog.setTitle("Add new track");
         dialog.show();
     }
 }

@@ -18,29 +18,29 @@
             android:text="Mixing Interface"
             android:textColor="#ffffff"/>
 
-        <Button
+        <ImageButton
+            android:src="@drawable/btn_global_play"
             android:id="@+id/mi_play_all"
+            android:background="#000000ff"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:text="Play"
-            android:textColor="#ffffff"/>
+            android:layout_height="wrap_content"/>
 
-        <Button
+        <ImageButton
+            android:src="@drawable/btn_add_sounds"
             android:id="@+id/mi_add_sounds"
+            android:background="#000000ff"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:text="New Track"
-            android:textColor="#ffffff"/>
+            android:layout_alignParentRight="true"/>
 
-        <Button
+        <ImageButton
+            android:src="@drawable/btn_save"
             android:id="@+id/mi_export_midi"
+            android:background="#000000ff"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
-            android:text="Export Midi"
-            android:textColor="#ffffff"/>
+            android:text="Export Midi"/>
 
     </LinearLayout>
 
@@ -65,16 +65,17 @@
                 android:background="#cccccc"
                 >
 
-                <Button
+                <ImageButton
+                    android:src="@drawable/btn_record"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Rec"
                     android:id="@+id/mi_track_rec" />
 
-                <Button
+                <ImageButton
+                    android:src="@drawable/btn_global_play"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Play"
                     android:id="@+id/mi_track_play"
                     android:layout_toRightOf="@+id/mi_add_rec1"
                     />

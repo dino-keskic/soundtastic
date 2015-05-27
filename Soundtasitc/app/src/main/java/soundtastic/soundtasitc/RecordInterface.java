@@ -18,6 +18,7 @@ import android.view.animation.LinearInterpolator;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.MediaController;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
@@ -26,12 +27,13 @@ import soundtastic.soundtasitc.playmidi.PlayMIDIActivity;
 import soundtastic.soundtasitc.recording.Recorder;
 
 
-public class RecordInterface extends Activity implements View.OnClickListener {
+public class RecordInterface extends Activity implements View.OnClickListener,MediaPlayer.OnCompletionListener {
 
-    Button buttonPlay;
-    Button buttonRec;
-    Button buttonSave;
-    Button buttonDiscard;
+    ImageButton buttonPlay;
+    ImageButton buttonStop;
+    ImageButton buttonRec;
+    ImageButton buttonSave;
+    ImageButton buttonDiscard;
 
     Animation pulse = null;
 
@@ -42,6 +44,12 @@ public class RecordInterface extends Activity implements View.OnClickListener {
     public int bpm = 120;
     public boolean isRecording = false;
 
+    public void onCompletion(MediaPlayer mp)
+    {
+        buttonPlay.setVisibility(View.VISIBLE);
+        buttonStop.setVisibility(View.GONE);
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -50,13 +58,15 @@ public class RecordInterface extends Activity implements View.OnClickListener {
         recorder = new Recorder(Environment.getExternalStorageDirectory()+"/sampleRecording.wav");
         mediaPlayer = MediaPlayer.create(this, R.raw.song);
 
-        buttonPlay = (Button) findViewById(R.id.buttonPlay);
-        buttonRec = (Button) findViewById(R.id.buttonRecord);
+        buttonPlay = (ImageButton) findViewById(R.id.buttonPlay);
+        buttonStop = (ImageButton) findViewById(R.id.buttonStop);
+        buttonRec = (ImageButton) findViewById(R.id.buttonRecord);
 
-        buttonSave = (Button) findViewById(R.id.buttonSave);
-        buttonDiscard = (Button) findViewById(R.id.buttonDiscard);
+        buttonSave = (ImageButton) findViewById(R.id.buttonSave);
+        buttonDiscard = (ImageButton) findViewById(R.id.buttonDiscard);
 
         buttonPlay.setOnClickListener(this);
+        buttonStop.setOnClickListener(this);
         buttonRec.setOnClickListener(this);
 
         buttonSave.setOnClickListener(this);
@@ -66,35 +76,6 @@ public class RecordInterface extends Activity implements View.OnClickListener {
     @Override
     protected void onStart() {
         super.onStart();
-        /*if(bpm == 0) {
-            final Dialog dialog = new Dialog(this);
-            dialog.setContentView(R.layout.settings_dialog);
-            dialog.setTitle("Settings Dialog Box");
-            Button okay = (Button) dialog.findViewById(R.id.Button01);
-            final SeekBar seekBar = (SeekBar) dialog.findViewById(R.id.BPMseekBar);
-            seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
-                @Override
-                public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-                    TextView beats = (TextView) dialog.findViewById(R.id.beats);
-                    beats.setText("" + (progress + 60));
-                }
-                @Override
-                public void onStartTrackingTouch(SeekBar seekBar) {
-                }
-                @Override
-                public void onStopTrackingTouch(SeekBar seekBar) {
-                }
-            });
-            okay.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    TextView beats = (TextView) dialog.findViewById(R.id.beats);
-                    bpm = seekBar.getProgress() + 60;
-                    dialog.cancel();
-                }
-            });
-            dialog.show();
-        }*/
     }
 
     @Override
@@ -119,22 +100,28 @@ public class RecordInterface extends Activity implements View.OnClickListener {
         return super.onOptionsItemSelected(item);
     }
 
+    public void checkIfSongHasFinished()
+    {
+
+    }
+
     @Override
     public void onClick(View v) {
 
         switch(v.getId()) {
             case R.id.buttonPlay:
+                buttonPlay.setVisibility(View.GONE);
+                buttonStop.setVisibility(View.VISIBLE);
                 PlayMIDI.play(mediaPlayer);
+
+                mediaPlayer.setOnCompletionListener(this);
+
                 break;
-            /*case R.id.buttonPause:
-                PlayMIDI.pause(mediaPlayer);
+            case R.id.buttonStop:
+                buttonPlay.setVisibility(View.VISIBLE);
+                buttonStop.setVisibility(View.GONE);
+                PlayMIDI.stop(mediaPlayer);
                 break;
-            case R.id.buttonForward:
-                PlayMIDI.forward(mediaPlayer);
-                break;
-            case R.id.buttonRewind:
-                PlayMIDI.rewind(mediaPlayer);
-                break;*/
             case R.id.buttonRecord:
                 if(!isRecording) {
                     isRecording = true;
@@ -142,7 +129,7 @@ public class RecordInterface extends Activity implements View.OnClickListener {
                     hmm = Uri.parse(Environment.getExternalStorageDirectory() + "/sampleRecording.wav");
                     recorder = new Recorder(Environment.getExternalStorageDirectory()+"/sampleRecording.wav");
                     recorder.startRecording();
-                    Button image = (Button)findViewById(R.id.buttonRecord);
+                    ImageButton image = (ImageButton)findViewById(R.id.buttonRecord);
                     pulse = new AlphaAnimation(1, 0);
                     pulse.setDuration(60000/bpm);
                     pulse.setInterpolator(new LinearInterpolator());
@@ -153,7 +140,7 @@ public class RecordInterface extends Activity implements View.OnClickListener {
                 else {
                     isRecording = false;
                     recorder.stopRecording();
-                    Button image2 = (Button)findViewById(R.id.buttonRecord);
+                    ImageButton image2 = (ImageButton)findViewById(R.id.buttonRecord);
                     image2.clearAnimation();
                     mediaPlayer = MediaPlayer.create(this, hmm);
                 }
@@ -167,6 +154,8 @@ public class RecordInterface extends Activity implements View.OnClickListener {
                 break;
         }
     }
+
+
 
     public void newActivity(View view) {
         Intent intent = new Intent(this, PlayMIDIActivity.class);

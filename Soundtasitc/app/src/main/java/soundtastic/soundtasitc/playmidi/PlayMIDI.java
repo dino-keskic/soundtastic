@@ -1,6 +1,8 @@
 package soundtastic.soundtasitc.playmidi;
 
 import android.media.MediaPlayer;
+import android.os.AsyncTask;
+import android.provider.MediaStore;
 
 /**
  * Created by Dominik on 22.04.2015.

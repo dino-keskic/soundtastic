@@ -1,14 +1,34 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:id="@+id/add_sounds">
 
-    <Button
-        android:id="@+id/add_sounds_mic"
+    <TextView
+        android:id="@+id/mi_add_sounds_titletext"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:text="Mic"/>
+        android:textSize="@dimen/add_sounds_titletext"
+        android:padding="10dp"
+        android:text="Title:"
+        />
 
-</LinearLayout>
+    <EditText
+        android:id="@+id/mi_add_sounds_title"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/add_sounds_title"
+        android:layout_alignParentTop="true"
+        android:layout_toRightOf="@+id/mi_add_sounds_titletext"
+        android:layout_toEndOf="@+id/mi_add_sounds_titletext"
+        android:padding="10dp"/>
+
+    <Button
+        android:id="@+id/mi_add_sounds_mic"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Mic"
+        android:layout_below="@+id/mi_add_sounds_title"
+        android:layout_centerHorizontal="true"/>
+
+</RelativeLayout>

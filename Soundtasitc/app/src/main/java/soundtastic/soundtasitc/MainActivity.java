@@ -35,10 +35,11 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
     Button buttonAddPiano1;
     TextView buttonTrackTitle1;
 
+    public static final int MIN_BPM = 60;
+
     public MediaPlayer mediaPlayer = null;
     public Recorder recorder = null;
     public Uri hmm = null;
-
     ProjectInfos infos = null;
 
 
@@ -46,7 +47,7 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        infos = new ProjectInfos();
+        infos = ProjectInfos.getInstance();
 
         Intent mixing = new Intent(this, MixingInterface.class);
         //mixing.putExtra("key",value);
@@ -61,12 +62,13 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
         dialog.setTitle("Create New Project");
         dialog.setCanceledOnTouchOutside(false);
         Button okay = (Button) dialog.findViewById(R.id.Button01);
+
         final SeekBar seekBar = (SeekBar) dialog.findViewById(R.id.BPMseekBar);
         seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
                 TextView beats = (TextView) dialog.findViewById(R.id.beats);
-                beats.setText("" + (progress + 60));
+                beats.setText("" + (progress + MIN_BPM));
             }
             @Override
             public void onStartTrackingTouch(SeekBar seekBar) {
@@ -79,16 +81,38 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
             @Override
             public void onClick(View v) {
                 TextView beats = (TextView) dialog.findViewById(R.id.beats);
-                infos.setBpm(seekBar.getProgress() + 60);
-                infos.setProjectName(((EditText)dialog.findViewById(R.id.editText)).getText().toString());
+                infos.setBpm(seekBar.getProgress() + MIN_BPM);
                 RadioGroup rg = (RadioGroup)dialog.findViewById(R.id.radioGroup);
                 View radioButton = rg.findViewById(rg.getCheckedRadioButtonId());
-                infos.setTimeSignature(TimeSignatures.values()[rg.indexOfChild(radioButton)]);
-                newActivity(v);
-                dialog.cancel();
+                String project_name = ((EditText)dialog.findViewById(R.id.editText)).getText().toString();
+                if(project_name.isEmpty())
+                {
+                    TextView errorMessage1 = (TextView) dialog.findViewById(R.id.errorMessage);
+                    errorMessage1.setText("Please enter project name!\n");
+                }
+                else if(radioButton == null)
+                {
+                    TextView errorMessage1 = (TextView) dialog.findViewById(R.id.errorMessage);
+                    errorMessage1.setText("Please choose time!\n");
+                }
+                else {
+                    infos.setProjectName(project_name);
+                    infos.setTimeSignature(TimeSignatures.values()[rg.indexOfChild(radioButton)]);
+                    dialog.cancel();
+                    newActivity(v);
+                }
             }
         });
         dialog.show();
+
+
+
+        // DEBUG
+
+        /*
+        Intent mixing = new Intent(this, MixingInterface.class);
+        this.startActivity(mixing);
+        */
     }
 
 
@@ -129,7 +153,6 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
     }
     public void newActivity(View view) {
         Intent mixing = new Intent(this, MixingInterface.class);
-        mixing.putExtra("infos", infos);
         this.startActivity(mixing);
     }
 }

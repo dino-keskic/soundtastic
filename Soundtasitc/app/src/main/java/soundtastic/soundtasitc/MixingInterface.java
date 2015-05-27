@@ -17,6 +17,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.RelativeLayout;
 import android.widget.SeekBar;
 import android.widget.Spinner;
 import android.widget.Switch;
@@ -25,6 +26,7 @@ import android.widget.TextView;
 import soundtastic.soundtasitc.playmidi.PlayMIDI;
 import soundtastic.soundtasitc.playmidi.PlayMIDIActivity;
 import soundtastic.soundtasitc.recording.Recorder;
+import soundtastic.soundtasitc.ProjectInfos;
 
 
 public class MixingInterface extends Activity implements View.OnClickListener {
@@ -37,16 +39,22 @@ public class MixingInterface extends Activity implements View.OnClickListener {
     ImageButton buttonAddRec1;
     ImageButton buttonAddRec2;
     ImageButton buttonAddSounds;
+    RelativeLayout layoutTrack1;
+    RelativeLayout layoutTrack2;
     Button buttonDeleteTrack;
 
     TextView buttonTrackTitle1;
+    TextView buttonTrackTitle2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.mixing_interface);
 
-        track_nr = 0;
+        ProjectInfos.getInstance().setSelectedTrackNr(1);
+
+        layoutTrack1 = (RelativeLayout) findViewById(R.id.mi_track1);
+        layoutTrack2 = (RelativeLayout) findViewById(R.id.mi_track2);
 
         buttonPlayAll = (ImageButton) findViewById(R.id.mi_play_all);
         buttonTrackPlay1 = (ImageButton) findViewById(R.id.mi_track_play1);
@@ -56,6 +64,7 @@ public class MixingInterface extends Activity implements View.OnClickListener {
         buttonAddSounds = (ImageButton) findViewById(R.id.mi_add_sounds);
 
         buttonTrackTitle1 = (TextView) findViewById(R.id.mi_track_title1);
+        buttonTrackTitle2 = (TextView) findViewById(R.id.mi_track_title2);
         buttonDeleteTrack = (Button) findViewById(R.id.mi_track_delete);
 
         buttonPlayAll.setOnClickListener(this);
@@ -64,8 +73,17 @@ public class MixingInterface extends Activity implements View.OnClickListener {
         buttonAddRec1.setOnClickListener(this);
         buttonAddRec2.setOnClickListener(this);
         buttonTrackTitle1.setOnClickListener(this);
+        buttonTrackTitle2.setOnClickListener(this);
         buttonDeleteTrack.setOnClickListener(this);
         buttonAddSounds.setOnClickListener(this);
+
+        layoutTrack1.setOnClickListener(this);
+        layoutTrack2.setOnClickListener(this);
+
+        if(ProjectInfos.getInstance().getSelectedTrackNr() == 1)
+        {
+            layoutTrack1.setBackgroundColor(getResources().getColor(R.color.track_selected));
+        }
 
     }
 
@@ -102,31 +120,43 @@ public class MixingInterface extends Activity implements View.OnClickListener {
 
         switch(v.getId()) {
             case R.id.mi_track_rec1:
-                //record.putExtra("track_nr",track_nr);
-                // so abfangen int trackNr = record.getIntExtra("track_nr", 0);
                 startActivity(record);
                 break;
             case R.id.mi_track_rec2:
-                //record.putExtra("track_nr",track_nr);
-                // so abfangen int trackNr = record.getIntExtra("track_nr", 0);
                 startActivity(record);
                 break;
             case R.id.mi_track_delete:
                 deleteTrack();
                 break;
             case R.id.mi_track_title1:
-                track_nr = 1;
+                ProjectInfos.getInstance().setSelectedTrackNr(1);
+                layoutTrack1.setBackgroundColor(getResources().getColor(R.color.track_selected));
+                layoutTrack2.setBackgroundColor(getResources().getColor(R.color.white));
                 break;
             case R.id.mi_track_title2:
-                track_nr = 2;
+                ProjectInfos.getInstance().setSelectedTrackNr(2);
+                layoutTrack1.setBackgroundColor(getResources().getColor(R.color.white));
+                layoutTrack2.setBackgroundColor(getResources().getColor(R.color.track_selected));
                 break;
             case R.id.mi_add_sounds:
                 addSounds();
                 break;
 
+            case R.id.mi_track1:
+                ProjectInfos.getInstance().setSelectedTrackNr(1);
+                layoutTrack1.setBackgroundColor(getResources().getColor(R.color.track_selected));
+                layoutTrack2.setBackgroundColor(getResources().getColor(R.color.white));
+                break;
+            case R.id.mi_track2:
+                ProjectInfos.getInstance().setSelectedTrackNr(2);
+                layoutTrack1.setBackgroundColor(getResources().getColor(R.color.white));
+                layoutTrack2.setBackgroundColor(getResources().getColor(R.color.track_selected));
+                break;
+
         }
     }
 
+    // no return-button
     @Override
     public void onBackPressed()
     {
@@ -138,9 +168,21 @@ public class MixingInterface extends Activity implements View.OnClickListener {
        buttonTrackTitle1.setText(track_title);
     }
 
-    public void deleteTrack()
+    public void changeColor()
     {
 
+    }
+
+    public void deleteTrack()
+    {
+        switch (ProjectInfos.getInstance().getSelectedTrackNr()){
+            case 1:
+                layoutTrack1.setVisibility(View.INVISIBLE);
+                break;
+            case 2:
+                layoutTrack2.setVisibility(View.INVISIBLE);
+                break;
+        }
     }
 
     public void addSounds()

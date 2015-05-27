@@ -30,19 +30,25 @@ import soundtastic.soundtasitc.playmidi.PlayMIDIActivity;
 import soundtastic.soundtasitc.recording.Recorder;
 import soundtastic.soundtasitc.ProjectInfos;
 
-
 public class MixingInterface extends Activity implements View.OnClickListener {
 
     public int track_nr;
 
     ImageButton buttonPlayAll;
-    ImageButton buttonTrackPlay1;
-    ImageButton buttonTrackPlay2;
-    ImageButton buttonAddRec1;
-    ImageButton buttonAddRec2;
+
+//    RelativeLayout layoutTrack1;
+//    ImageButton buttonTrackPlay1;
+//    ImageButton buttonAddRec1;
+//    TextView buttonTrackTitle1;
+
+    TrackLayout[] trackLayouts;
+
+//    RelativeLayout layoutTrack2;
+//    ImageButton buttonTrackPlay2;
+//    ImageButton buttonAddRec2;
+//    TextView buttonTrackTitle2;
+
     ImageButton buttonAddSounds;
-    RelativeLayout layoutTrack1;
-    RelativeLayout layoutTrack2;
     RelativeLayout[] layoutTracks;
     Button buttonDeleteTrack;
     Button buttonCopyTrack;
@@ -50,8 +56,7 @@ public class MixingInterface extends Activity implements View.OnClickListener {
     SeekBar startAtBar;
     TextView startAtValue;
 
-    TextView buttonTrackTitle1;
-    TextView buttonTrackTitle2;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,22 +65,44 @@ public class MixingInterface extends Activity implements View.OnClickListener {
 
         ProjectInfos.getInstance().setSelectedTrackNr(1);
 
-        layoutTrack1 = (RelativeLayout) findViewById(R.id.mi_track1);
-        layoutTrack2 = (RelativeLayout) findViewById(R.id.mi_track2);
+        //layoutTrack1 = (RelativeLayout) findViewById(R.id.mi_track1);
+        //layoutTrack2 = (RelativeLayout) findViewById(R.id.mi_track2);
 
-        layoutTracks = new RelativeLayout[] {layoutTrack1, layoutTrack2};
+        //layoutTracks = new RelativeLayout[] {layoutTrack1, layoutTrack2};
 
         buttonPlayAll = (ImageButton) findViewById(R.id.mi_play_all);
-        buttonTrackPlay1 = (ImageButton) findViewById(R.id.mi_track_play1);
-        buttonTrackPlay2 = (ImageButton) findViewById(R.id.mi_track_play2);
-        buttonAddRec1 = (ImageButton) findViewById(R.id.mi_track_rec1);
-        buttonAddRec2 = (ImageButton) findViewById(R.id.mi_track_rec2);
+        //buttonTrackPlay1 = (ImageButton) findViewById(R.id.mi_track_play1);
+//        buttonTrackPlay2 = (ImageButton) findViewById(R.id.mi_track_play2);
+        //buttonAddRec1 = (ImageButton) findViewById(R.id.mi_track_rec1);
+//        buttonAddRec2 = (ImageButton) findViewById(R.id.mi_track_rec2);
         buttonAddSounds = (ImageButton) findViewById(R.id.mi_add_sounds);
 
-        buttonTrackTitle1 = (TextView) findViewById(R.id.mi_track_title1);
-        buttonTrackTitle2 = (TextView) findViewById(R.id.mi_track_title2);
+        //buttonTrackTitle1 = (TextView) findViewById(R.id.mi_track_title1);
+  //      buttonTrackTitle2 = (TextView) findViewById(R.id.mi_track_title2);
         buttonDeleteTrack = (Button) findViewById(R.id.mi_track_delete);
         buttonCopyTrack = (Button) findViewById(R.id.mi_track_copy);
+
+        trackLayouts = new TrackLayout[4];
+        for(int i=0;i<4;i++)
+        {
+            trackLayouts[i] = new TrackLayout();
+
+            int resID = getResources().getIdentifier("mi_track_rec" + Integer.toString(i+1),
+                    "id", "soundtastic.soundtasitc");
+            trackLayouts[i].buttonAddRec = ((ImageButton) findViewById(resID));
+
+            resID = getResources().getIdentifier("mi_track" + Integer.toString(i+1),
+                    "id", "soundtastic.soundtasitc");
+            trackLayouts[i].layoutTrack = ((RelativeLayout) findViewById(resID));
+
+            resID = getResources().getIdentifier("mi_track_title" + Integer.toString(i+1),
+                    "id", "soundtastic.soundtasitc");
+            trackLayouts[i].buttonTrackTitle = ((TextView) findViewById(resID));
+
+            resID = getResources().getIdentifier("mi_track_play" + Integer.toString(i+1),
+                    "id", "soundtastic.soundtasitc");
+            trackLayouts[i].buttonTrackPlay = ((ImageButton) findViewById(resID));
+        }
 
         startAtBar = (SeekBar) findViewById(R.id.mi_start_at_bar);
         startAtValue = (TextView) findViewById(R.id.mi_start_at_value);
@@ -113,23 +140,31 @@ public class MixingInterface extends Activity implements View.OnClickListener {
         });
 
         buttonPlayAll.setOnClickListener(this);
-        buttonTrackPlay1.setOnClickListener(this);
-        buttonTrackPlay2.setOnClickListener(this);
-        buttonAddRec1.setOnClickListener(this);
-        buttonAddRec2.setOnClickListener(this);
-        buttonTrackTitle1.setOnClickListener(this);
-        buttonTrackTitle2.setOnClickListener(this);
+
+        for(int i=0;i<trackLayouts.length;i++) {
+            trackLayouts[i].buttonTrackPlay.setOnClickListener(this);
+            trackLayouts[i].buttonAddRec.setOnClickListener(this);
+            trackLayouts[i].buttonTrackTitle.setOnClickListener(this);
+            trackLayouts[i].layoutTrack.setOnClickListener(this);
+        }
+        //buttonTrackPlay1.setOnClickListener(this);
+
+        //buttonTrackPlay2.setOnClickListener(this);
+        //buttonAddRec1.setOnClickListener(this);
+        //buttonAddRec2.setOnClickListener(this);
+        //buttonTrackTitle1.setOnClickListener(this);
+        //buttonTrackTitle2.setOnClickListener(this);
         buttonDeleteTrack.setOnClickListener(this);
         buttonCopyTrack.setOnClickListener(this);
         buttonAddSounds.setOnClickListener(this);
 
-        layoutTrack1.setOnClickListener(this);
-        layoutTrack2.setOnClickListener(this);
-
+        //layoutTrack1.setOnClickListener(this);
+        //layoutTrack2.setOnClickListener(this);
+/*
         if(ProjectInfos.getInstance().getSelectedTrackNr() == 1)
         {
             layoutTrack1.setBackgroundColor(getResources().getColor(R.color.track_selected));
-        }
+        }*/
         refreshTracks();
     }
 
@@ -283,11 +318,10 @@ public class MixingInterface extends Activity implements View.OnClickListener {
     }
 
     private void refreshTracks() {
-        TrackInfo ti = ProjectInfos.getInstance().getTrack(1);
-        loadTrackInfo(layoutTrack1, buttonTrackTitle1, ti);
-        ti = ProjectInfos.getInstance().getTrack(2);
-        loadTrackInfo(layoutTrack2, buttonTrackTitle2, ti);
-
+        for(int i=0;i<trackLayouts.length;i++) {
+            TrackInfo ti = ProjectInfos.getInstance().getTrack(i+1);
+            loadTrackInfo(trackLayouts[i].layoutTrack, trackLayouts[i].buttonTrackTitle, ti);
+        }
         selectCurrentTrack();
     }
 

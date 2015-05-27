@@ -115,6 +115,7 @@
 
             </RelativeLayout>
 
+            <!-- Track 2 -->
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -164,6 +165,101 @@
 
             </RelativeLayout>
 
+            <!-- Track 3 -->
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:id="@+id/mi_track3"
+                >
+
+                <ImageButton
+                    android:id="@+id/mi_track_rec3"
+                    android:src="@drawable/btn_record"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="#000000ff"
+                    android:layout_centerVertical="true"
+                    android:layout_alignTop="@+id/mi_track_play3"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true" />
+
+                <ImageButton
+                    android:id="@+id/mi_track_play3"
+                    android:src="@drawable/btn_global_play"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="#000000ff"
+                    android:layout_centerVertical="true"
+                    android:layout_toRightOf="@+id/mi_track_rec3"
+                    android:layout_toEndOf="@+id/mi_track_rec3" />
+
+                <TextView
+                    android:id="@+id/mi_track_title3"
+                    android:text="Track3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_toRightOf="@+id/mi_track_play3"
+                    android:layout_toEndOf="@+id/mi_track_play3" />
+
+                <Button
+                    android:id="@+id/mi_track_edit3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Edit"
+                    android:layout_centerVertical="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentEnd="true" />
+            </RelativeLayout>
+
+            <!-- Track 4 -->
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:id="@+id/mi_track4"
+                >
+
+                <ImageButton
+                    android:id="@+id/mi_track_rec4"
+                    android:src="@drawable/btn_record"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="#000000ff"
+                    android:layout_centerVertical="true"
+                    android:layout_alignTop="@+id/mi_track_play4"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true" />
+
+                <ImageButton
+                    android:id="@+id/mi_track_play4"
+                    android:src="@drawable/btn_global_play"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="#000000ff"
+                    android:layout_centerVertical="true"
+                    android:layout_toRightOf="@+id/mi_track_rec4"
+                    android:layout_toEndOf="@+id/mi_track_rec4" />
+
+                <TextView
+                    android:id="@+id/mi_track_title4"
+                    android:text="Track4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_toRightOf="@+id/mi_track_play4"
+                    android:layout_toEndOf="@+id/mi_track_play4" />
+
+                <Button
+                    android:id="@+id/mi_track_edit4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Edit"
+                    android:layout_centerVertical="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentEnd="true" />
+            </RelativeLayout>
         </LinearLayout>
 
         <LinearLayout

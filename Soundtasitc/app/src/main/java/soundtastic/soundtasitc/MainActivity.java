@@ -57,7 +57,7 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
     @Override
     protected void onStart() {
         super.onStart();
-        final Dialog dialog = new Dialog(this);
+/*        final Dialog dialog = new Dialog(this);
         dialog.setContentView(R.layout.settings_dialog);
         dialog.setTitle("Create New Project");
         dialog.setCanceledOnTouchOutside(false);
@@ -106,13 +106,13 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
         dialog.show();
 
 
-
+*/
         // DEBUG
 
-        /*
+
         Intent mixing = new Intent(this, MixingInterface.class);
         this.startActivity(mixing);
-        */
+        
     }
 
 

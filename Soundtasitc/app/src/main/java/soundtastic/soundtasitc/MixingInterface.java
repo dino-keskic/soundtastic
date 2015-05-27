@@ -84,7 +84,7 @@ public class MixingInterface extends Activity implements View.OnClickListener {
         {
             layoutTrack1.setBackgroundColor(getResources().getColor(R.color.track_selected));
         }
-
+        refreshTracks();
     }
 
     @Override
@@ -163,9 +163,12 @@ public class MixingInterface extends Activity implements View.OnClickListener {
         // super.onBackPressed(); // Comment this super call to avoid calling finish()
     }
 
-    public void setTrackTitle(String track_title)
-    {
-       buttonTrackTitle1.setText(track_title);
+    public void setTrackTitle(String track_title) {
+        TrackInfo ti = new TrackInfo();
+        ti.setTrackName(track_title);
+        ProjectInfos.getInstance().addTrack(ti);
+        refreshTracks();
+        //buttonTrackTitle1.setText(track_title);
     }
 
     public void changeColor()
@@ -206,5 +209,21 @@ public class MixingInterface extends Activity implements View.OnClickListener {
                 }
             });
         }
+    }
+
+    private void refreshTracks() {
+        TrackInfo ti = ProjectInfos.getInstance().getTrack(1);
+        loadTrackInfo(layoutTrack1, buttonTrackTitle1, ti);
+        ti = ProjectInfos.getInstance().getTrack(2);
+        loadTrackInfo(layoutTrack2, buttonTrackTitle2, ti);
+    }
+
+    private void loadTrackInfo(RelativeLayout layout, TextView title, TrackInfo ti) {
+        if(ti == null) {
+            layout.setVisibility(View.INVISIBLE);
+            return;
+        }
+        title.setText(ti.getTrackName());
+        layout.setVisibility(View.VISIBLE);
     }
 }

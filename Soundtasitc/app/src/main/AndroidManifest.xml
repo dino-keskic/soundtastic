@@ -36,6 +36,7 @@
             android:label="Record" />
         <activity
             android:name=".GridView"
+            android:configChanges="orientation|screenSize"
             android:label="@string/title_activity_grid_view" >
         </activity>
     </application>

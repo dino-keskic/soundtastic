@@ -30,6 +30,8 @@ public class MixingInterface extends ActionBarActivity implements View.OnClickLi
     Button buttonAddRec1;
     Button buttonAddPiano1;
     TextView buttonTrackTitle1;
+    Button go2grid;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,8 +42,10 @@ public class MixingInterface extends ActionBarActivity implements View.OnClickLi
         buttonAddRec1 = (Button) findViewById(R.id.mi_add_rec1);
         buttonAddPiano1 = (Button) findViewById(R.id.mi_add_piano1);
         buttonTrackTitle1 = (TextView) findViewById(R.id.mi_track_title1);
+        go2grid = (Button) findViewById(R.id.grid2);
 
         buttonAddRec1.setOnClickListener(this);
+        go2grid.setOnClickListener(this);
        // buttonAddPiano1.setOnClickListener(this);
 
         Spinner dropdown = (Spinner)findViewById(R.id.mi_instrument1);
@@ -78,8 +82,12 @@ public class MixingInterface extends ActionBarActivity implements View.OnClickLi
 
         Button clickedButton = (Button) v;
         Intent record = new Intent(this, Record.class);
+        Intent gridView = new Intent(this, GridView.class);
 
         switch(clickedButton.getId()) {
+            case R.id.grid2:
+                startActivity(gridView);
+                break;
             case R.id.mi_add_rec1:
                 startActivity(record);
                 break;

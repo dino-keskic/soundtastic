@@ -50,4 +50,14 @@
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true" />
 
+    <Button
+        android:layout_width="90dp"
+        android:layout_height="wrap_content"
+        android:text="go2grid"
+        android:id="@+id/grid2"
+        android:textSize="10dp"
+        android:layout_centerVertical="true"
+        android:layout_toLeftOf="@+id/mi_instrument1"
+        android:layout_toStartOf="@+id/mi_instrument1" />
+
 </RelativeLayout>

@@ -33,7 +33,7 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
     //SeekBar buttonBPM;
     Button buttonAddRec1;
     Button buttonAddPiano1;
-    //TextView buttonTrackTitle1;
+    TextView buttonTrackTitle1;
 
     public static final int MIN_BPM = 60;
 
@@ -47,8 +47,7 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-
-        infos = new ProjectInfos();
+        infos = ProjectInfos.getInstance();
 
         Intent mixing = new Intent(this, MixingInterface.class);
         //mixing.putExtra("key",value);
@@ -102,11 +101,18 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
                     dialog.cancel();
                     newActivity(v);
                 }
-
-
             }
         });
         dialog.show();
+
+
+
+        // DEBUG
+
+        /*
+        Intent mixing = new Intent(this, MixingInterface.class);
+        this.startActivity(mixing);
+        */
     }
 
 
@@ -147,7 +153,6 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
     }
     public void newActivity(View view) {
         Intent mixing = new Intent(this, MixingInterface.class);
-        mixing.putExtra("infos", infos);
         this.startActivity(mixing);
     }
 }

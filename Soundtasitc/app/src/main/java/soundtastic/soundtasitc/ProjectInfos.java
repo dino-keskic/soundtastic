@@ -12,11 +12,25 @@ enum TimeSignatures {
 
 public class ProjectInfos implements Serializable {
 
+    private static ProjectInfos instance;
+
+
     private String project_name;
-
     private int bpm;
-
     private TimeSignatures time_signature;
+    private int selected_track_nr;
+
+    public static ProjectInfos getInstance()
+    {
+        if(instance == null)
+        {
+            instance = new ProjectInfos();
+        }
+
+        return instance;
+    }
+
+    private ProjectInfos() {}
 
     public String getProjectName() {
         return project_name;
@@ -41,5 +55,8 @@ public class ProjectInfos implements Serializable {
     public void setTimeSignature(TimeSignatures time) {
         time_signature = time;
     }
+
+    public void setSelectedTrackNr(int track_nr) { selected_track_nr = track_nr; }
+    public int getSelectedTrackNr() { return selected_track_nr; }
 
 }

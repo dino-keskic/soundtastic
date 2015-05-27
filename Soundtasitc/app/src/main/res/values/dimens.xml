@@ -3,4 +3,9 @@
     <dimen name="activity_horizontal_margin">10dp</dimen>
     <dimen name="activity_vertical_margin">10dp</dimen>
     <dimen name="activity_title">2dp</dimen>
+
+    <dimen name="add_sounds_titletext">12pt</dimen>
+    <dimen name="add_sounds_title">12pt</dimen>
+    <dimen name="mixinginterface_title">12pt</dimen>
+
 </resources>

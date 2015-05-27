@@ -100,4 +100,16 @@
             android:id="@+id/fourquarter"
             android:checked="false" />
     </RadioGroup>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/errorMessage"
+        android:layout_below="@+id/ticks"
+        android:layout_alignLeft="@+id/ticks"
+        android:layout_alignStart="@+id/ticks"
+        android:layout_alignTop="@+id/Button01"
+        android:autoText="false"
+        android:text=""
+        android:textColor="#ffff0000" />
 </RelativeLayout>

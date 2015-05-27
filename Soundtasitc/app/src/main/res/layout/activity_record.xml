@@ -1,50 +1,97 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
-    android:layout_height="match_parent" android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
-    android:paddingBottom="@dimen/activity_vertical_margin" tools:context=".MainActivity"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity"
     android:id="@+id/activity_main">
 
 
-    <LinearLayout
+    <RelativeLayout
+        android:layout_margin="0dp"
         android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:background="#ffcc00"
-        >
+        android:layout_height="50dp"
+        android:background="#000000"
+        android:id="@+id/linearLayout">
 
-        <Button
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:scaleType="fitXY"
+            android:id="@+id/imageView"
+            android:src="@drawable/logo_small1"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_centerInParent="true">
+
+        <ImageButton
             android:id="@+id/buttonPlay"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
+            android:src="@drawable/btn_global_play"
+            android:background="@null"
             android:gravity="left"
             android:text="Play" />
 
-        <Button
+        <ImageButton
+            android:id="@+id/buttonStop"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/btn_global_stop"
+            android:visibility="gone"
+            android:background="@null"
+            android:gravity="left"/>
+
+        <ImageButton
             android:id="@+id/buttonRecord"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
+            android:src="@drawable/btn_record"
+            android:background="@null"
             android:gravity="left"
             android:text="Record" />
+        </LinearLayout>
 
-        <Button
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerInParent="true"
+            >
+        <ImageButton
             android:id="@+id/buttonSave"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
+            android:src="@drawable/btn_save"
+            android:background="@null"
             android:gravity="right"
+
             android:text="Save" />
 
-        <Button
+        <ImageButton
             android:id="@+id/buttonDiscard"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
+            android:src="@drawable/btn_trash"
+            android:background="@null"
             android:gravity="right"
-            android:text="Discard" />
 
-    </LinearLayout>
+            android:text="Discard" />
+        </LinearLayout>
+
+    </RelativeLayout>
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/micro"
+        android:id="@+id/micro"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true" />
+
 
 </RelativeLayout>

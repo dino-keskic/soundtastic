@@ -29,12 +29,21 @@ public class ProjectInfos implements Serializable {
             return tracks.get(trackNr-1);
         return null;
     }
+    public TrackInfo getSelectedTrack()
+    {
+        return getTrack(getSelectedTrackNr());
+    }
 
     public void addTrack(TrackInfo track)
     {
         tracks.add(track);
     }
 
+    public void deleteTrack(int trackNr)
+    {
+        if(tracks.size() >= trackNr)
+            tracks.remove(trackNr-1);
+    }
     public static ProjectInfos getInstance()
     {
         if(instance == null)

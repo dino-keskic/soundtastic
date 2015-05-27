@@ -112,7 +112,7 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
 
         Intent mixing = new Intent(this, MixingInterface.class);
         this.startActivity(mixing);
-        
+
     }
 
 

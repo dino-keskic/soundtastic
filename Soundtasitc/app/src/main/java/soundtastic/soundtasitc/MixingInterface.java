@@ -15,6 +15,8 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.RelativeLayout;
@@ -41,7 +43,12 @@ public class MixingInterface extends Activity implements View.OnClickListener {
     ImageButton buttonAddSounds;
     RelativeLayout layoutTrack1;
     RelativeLayout layoutTrack2;
+    RelativeLayout[] layoutTracks;
     Button buttonDeleteTrack;
+    Button buttonCopyTrack;
+    CheckBox enableCheckbox;
+    SeekBar startAtBar;
+    TextView startAtValue;
 
     TextView buttonTrackTitle1;
     TextView buttonTrackTitle2;
@@ -56,6 +63,8 @@ public class MixingInterface extends Activity implements View.OnClickListener {
         layoutTrack1 = (RelativeLayout) findViewById(R.id.mi_track1);
         layoutTrack2 = (RelativeLayout) findViewById(R.id.mi_track2);
 
+        layoutTracks = new RelativeLayout[] {layoutTrack1, layoutTrack2};
+
         buttonPlayAll = (ImageButton) findViewById(R.id.mi_play_all);
         buttonTrackPlay1 = (ImageButton) findViewById(R.id.mi_track_play1);
         buttonTrackPlay2 = (ImageButton) findViewById(R.id.mi_track_play2);
@@ -66,6 +75,42 @@ public class MixingInterface extends Activity implements View.OnClickListener {
         buttonTrackTitle1 = (TextView) findViewById(R.id.mi_track_title1);
         buttonTrackTitle2 = (TextView) findViewById(R.id.mi_track_title2);
         buttonDeleteTrack = (Button) findViewById(R.id.mi_track_delete);
+        buttonCopyTrack = (Button) findViewById(R.id.mi_track_copy);
+
+        startAtBar = (SeekBar) findViewById(R.id.mi_start_at_bar);
+        startAtValue = (TextView) findViewById(R.id.mi_start_at_value);
+        enableCheckbox = (CheckBox) findViewById(R.id.mi_enabled);
+
+        enableCheckbox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+
+              @Override
+              public void onCheckedChanged(CompoundButton buttonView,boolean isChecked) {
+                  TrackInfo ti = ProjectInfos.getInstance().getSelectedTrack();
+                  if(ti != null)
+                      ti.setEnabled(isChecked);
+              }
+          }
+        );
+        startAtBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener(){
+
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+               startAtValue.setText(String.valueOf(progress));
+                TrackInfo ti = ProjectInfos.getInstance().getSelectedTrack();
+                if(ti != null)
+                    ti.setStartAt(progress);
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+
+            }
+        });
 
         buttonPlayAll.setOnClickListener(this);
         buttonTrackPlay1.setOnClickListener(this);
@@ -75,6 +120,7 @@ public class MixingInterface extends Activity implements View.OnClickListener {
         buttonTrackTitle1.setOnClickListener(this);
         buttonTrackTitle2.setOnClickListener(this);
         buttonDeleteTrack.setOnClickListener(this);
+        buttonCopyTrack.setOnClickListener(this);
         buttonAddSounds.setOnClickListener(this);
 
         layoutTrack1.setOnClickListener(this);
@@ -128,31 +174,49 @@ public class MixingInterface extends Activity implements View.OnClickListener {
             case R.id.mi_track_delete:
                 deleteTrack();
                 break;
+            case R.id.mi_track_copy:
+                copyTrack();
+                break;
+            case R.id.mi_track1:
             case R.id.mi_track_title1:
                 ProjectInfos.getInstance().setSelectedTrackNr(1);
-                layoutTrack1.setBackgroundColor(getResources().getColor(R.color.track_selected));
-                layoutTrack2.setBackgroundColor(getResources().getColor(R.color.white));
+                selectCurrentTrack();
                 break;
+            case R.id.mi_track2:
             case R.id.mi_track_title2:
                 ProjectInfos.getInstance().setSelectedTrackNr(2);
-                layoutTrack1.setBackgroundColor(getResources().getColor(R.color.white));
-                layoutTrack2.setBackgroundColor(getResources().getColor(R.color.track_selected));
+                selectCurrentTrack();
                 break;
             case R.id.mi_add_sounds:
                 addSounds();
                 break;
+        }
+    }
 
-            case R.id.mi_track1:
-                ProjectInfos.getInstance().setSelectedTrackNr(1);
-                layoutTrack1.setBackgroundColor(getResources().getColor(R.color.track_selected));
-                layoutTrack2.setBackgroundColor(getResources().getColor(R.color.white));
-                break;
-            case R.id.mi_track2:
-                ProjectInfos.getInstance().setSelectedTrackNr(2);
-                layoutTrack1.setBackgroundColor(getResources().getColor(R.color.white));
-                layoutTrack2.setBackgroundColor(getResources().getColor(R.color.track_selected));
-                break;
+    private void selectCurrentTrack()
+    {
+        int track = ProjectInfos.getInstance().getSelectedTrackNr();
+        for(int i=0;i < layoutTracks.length;i++) {
+            if(i + 1 == track)
+                layoutTracks[i].setBackgroundColor(getResources().getColor(R.color.track_selected));
+            else
+                layoutTracks[i].setBackgroundColor(getResources().getColor(R.color.white));
+        }
 
+        TrackInfo ti = ProjectInfos.getInstance().getTrack(track);
+        if(ti != null) {
+            enableCheckbox.setChecked(ti.getEnabled());
+            startAtBar.setProgress(ti.getStartAt());
+            enableCheckbox.setEnabled(true);
+            startAtBar.setEnabled(true);
+            buttonDeleteTrack.setEnabled(true);
+            buttonCopyTrack.setEnabled(true);
+        }
+        else {
+            enableCheckbox.setEnabled(false);
+            startAtBar.setEnabled(false);
+            buttonDeleteTrack.setEnabled(false);
+            buttonCopyTrack.setEnabled(false);
         }
     }
 
@@ -163,9 +227,10 @@ public class MixingInterface extends Activity implements View.OnClickListener {
         // super.onBackPressed(); // Comment this super call to avoid calling finish()
     }
 
-    public void setTrackTitle(String track_title) {
+    public void addTrack(String track_title) {
         TrackInfo ti = new TrackInfo();
         ti.setTrackName(track_title);
+        ti.setStartAt(11);
         ProjectInfos.getInstance().addTrack(ti);
         refreshTracks();
         //buttonTrackTitle1.setText(track_title);
@@ -178,14 +243,20 @@ public class MixingInterface extends Activity implements View.OnClickListener {
 
     public void deleteTrack()
     {
-        switch (ProjectInfos.getInstance().getSelectedTrackNr()){
-            case 1:
-                layoutTrack1.setVisibility(View.INVISIBLE);
-                break;
-            case 2:
-                layoutTrack2.setVisibility(View.INVISIBLE);
-                break;
+        ProjectInfos.getInstance().deleteTrack(ProjectInfos.getInstance().getSelectedTrackNr());
+        refreshTracks();
+    }
+
+    public void copyTrack()
+    {
+        TrackInfo ti = ProjectInfos.getInstance().getSelectedTrack();
+        if(ti != null)
+        {
+            ti = new TrackInfo(ti);
+            ProjectInfos.getInstance().addTrack(ti);
+            refreshTracks();
         }
+
     }
 
     public void addSounds()
@@ -204,7 +275,7 @@ public class MixingInterface extends Activity implements View.OnClickListener {
             mic.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    setTrackTitle(title.getText().toString());
+                    addTrack(title.getText().toString());
                     dialog.cancel();
                 }
             });
@@ -216,6 +287,8 @@ public class MixingInterface extends Activity implements View.OnClickListener {
         loadTrackInfo(layoutTrack1, buttonTrackTitle1, ti);
         ti = ProjectInfos.getInstance().getTrack(2);
         loadTrackInfo(layoutTrack2, buttonTrackTitle2, ti);
+
+        selectCurrentTrack();
     }
 
     private void loadTrackInfo(RelativeLayout layout, TextView title, TrackInfo ti) {

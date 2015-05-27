@@ -16,6 +16,12 @@ public class TrackInfo implements Serializable {
         track_name = "new track";
     }
 
+    public TrackInfo(TrackInfo ti) {
+        enabled = ti.getEnabled();
+        start_at = ti.getStartAt();
+        track_name = "copy of " + ti.getTrackName();
+    }
+
     public void setEnabled(boolean enable) {
         enabled = enable;
     }

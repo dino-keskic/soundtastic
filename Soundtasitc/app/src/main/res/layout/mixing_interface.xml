@@ -183,13 +183,19 @@
             <SeekBar
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/seekBar" />
+                android:max="60"
+                android:id="@+id/mi_start_at_bar" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/mi_start_at_value" />
 
             <CheckBox
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Enabled"
-                android:id="@+id/checkBox" />
+                android:id="@+id/mi_enabled" />
 
             <Button
                 android:layout_width="wrap_content"

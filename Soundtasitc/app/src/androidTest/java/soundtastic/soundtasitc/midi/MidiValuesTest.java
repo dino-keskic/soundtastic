@@ -36,10 +36,14 @@ public class MidiValuesTest extends TestCase {
         if (!folder.exists()) {
             folder.mkdir();
         }
+        if(file.exists())
+        {
+            file.delete();
+        }
         assertTrue(folder.exists());
     }
 
- /*   public void testMidiValuesToMidiStruct()
+    public void MidiValuesToMidiStruct()
     {
         midiValues = new MidiValues(60, 1300, 44100);
 
@@ -66,7 +70,7 @@ public class MidiValuesTest extends TestCase {
         }
         ===*/
 
-/*
+
         Project testProject = new Project("testProject", midiValues.getBeatsPerMinute());
         Track firstTrack = new Track(MusicalKey.VIOLIN, MusicalInstrument.ACOUSTIC_GRAND_PIANO);
 
@@ -101,21 +105,23 @@ public class MidiValuesTest extends TestCase {
 
 
 
-    }*/
+    }
 
     public void testMidiConversion()
     {
         WavConverter converter = new WavConverter();
-        MidiValues midiValues1= converter.convertToMidi("TestFile4.wav");
+        MidiValues midiValues1= converter.convertToMidiNew("TestFile4.wav");
 
         List<AbstractMap.SimpleEntry<Integer,Integer>> noteMap = midiValues1.generateNoteMap();
 
-        //=== print noteMap to Android Studio console
-        //for(int i = 0; i < noteMap.size(); i++)
-        //{
-        //    Log.d("noteOutPut:", noteMap.get(i).getKey().toString() + " " +
-        //            noteMap.get(i).getValue().toString());
-        //}
+        /*
+        === print noteMap to Android Studio console
+        for(int i = 0; i < noteMap.size(); i++)
+        {
+            Log.d("noteOutPut:", noteMap.get(i).getKey().toString() + " " +
+                    noteMap.get(i).getValue().toString());
+        }
+        ===*/
 
 
         Project testProject = new Project("testProject", midiValues1.getBeatsPerMinute());
@@ -149,7 +155,9 @@ public class MidiValuesTest extends TestCase {
         }
 
         assertTrue(file.exists());
-        //assertTrue(true);
+
+
+
     }
 
 }

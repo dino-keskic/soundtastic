@@ -15,7 +15,6 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
-import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.SeekBar;
 import android.widget.Spinner;
@@ -43,20 +42,18 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
     public Uri hmm = null;
     ProjectInfos infos = null;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
 
         infos = new ProjectInfos();
-/*
- BACKUP!!!!!
-        Intent mixing = new Intent(this, Record.class);
-        //mixing.putExtra("key",value);
-        this.startActivity(mixing);
-        */
 
+        Intent mixing = new Intent(this, MixingInterface.class);
+        //mixing.putExtra("key",value);
     }
+
 
     @Override
     protected void onStart() {
@@ -82,8 +79,8 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
             }
         });
         okay.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
+            @Override
+            public void onClick(View v) {
                 TextView beats = (TextView) dialog.findViewById(R.id.beats);
                 infos.setBpm(seekBar.getProgress() + MIN_BPM);
                 RadioGroup rg = (RadioGroup)dialog.findViewById(R.id.radioGroup);
@@ -108,9 +105,10 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
 
 
             }
-            });
+        });
         dialog.show();
     }
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -141,10 +139,15 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
 
     }
 
+    @Override
+    public void onBackPressed()
+    {
+
+        // super.onBackPressed(); // Comment this super call to avoid calling finish()
+    }
     public void newActivity(View view) {
         Intent mixing = new Intent(this, MixingInterface.class);
         mixing.putExtra("infos", infos);
         this.startActivity(mixing);
     }
-
 }

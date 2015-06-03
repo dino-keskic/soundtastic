@@ -32,6 +32,11 @@
             android:theme="@style/NoActionBar"
             android:screenOrientation="landscape"
             android:name="RecordInterface" />
+		<activity
+            android:name=".GridView"
+            android:configChanges="orientation|screenSize"
+            android:label="@string/title_activity_grid_view" >
+        </activity>
     </application>
 
 </manifest>

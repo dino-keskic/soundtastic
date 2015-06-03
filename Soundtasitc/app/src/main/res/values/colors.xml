@@ -2,6 +2,10 @@
 <resources>
 
     <item name="white" type="color">#FFFFFF</item>
+    <item name="black" type="color">#000000</item>
     <item name="track_selected" type="color">#CEECF5</item>
+    <item name="button_background" type="color">#000000FF</item>
+    <item name="track_background" type="color">#FFFF00</item>
+    <item name="mixint_head" type="color">#FFFF00</item>
 
 </resources>

@@ -15,8 +15,6 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.RelativeLayout;
 import android.widget.SeekBar;
-import android.widget.Spinner;
-import android.widget.Switch;
 import android.widget.TextView;
 
 import soundtastic.soundtasitc.playmidi.PlayMIDI;
@@ -60,7 +58,7 @@ public class MixingInterface extends Activity implements View.OnClickListener {
         startAtValue = (TextView) findViewById(R.id.mi_start_at_value);
         enableCheckbox = (CheckBox) findViewById(R.id.mi_enabled);
 
-        for(int i=0;i<MAX_TRACK;i++)
+        for(int i = 0;i < MAX_TRACK;i++)
         {
             trackLayouts[i] = new TrackLayout();
 
@@ -157,6 +155,31 @@ public class MixingInterface extends Activity implements View.OnClickListener {
 
         Intent record = new Intent(this, RecordInterface.class);
         int trackNr = 0;
+        String viewName = getResources().getResourceEntryName(v.getId());
+
+        if(viewName.startsWith("mixint_title_track")) {
+            trackNr = Integer.parseInt(viewName.replace("mixint_title_track", ""));
+            ProjectInfos.getInstance().setSelectedTrackNr(trackNr);
+            selectCurrentTrack();
+            return;
+        }
+        if(viewName.startsWith("mixint_layout_track")) {
+            trackNr = Integer.parseInt(viewName.replace("mixint_layout_track", ""));
+            ProjectInfos.getInstance().setSelectedTrackNr(trackNr);
+            selectCurrentTrack();
+            return;
+        }
+        if(viewName.startsWith("mixint_rec_track")) {
+            trackNr = Integer.parseInt(viewName.replace("mixint_rec_track", ""));
+            ProjectInfos.getInstance().setSelectedTrackNr(trackNr);
+            startActivity(record);
+            return;
+        }
+        if(viewName.startsWith("mixint_play_track")) {
+            trackNr = Integer.parseInt(viewName.replace("mixint_play_track", ""));
+            ProjectInfos.getInstance().setSelectedTrackNr(trackNr);
+            return;
+        }
 
         switch(v.getId()) {
             case R.id.mi_track_delete:
@@ -171,40 +194,14 @@ public class MixingInterface extends Activity implements View.OnClickListener {
              case R.id.mi_add_sounds:
                  createTrack();
                 break;
-            default:
-                String viewName = getResources().getResourceEntryName(v.getId());
-                if(viewName.startsWith("mixint_title_track")) {
-                    trackNr = Integer.parseInt(viewName.replace("mixint_title_track", ""));
-                    ProjectInfos.getInstance().setSelectedTrackNr(trackNr);
-                    selectCurrentTrack();
-                    return;
-                }
-                if(viewName.startsWith("mixint_layout_track")) {
-                    trackNr = Integer.parseInt(viewName.replace("mixint_layout_track", ""));
-                    ProjectInfos.getInstance().setSelectedTrackNr(trackNr);
-                    selectCurrentTrack();
-                    return;
-                }
-                if(viewName.startsWith("mixint_rec_track")) {
-                    trackNr = Integer.parseInt(viewName.replace("mixint_rec_track", ""));
-                    ProjectInfos.getInstance().setSelectedTrackNr(trackNr);
-                    startActivity(record);
-                    return;
-                }
-                if(viewName.startsWith("mixint_play_track")) {
-                    trackNr = Integer.parseInt(viewName.replace("mixint_play_track", ""));
-                    ProjectInfos.getInstance().setSelectedTrackNr(trackNr);
-                    return;
-                }
         }
     }
 
-    private void selectCurrentTrack()
-    {
+    private void selectCurrentTrack() {
         int amount_of_tracks = ProjectInfos.getInstance().getAmountOfTracks();
         int track = ProjectInfos.getInstance().getSelectedTrackNr();
-        for(int i=0;i<trackLayouts.length;i++) {
-            if(i + 1 == track)
+        for (int i = 0; i < trackLayouts.length; i++) {
+            if (i + 1 == track)
                 trackLayouts[i].layoutTrack.setBackgroundColor(getResources().getColor(R.color.track_selected));
             else
                 trackLayouts[i].layoutTrack.setBackgroundColor(getResources().getColor(R.color.white));
@@ -270,15 +267,17 @@ public class MixingInterface extends Activity implements View.OnClickListener {
 
     public void deleteTrack()
     {
-        ProjectInfos.getInstance().deleteTrack(ProjectInfos.getInstance().getSelectedTrackNr());
-        refreshTracks();
+        TrackInfo ti = ProjectInfos.getInstance().getSelectedTrack();
+        if(ti != null) {
+            ProjectInfos.getInstance().deleteTrack(ProjectInfos.getInstance().getSelectedTrackNr());
+            refreshTracks();
+        }
     }
 
     public void copyTrack()
     {
         TrackInfo ti = ProjectInfos.getInstance().getSelectedTrack();
-        if(ti != null)
-        {
+        if(ti != null) {
             ti = new TrackInfo(ti);
             ProjectInfos.getInstance().addTrack(ti);
             refreshTracks();
@@ -310,8 +309,13 @@ public class MixingInterface extends Activity implements View.OnClickListener {
 
     private void renameTrack()
     {
-        final Dialog dialog = new Dialog(this);
         TrackInfo ti = ProjectInfos.getInstance().getSelectedTrack();
+        if(ti == null)
+        {
+            return;
+        }
+
+        final Dialog dialog = new Dialog(this);
 
         dialog.setContentView(R.layout.rename_track);
         dialog.setTitle("Rename track");
@@ -321,10 +325,7 @@ public class MixingInterface extends Activity implements View.OnClickListener {
         final EditText title = (EditText) dialog.findViewById(R.id.mi_rename_track_title);
         final TextView old_title = (TextView) dialog.findViewById(R.id.mi_rename_track_oldtitle);
 
-        if(ti != null)
-        {
-            old_title.setText(ti.getTrackName().toString());
-        }
+        old_title.setText(ti.getTrackName().toString());
 
         if(mic != null)
         {

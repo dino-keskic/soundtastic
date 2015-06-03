@@ -1,7 +1,18 @@
 <resources>
+    <!-- basic -->
     <string name="app_name">Soundtastic</string>
-
-    <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
     <string name="title_activity_play_midi">Media Player</string>
+
+    <!-- settings_dialog.xml -->
+    <string name="setdial_ticks_min">Ticks/Min:</string>
+    <string name="setdial_apply_button_text">Apply</string>
+    <string name="setdial_title">Title:</string>
+    <string name="setdial_time">Time:</string>
+    <string name="setdial_two_quarter">2/4</string>
+    <string name="setdial_three_quarter">3/4</string>
+    <string name="setdial_four_quarter">2/4</string>
+    <string name="setdial_error_project_title">Please enter project name!</string>
+    <string name="setdial_error_time_option">Please choose time!</string>
+
 </resources>

@@ -84,12 +84,8 @@ public class MixingInterface extends Activity implements View.OnClickListener {
             trackLayouts[i].buttonTrackPlay = ((ImageButton) findViewById(resID));
 
             resID = getResources().getIdentifier("mixint_stop_track" + Integer.toString(i+1),
-                "id", "soundtastic.soundtasitc");
-            trackLayouts[i].buttonTrackStop = ((ImageButton) findViewById(resID));
-
-            resID = getResources().getIdentifier("mixint_edit_track" + Integer.toString(i+1),
                     "id", "soundtastic.soundtasitc");
-            trackLayouts[i].buttonEditTrack = ((Button) findViewById(resID));
+            trackLayouts[i].buttonTrackStop = ((ImageButton) findViewById(resID));
         }
 
         enableCheckbox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
@@ -133,7 +129,6 @@ public class MixingInterface extends Activity implements View.OnClickListener {
             trackLayouts[i].buttonAddRec.setOnClickListener(this);
             trackLayouts[i].buttonTrackTitle.setOnClickListener(this);
             trackLayouts[i].layoutTrack.setOnClickListener(this);
-            trackLayouts[i].buttonEditTrack.setOnClickListener(this);
         }
         buttonDeleteTrack.setOnClickListener(this);
         buttonCopyTrack.setOnClickListener(this);
@@ -169,7 +164,6 @@ public class MixingInterface extends Activity implements View.OnClickListener {
     public void onClick(View v) {
 
         Intent record = new Intent(this, RecordInterface.class);
-        Intent grid_view = new Intent(this, GridView.class);
         int trackNr = 0;
         String viewName = getResources().getResourceEntryName(v.getId());
 
@@ -208,13 +202,6 @@ public class MixingInterface extends Activity implements View.OnClickListener {
             trackLayouts[trackNr-1].buttonTrackStop.setVisibility(View.INVISIBLE);
 
             PlayMIDI.stop(mixint_media_player);
-            return;
-        }
-
-        if(viewName.startsWith("mixint_edit_track")) {
-            trackNr = Integer.parseInt(viewName.replace("mixint_edit_track", ""));
-            ProjectInfos.getInstance().setSelectedTrackNr(trackNr);
-            startActivity(grid_view);
             return;
         }
 

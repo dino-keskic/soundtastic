@@ -23,9 +23,6 @@
     <string name="setdial_four_quarter">2/4</string>
     <string name="setdial_error_project_title">Please enter project name!</string>
     <string name="setdial_error_time_option">Please choose time!</string>
-
-    <!-- GridView -->
-    <string name="gridview_header">Edit Track</string>
-
+>>>>>>> origin/testing
 
 </resources>

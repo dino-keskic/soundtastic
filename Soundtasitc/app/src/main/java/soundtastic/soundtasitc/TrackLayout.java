@@ -1,5 +1,6 @@
 package soundtastic.soundtasitc;
 
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -12,5 +13,6 @@ public class TrackLayout {
     public ImageButton buttonTrackPlay;
     public ImageButton buttonTrackStop;
     public ImageButton buttonAddRec;
+    public Button buttonEditTrack;
     public TextView buttonTrackTitle;
 }

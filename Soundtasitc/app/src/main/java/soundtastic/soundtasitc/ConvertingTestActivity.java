@@ -46,7 +46,7 @@ public class ConvertingTestActivity extends ActionBarActivity implements View.On
                 file.delete();
             }
             WavConverter converter = new WavConverter();
-            MidiValues midiValues1= converter.convertToMidiNew("TestFile3.wav");
+            MidiValues midiValues1= converter.convertToMidi("TestFile3.wav");
 
             List<AbstractMap.SimpleEntry<Integer,Integer>> noteMap = midiValues1.generateNoteMap();
 

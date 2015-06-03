@@ -98,6 +98,7 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
                     errorMessage1.setText("Please choose time!\n");
                 }
                 else {
+                    Project.createNewInstance();
                     Project.getInstance().setName(project_name);
                     Project.getInstance().setBeatsPerMinute(infos.getBpm());
                     infos.setProjectName(project_name);

@@ -34,9 +34,15 @@ public class Project implements Serializable {
     private static final long serialVersionUID = 7396763540934053008L;
 
     private String name;
-    private int beatsPerMinute;
+    private int beatsPerMinute = 120;
     private Map<String, Track> tracks;
 
+
+
+    public static void  createNewInstance()
+    {
+        instance = new Project();
+    }
 
     public void setBeatsPerMinute(int bpm)
     {
@@ -45,6 +51,7 @@ public class Project implements Serializable {
 
     public Project() {
         // Exists only to defeat instantiation.
+        this.tracks = new HashMap<>();
     }
       private static Project instance = new Project();
     public static Project getInstance() {

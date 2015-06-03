@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:id="@+id/rename_track">
+
+    <TextView
+        android:id="@+id/mi_rename_track_oldtitletext"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/add_sounds_titletext"
+        android:padding="10dp"
+        android:text="Old Title:"
+        />
+
+    <TextView
+        android:id="@+id/mi_rename_track_oldtitle"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/add_sounds_titletext"
+        android:padding="10dp"
+        android:text="dfgdfgdfg"
+
+        android:layout_above="@+id/mi_rename_track_title"
+        android:layout_toRightOf="@+id/mi_rename_track_oldtitletext"
+        android:layout_toEndOf="@+id/mi_rename_track_oldtitletext" />
+
+    <TextView
+        android:id="@+id/mi_rename_track_titletext"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/add_sounds_titletext"
+        android:padding="10dp"
+        android:text="New Title:"
+        android:layout_below="@+id/mi_rename_track_oldtitletext"
+        android:layout_toLeftOf="@+id/mi_rename_track_title"
+        android:layout_toStartOf="@+id/mi_rename_track_title" />
+
+    <EditText
+        android:id="@+id/mi_rename_track_title"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/add_sounds_title"
+        android:padding="10dp"
+        android:layout_alignTop="@+id/mi_rename_track_titletext"
+        android:layout_toRightOf="@+id/mi_rename_track_oldtitletext"
+        android:layout_toEndOf="@+id/mi_rename_track_oldtitletext" />
+
+    <Button
+        android:id="@+id/mi_rename_track_save"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Save"
+        android:layout_below="@+id/mi_rename_track_title"
+        android:layout_centerHorizontal="true" />
+
+</RelativeLayout>

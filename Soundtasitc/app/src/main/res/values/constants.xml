@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- settings_dialog.xml and MainActivity.java -->
+    <integer name="min_bpm">60</integer>
+    <string name="min_bpm_string">60</string>
+    <integer name="max_bpm">220</integer>
+
+</resources>

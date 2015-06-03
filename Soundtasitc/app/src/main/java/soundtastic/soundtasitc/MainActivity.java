@@ -1,56 +1,29 @@
 package soundtastic.soundtasitc;
 
-
 import android.app.Dialog;
 import android.content.Intent;
-import android.media.MediaPlayer;
-import android.net.Uri;
 import android.os.Bundle;
-import android.os.Environment;
 import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.RadioGroup;
 import android.widget.SeekBar;
-import android.widget.Spinner;
-import android.widget.Switch;
 import android.widget.TextView;
-
-import soundtastic.soundtasitc.playmidi.PlayMIDI;
-import soundtastic.soundtasitc.playmidi.PlayMIDIActivity;
-import soundtastic.soundtasitc.recording.Recorder;
-import soundtastic.soundtasitc.ProjectInfos;
-
 
 
 public class MainActivity extends ActionBarActivity implements View.OnClickListener {
 
-    //SeekBar buttonBPM;
-    Button buttonAddRec1;
-    Button buttonAddPiano1;
-    TextView buttonTrackTitle1;
-
-    public static final int MIN_BPM = 60;
-
-    public MediaPlayer mediaPlayer = null;
-    public Recorder recorder = null;
-    public Uri hmm = null;
     ProjectInfos infos = null;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         infos = ProjectInfos.getInstance();
-
-        Intent mixing = new Intent(this, MixingInterface.class);
-        //mixing.putExtra("key",value);
     }
 
 
@@ -59,16 +32,19 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
         super.onStart();
         final Dialog dialog = new Dialog(this);
         dialog.setContentView(R.layout.settings_dialog);
+        int diff = getResources().getInteger(R.integer.max_bpm) -
+                                                 getResources().getInteger(R.integer.min_bpm);
         dialog.setTitle("Create New Project");
         dialog.setCanceledOnTouchOutside(false);
         Button okay = (Button) dialog.findViewById(R.id.Button01);
 
         final SeekBar seekBar = (SeekBar) dialog.findViewById(R.id.BPMseekBar);
+        seekBar.setMax(diff);
         seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
                 TextView beats = (TextView) dialog.findViewById(R.id.beats);
-                beats.setText("" + (progress + MIN_BPM));
+                beats.setText("" + (progress + getResources().getInteger(R.integer.min_bpm)));
             }
             @Override
             public void onStartTrackingTouch(SeekBar seekBar) {
@@ -81,19 +57,19 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
             @Override
             public void onClick(View v) {
                 TextView beats = (TextView) dialog.findViewById(R.id.beats);
-                infos.setBpm(seekBar.getProgress() + MIN_BPM);
+                infos.setBpm(seekBar.getProgress() + getResources().getInteger(R.integer.min_bpm));
                 RadioGroup rg = (RadioGroup)dialog.findViewById(R.id.radioGroup);
                 View radioButton = rg.findViewById(rg.getCheckedRadioButtonId());
                 String project_name = ((EditText)dialog.findViewById(R.id.editText)).getText().toString();
                 if(project_name.isEmpty())
                 {
                     TextView errorMessage1 = (TextView) dialog.findViewById(R.id.errorMessage);
-                    errorMessage1.setText("Please enter project name!\n");
+                    errorMessage1.setText(R.string.setdial_error_project_title);
                 }
                 else if(radioButton == null)
                 {
                     TextView errorMessage1 = (TextView) dialog.findViewById(R.id.errorMessage);
-                    errorMessage1.setText("Please choose time!\n");
+                    errorMessage1.setText(R.string.setdial_error_time_option);
                 }
                 else {
                     infos.setProjectName(project_name);
@@ -104,15 +80,6 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
             }
         });
         dialog.show();
-
-
-
-        // DEBUG
-
-        /*
-        Intent mixing = new Intent(this, MixingInterface.class);
-        this.startActivity(mixing);
-        */
     }
 
 

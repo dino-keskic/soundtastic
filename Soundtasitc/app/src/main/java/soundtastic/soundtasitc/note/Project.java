@@ -37,11 +37,28 @@ public class Project implements Serializable {
     private int beatsPerMinute;
     private Map<String, Track> tracks;
 
-    public Project(String name, int beatsPerMinute) {
+
+    public void setBeatsPerMinute(int bpm)
+    {
+        this.beatsPerMinute = bpm;
+    }
+
+    public Project() {
+        // Exists only to defeat instantiation.
+    }
+      private static Project instance = new Project();
+    public static Project getInstance() {
+
+        return instance;
+    }
+
+    private Project(String name, int beatsPerMinute) {
         this.name = name;
         this.beatsPerMinute = beatsPerMinute;
         this.tracks = new HashMap<>();
     }
+
+
 
     private Project(Project project) {
         name = project.getName();

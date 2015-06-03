@@ -3,6 +3,8 @@ package soundtastic.soundtasitc;
 
 import java.io.Serializable;
 
+import soundtastic.soundtasitc.note.Project;
+
 /**
  * Created by Dominik on 20.05.2015.
  */
@@ -17,6 +19,16 @@ public class ProjectInfos implements Serializable {
     private int bpm;
 
     private TimeSignatures time_signature;
+
+    private  Project project = new Project();
+
+    public Project getProject() {
+        return project;
+    }
+
+    public void setProject(Project project) {
+        this.project = project;
+    }
 
     public String getProjectName() {
         return project_name;

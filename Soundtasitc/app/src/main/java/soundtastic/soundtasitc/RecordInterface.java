@@ -2,13 +2,13 @@ package soundtastic.soundtasitc;
 
 
 import android.app.Activity;
-import android.app.Dialog;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.media.MediaPlayer;
 import android.net.Uri;
-import android.os.Environment;
-import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.os.Environment;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -17,11 +17,8 @@ import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
 import android.view.animation.LinearInterpolator;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageButton;
-import android.widget.ImageView;
-import android.widget.MediaController;
-import android.widget.SeekBar;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.AbstractMap;
@@ -52,6 +49,7 @@ public class RecordInterface extends Activity implements View.OnClickListener,Me
     public MediaPlayer mediaPlayer = null;
     public Recorder recorder = null;
     public Uri hmm = null;
+    public String trackName="track01";
 
     public int bpm = 120;
     public boolean isRecording = false;
@@ -159,7 +157,8 @@ public class RecordInterface extends Activity implements View.OnClickListener,Me
                 break;
             case R.id.buttonSave:
                 WavConverter converter = new WavConverter();
-                MidiValues midiValues =  converter.convertToMidiNew("sampleRecording.wav");
+                MidiValues midiValues =  converter.convertToMidiNew(Environment.getExternalStorageDirectory()+"/sampleRecording.wav");
+                trackName ="track01";
 
                 if(midiValues != null) {
                     List<AbstractMap.SimpleEntry<Integer, Integer>> noteMap = midiValues.generateNoteMap();
@@ -180,14 +179,42 @@ public class RecordInterface extends Activity implements View.OnClickListener,Me
                         firstTrack.addNoteEvent(currentTicks, note_end);
                     }
 
-                    Project.getInstance().addTrack("first", firstTrack);
+
+
+                  final EditText trackNameText = new EditText(this);
+                    trackNameText.setText(trackName);
+
+// Set the default text to a link of the Queen
+
+                   new AlertDialog.Builder(this)
+                            .setTitle("Create a new Track")
+                            .setMessage("")
+
+                            .setView(trackNameText)
+                            .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int whichButton) {
+                                    trackName = trackNameText.getText().toString();
+                                    dialog.dismiss();
+
+                                }
+                            })
+                            .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int whichButton) {
+                                    dialog.dismiss();
+                                }
+                            }).show();
+
+
+                    Project.getInstance().addTrack(trackName,firstTrack);
+
 
                     RecordInterface.this.finish();
                 }
-                else{
+               else{
                     Toast.makeText(RecordInterface.this, "Conversion failed! Wav file available?", Toast.LENGTH_LONG).show();
                 }
                 // Convert wav to midi and return to MixingInterface
+
                 break;
             case R.id.buttonDiscard:
                 this.finish();

@@ -21,6 +21,7 @@ import android.widget.Spinner;
 import android.widget.Switch;
 import android.widget.TextView;
 
+import soundtastic.soundtasitc.note.Project;
 import soundtastic.soundtasitc.playmidi.PlayMIDI;
 import soundtastic.soundtasitc.playmidi.PlayMIDIActivity;
 import soundtastic.soundtasitc.recording.Recorder;
@@ -97,6 +98,8 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
                     errorMessage1.setText("Please choose time!\n");
                 }
                 else {
+                    Project.getInstance().setName(project_name);
+                    Project.getInstance().setBeatsPerMinute(infos.getBpm());
                     infos.setProjectName(project_name);
                     infos.setTimeSignature(TimeSignatures.values()[rg.indexOfChild(radioButton)]);
                     dialog.cancel();

@@ -27,7 +27,7 @@
         android:id="@+id/mi_add_sounds_mic"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Mic"
+        android:text="Save"
         android:layout_below="@+id/mi_add_sounds_title"
         android:layout_centerHorizontal="true"/>
 

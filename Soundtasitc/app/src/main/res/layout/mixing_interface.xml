@@ -15,7 +15,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Mixing Interface"
+            android:text="@string/mixint_header"
             android:textColor="#ffffff"
             android:textSize="@dimen/mixinginterface_title"/>
 
@@ -70,38 +70,38 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@color/white"
-                android:id="@+id/mi_track1"
+                android:id="@+id/mixint_layout_track1"
                 >
 
                 <ImageButton
-                    android:id="@+id/mi_track_rec1"
+                    android:id="@+id/mixint_rec_track1"
                     android:src="@drawable/btn_record"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:background="#000000ff"
                     android:layout_centerVertical="true"
-                    android:layout_alignTop="@+id/mi_track_play1"
+                    android:layout_alignTop="@+id/mixint_play_track1"
                     android:layout_alignParentLeft="true"
                     android:layout_alignParentStart="true" />
 
                 <ImageButton
-                    android:id="@+id/mi_track_play1"
+                    android:id="@+id/mixint_play_track1"
                     android:src="@drawable/btn_global_play"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:background="#000000ff"
                     android:layout_centerVertical="true"
-                    android:layout_toRightOf="@+id/mi_track_rec1"
-                    android:layout_toEndOf="@+id/mi_track_rec1" />
+                    android:layout_toRightOf="@+id/mixint_rec_track1"
+                    android:layout_toEndOf="@+id/mixint_rec_track1" />
 
                 <TextView
-                    android:id="@+id/mi_track_title1"
+                    android:id="@+id/mixint_title_track1"
                     android:text="Track1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
-                    android:layout_toRightOf="@+id/mi_track_play1"
-                    android:layout_toEndOf="@+id/mi_track_play1" />
+                    android:layout_toRightOf="@+id/mixint_play_track1"
+                    android:layout_toEndOf="@+id/mixint_play_track1" />
 
                 <Button
                     android:id="@+id/mi_track_edit1"
@@ -120,38 +120,38 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@color/white"
-                android:id="@+id/mi_track2"
+                android:id="@+id/mixint_layout_track2"
                 >
 
                 <ImageButton
-                    android:id="@+id/mi_track_rec2"
+                    android:id="@+id/mixint_rec_track2"
                     android:src="@drawable/btn_record"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:background="#000000ff"
                     android:layout_centerVertical="true"
-                    android:layout_alignTop="@+id/mi_track_play2"
+                    android:layout_alignTop="@+id/mixint_play_track2"
                     android:layout_alignParentLeft="true"
                     android:layout_alignParentStart="true" />
 
                 <ImageButton
-                    android:id="@+id/mi_track_play2"
+                    android:id="@+id/mixint_play_track2"
                     android:src="@drawable/btn_global_play"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:background="#000000ff"
                     android:layout_centerVertical="true"
-                    android:layout_toRightOf="@+id/mi_track_rec2"
-                    android:layout_toEndOf="@+id/mi_track_rec2" />
+                    android:layout_toRightOf="@+id/mixint_rec_track2"
+                    android:layout_toEndOf="@+id/mixint_rec_track2" />
 
                 <TextView
-                    android:id="@+id/mi_track_title2"
+                    android:id="@+id/mixint_title_track2"
                     android:text="Track2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
-                    android:layout_toRightOf="@+id/mi_track_play2"
-                    android:layout_toEndOf="@+id/mi_track_play2" />
+                    android:layout_toRightOf="@+id/mixint_play_track2"
+                    android:layout_toEndOf="@+id/mixint_play_track2" />
 
                 <Button
                     android:id="@+id/mi_track_edit2"
@@ -170,38 +170,38 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@color/white"
-                android:id="@+id/mi_track3"
+                android:id="@+id/mixint_layout_track3"
                 >
 
                 <ImageButton
-                    android:id="@+id/mi_track_rec3"
+                    android:id="@+id/mixint_rec_track3"
                     android:src="@drawable/btn_record"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:background="#000000ff"
                     android:layout_centerVertical="true"
-                    android:layout_alignTop="@+id/mi_track_play3"
+                    android:layout_alignTop="@+id/mixint_play_track3"
                     android:layout_alignParentLeft="true"
                     android:layout_alignParentStart="true" />
 
                 <ImageButton
-                    android:id="@+id/mi_track_play3"
+                    android:id="@+id/mixint_play_track3"
                     android:src="@drawable/btn_global_play"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:background="#000000ff"
                     android:layout_centerVertical="true"
-                    android:layout_toRightOf="@+id/mi_track_rec3"
-                    android:layout_toEndOf="@+id/mi_track_rec3" />
+                    android:layout_toRightOf="@+id/mixint_rec_track3"
+                    android:layout_toEndOf="@+id/mixint_rec_track3" />
 
                 <TextView
-                    android:id="@+id/mi_track_title3"
+                    android:id="@+id/mixint_title_track3"
                     android:text="Track3"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
-                    android:layout_toRightOf="@+id/mi_track_play3"
-                    android:layout_toEndOf="@+id/mi_track_play3" />
+                    android:layout_toRightOf="@+id/mixint_play_track3"
+                    android:layout_toEndOf="@+id/mixint_play_track3" />
 
                 <Button
                     android:id="@+id/mi_track_edit3"
@@ -218,38 +218,38 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@color/white"
-                android:id="@+id/mi_track4"
+                android:id="@+id/mixint_layout_track4"
                 >
 
                 <ImageButton
-                    android:id="@+id/mi_track_rec4"
+                    android:id="@+id/mixint_rec_track4"
                     android:src="@drawable/btn_record"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:background="#000000ff"
                     android:layout_centerVertical="true"
-                    android:layout_alignTop="@+id/mi_track_play4"
+                    android:layout_alignTop="@+id/mixint_play_track4"
                     android:layout_alignParentLeft="true"
                     android:layout_alignParentStart="true" />
 
                 <ImageButton
-                    android:id="@+id/mi_track_play4"
+                    android:id="@+id/mixint_play_track4"
                     android:src="@drawable/btn_global_play"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:background="#000000ff"
                     android:layout_centerVertical="true"
-                    android:layout_toRightOf="@+id/mi_track_rec4"
-                    android:layout_toEndOf="@+id/mi_track_rec4" />
+                    android:layout_toRightOf="@+id/mixint_rec_track4"
+                    android:layout_toEndOf="@+id/mixint_rec_track4" />
 
                 <TextView
-                    android:id="@+id/mi_track_title4"
+                    android:id="@+id/mixint_title_track4"
                     android:text="Track4"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
-                    android:layout_toRightOf="@+id/mi_track_play4"
-                    android:layout_toEndOf="@+id/mi_track_play4" />
+                    android:layout_toRightOf="@+id/mixint_play_track4"
+                    android:layout_toEndOf="@+id/mixint_play_track4" />
 
                 <Button
                     android:id="@+id/mi_track_edit4"
@@ -274,7 +274,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Start at bar:"/>
+                android:text="@string/mixint_bar" />
 
             <SeekBar
                 android:layout_width="match_parent"
@@ -285,12 +285,13 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:text="0"
                 android:id="@+id/mi_start_at_value" />
 
             <CheckBox
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Enabled"
+                android:text="@string/mixint_enabled"
                 android:id="@+id/mi_enabled" />
 
             <Button
@@ -304,6 +305,12 @@
                 android:layout_height="wrap_content"
                 android:text="Delete"
                 android:id="@+id/mi_track_delete" />
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/mixint_rename"
+                android:id="@+id/mi_track_rename" />
 
 
         </LinearLayout>

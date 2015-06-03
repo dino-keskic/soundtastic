@@ -1,7 +1,16 @@
 <resources>
     <string name="app_name">Soundtastic</string>
 
-    <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
     <string name="title_activity_play_midi">Media Player</string>
+
+    <!-- Mixing Interface -->
+    <string name="mixint_header">Mixing Interface</string>
+    <string name="mixint_bar">Start at bar</string>
+    <string name="mixint_enabled">Enabled</string>
+    <string name="mixint_copy">Copy</string>
+    <string name="mixint_del">Delete</string>
+    <string name="mixint_edit">Edit</string>
+    <string name="mixint_rename">Rename</string>
+
 </resources>

@@ -83,4 +83,9 @@ public class ProjectInfos implements Serializable {
     public void setSelectedTrackNr(int track_nr) { selected_track_nr = track_nr; }
     public int getSelectedTrackNr() { return selected_track_nr; }
 
+    public int getAmountOfTracks()
+    {
+        return tracks.size();
+    }
+
 }

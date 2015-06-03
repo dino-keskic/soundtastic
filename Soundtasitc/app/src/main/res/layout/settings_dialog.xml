@@ -33,7 +33,7 @@
         android:layout_alignRight="@+id/editText"
         android:layout_alignEnd="@+id/editText" />
 
-    <Button android:id="@+id/Button01"
+    <Button android:id="@+id/applyButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/setdial_apply_button_text"

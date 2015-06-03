@@ -1,20 +1,11 @@
 package soundtastic.soundtasitc;
 
-import android.media.MediaPlayer;
 import android.test.ActivityInstrumentationTestCase2;
 import android.widget.Button;
 import android.widget.RadioButton;
-
 import com.robotium.solo.Solo;
-
 import junit.framework.Assert;
 
-import soundtastic.soundtasitc.playmidi.PlayMIDI;
-
-
-/**
- * Created by Dominik on 22.04.2015.
- */
 public class SoundTasticTest extends ActivityInstrumentationTestCase2<MainActivity> {
     private Solo mySolo;
 
@@ -29,7 +20,7 @@ public class SoundTasticTest extends ActivityInstrumentationTestCase2<MainActivi
 
     }
 
-    public void testCreateNewProjectButtons() {
+    public void testMixingInterface() {
         mySolo.clickOnText("ProjectName");
         char[] array = new char[4];
         array = "test".toCharArray();
@@ -45,18 +36,13 @@ public class SoundTasticTest extends ActivityInstrumentationTestCase2<MainActivi
 
         mySolo.setProgressBar(0, 60);
 
-        Button apply = (Button) mySolo.getView(R.id.Button01);
+        Button apply = (Button) mySolo.getView(R.id.applyButton);
         mySolo.clickOnView(apply);
         mySolo.sleep(3000);
 
         Assert.assertEquals("test", ProjectInfos.getInstance().getProjectName());
         Assert.assertEquals(120, ProjectInfos.getInstance().getBpm());
-        Assert.assertEquals(TimeSignatures.two_quarter, ProjectInfos.getInstance().getTimeSignature());
-    }
-
-
-    public void testMixingInterface() {
-        testCreateNewProjectButtons();
+        Assert.assertEquals(TimeSignatures.TWO_QUARTER, ProjectInfos.getInstance().getTimeSignature());
 
         mySolo.clickOnView(mySolo.getView(R.id.mi_add_sounds));
         mySolo.clickOnView(mySolo.getView(R.id.mi_add_sounds_title));
@@ -74,8 +60,23 @@ public class SoundTasticTest extends ActivityInstrumentationTestCase2<MainActivi
 
         mySolo.clickOnView(mySolo.getView(R.id.mixint_rec_track1));
         mySolo.sleep(2000);
-        testTrack();
+
+        mySolo.clickOnView(mySolo.getView(R.id.buttonRecord));
+        mySolo.sleep(5000);
+        mySolo.clickOnView(mySolo.getView(R.id.buttonRecord));
+
+        mySolo.clickOnView(mySolo.getView(R.id.buttonPlay));
+        mySolo.sleep(2000);
+        mySolo.clickOnView(mySolo.getView(R.id.buttonStop));
+        mySolo.sleep(2000);
+
+        mySolo.clickOnView(mySolo.getView(R.id.buttonSave));
+        mySolo.sleep(2000);
+
         mySolo.clickOnView(mySolo.getView(R.id.mixint_play_track1));
+        mySolo.sleep(1000);
+        mySolo.clickOnView(mySolo.getView(R.id.mixint_stop_track1));
+
         mySolo.sleep(5000);
         mySolo.clickOnView(mySolo.getView(R.id.mi_track_edit1));
 
@@ -90,30 +91,5 @@ public class SoundTasticTest extends ActivityInstrumentationTestCase2<MainActivi
 
         mySolo.clickOnView(mySolo.getView(R.id.mi_track_delete));
         mySolo.sleep(2000);
-    }
-
-
-    public void testTrack() {
-
-        mySolo.clickOnView(mySolo.getView(R.id.buttonRecord));
-        mySolo.sleep(5000);
-        mySolo.clickOnView(mySolo.getView(R.id.buttonRecord));
-
-        mySolo.clickOnView(mySolo.getView(R.id.buttonPlay));
-        mySolo.sleep(2000);
-        mySolo.clickOnView(mySolo.getView(R.id.buttonStop));
-        mySolo.sleep(2000);
-
-        mySolo.clickOnView(mySolo.getView(R.id.buttonSave));
-        mySolo.sleep(2000);
-
-    }
-
-    public void testEdit() {
-
-    }
-
-    public void testSave() {
-
     }
 }

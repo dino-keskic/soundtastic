@@ -9,7 +9,7 @@ import java.util.List;
  * Created by Dominik on 20.05.2015.
  */
 enum TimeSignatures {
-    two_quarter, three_quarter, four_quarter
+    TWO_QUARTER, THREE_QUARTER, FOUR_QUARTER
 }
 
 public class ProjectInfos implements Serializable {

@@ -39,10 +39,56 @@
 
                 </FrameLayout>
 
-                <FrameLayout
+                <RelativeLayout
                     android:layout_width="fill_parent"
                     android:layout_height="fill_parent"
-                    android:layout_weight="0.85"></FrameLayout>
+                    android:layout_weight="0.85">
+
+                    <Button
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="+ Height"
+                        android:id="@+id/IncrHeight"
+                        android:layout_gravity="center_horizontal" />
+
+                    <Button
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="- Height"
+                        android:id="@+id/DecrHeight"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_below="@+id/IncrHeight"
+                        android:layout_centerHorizontal="true" />
+
+                    <Button
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="+ Length"
+                        android:id="@+id/IncrLength"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_below="@+id/DecrHeight"
+                        android:layout_centerHorizontal="true" />
+
+                    <Button
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="- Length"
+                        android:id="@+id/DecrLength"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_below="@+id/IncrLength"
+                        android:layout_centerHorizontal="true" />
+
+                    <Button
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="New_Delete"
+                        android:id="@+id/New_Delete"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_alignParentBottom="true"
+                        android:layout_alignParentLeft="true"
+                        android:layout_alignParentStart="true" />
+
+                </RelativeLayout>
             </LinearLayout>
         </LinearLayout>
 

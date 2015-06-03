@@ -26,7 +26,6 @@ import soundtastic.soundtasitc.playmidi.PlayMIDI;
 import soundtastic.soundtasitc.playmidi.PlayMIDIActivity;
 import soundtastic.soundtasitc.recording.Recorder;
 
-
 public class RecordInterface extends Activity implements View.OnClickListener,MediaPlayer.OnCompletionListener {
 
     ImageButton buttonPlay;
@@ -39,9 +38,8 @@ public class RecordInterface extends Activity implements View.OnClickListener,Me
 
     public MediaPlayer mediaPlayer = null;
     public Recorder recorder = null;
-    public Uri hmm = null;
+    public Uri buffer_file = null;
 
-    public int bpm = 120;
     public boolean isRecording = false;
 
     public void onCompletion(MediaPlayer mp)
@@ -54,7 +52,7 @@ public class RecordInterface extends Activity implements View.OnClickListener,Me
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_record);
-        hmm = Uri.parse(Environment.getExternalStorageDirectory() + "/sampleRecording.wav");
+        buffer_file = Uri.parse(Environment.getExternalStorageDirectory() + "/sampleRecording.wav");
         recorder = new Recorder(Environment.getExternalStorageDirectory()+"/sampleRecording.wav");
         mediaPlayer = MediaPlayer.create(this, R.raw.song);
 
@@ -126,12 +124,12 @@ public class RecordInterface extends Activity implements View.OnClickListener,Me
                 if(!isRecording) {
                     isRecording = true;
                     boolean deleted = recorder.deleteLastRecording();
-                    hmm = Uri.parse(Environment.getExternalStorageDirectory() + "/sampleRecording.wav");
+                    buffer_file = Uri.parse(Environment.getExternalStorageDirectory() + "/sampleRecording.wav");
                     recorder = new Recorder(Environment.getExternalStorageDirectory()+"/sampleRecording.wav");
                     recorder.startRecording();
                     ImageButton image = (ImageButton)findViewById(R.id.buttonRecord);
                     pulse = new AlphaAnimation(1, 0);
-                    pulse.setDuration(60000/bpm);
+                    pulse.setDuration(60000/ProjectInfos.getInstance().getBpm());
                     pulse.setInterpolator(new LinearInterpolator());
                     pulse.setRepeatCount(Animation.INFINITE);
                     pulse.setRepeatMode(Animation.RESTART);
@@ -142,11 +140,10 @@ public class RecordInterface extends Activity implements View.OnClickListener,Me
                     recorder.stopRecording();
                     ImageButton image2 = (ImageButton)findViewById(R.id.buttonRecord);
                     image2.clearAnimation();
-                    mediaPlayer = MediaPlayer.create(this, hmm);
+                    mediaPlayer = MediaPlayer.create(this, buffer_file);
                 }
                 break;
             case R.id.buttonSave:
-                // Convert wav to midi and return to MixingInterface
                 this.finish();
                 break;
             case R.id.buttonDiscard:
@@ -154,20 +151,8 @@ public class RecordInterface extends Activity implements View.OnClickListener,Me
                 break;
         }
     }
-
-
-
     public void newActivity(View view) {
         Intent intent = new Intent(this, PlayMIDIActivity.class);
         startActivity(intent);
     }
-
-    /*
-    @Override
-    public void onBackPressed()
-    {
-
-        // super.onBackPressed(); // Comment this super call to avoid calling finish()
-    }
-    */
 }

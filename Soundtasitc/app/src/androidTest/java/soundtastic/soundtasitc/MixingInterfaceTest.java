@@ -23,6 +23,7 @@ public class MixingInterfaceTest extends ActivityInstrumentationTestCase2<MainAc
     }
 
     public void testButtons() {
+
         mySolo.clickOnView(mySolo.getView(R.id.buttonRec));
         mySolo.clickOnView(mySolo.getView(R.id.buttonPauseRec));
         mySolo.clickOnView(mySolo.getView(R.id.buttonStopRec));

@@ -94,6 +94,17 @@
                     android:layout_toRightOf="@+id/mixint_rec_track1"
                     android:layout_toEndOf="@+id/mixint_rec_track1" />
 
+                <ImageButton
+                    android:id="@+id/mixint_stop_track1"
+                    android:src="@drawable/btn_global_stop"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@color/button_background"
+                    android:layout_centerVertical="true"
+                    android:visibility="gone"
+                    android:layout_toRightOf="@+id/mixint_rec_track1"
+                    android:layout_toEndOf="@+id/mixint_rec_track1" />
+
                 <TextView
                     android:id="@+id/mixint_title_track1"
                     android:text="Track1"
@@ -143,6 +154,18 @@
                     android:layout_centerVertical="true"
                     android:layout_toRightOf="@+id/mixint_rec_track2"
                     android:layout_toEndOf="@+id/mixint_rec_track2" />
+
+                <ImageButton
+                    android:id="@+id/mixint_stop_track2"
+                    android:src="@drawable/btn_global_stop"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@color/button_background"
+                    android:layout_centerVertical="true"
+                    android:visibility="gone"
+                    android:layout_toRightOf="@+id/mixint_rec_track2"
+                    android:layout_toEndOf="@+id/mixint_rec_track2" />
+
 
                 <TextView
                     android:id="@+id/mixint_title_track2"
@@ -194,6 +217,18 @@
                     android:layout_toRightOf="@+id/mixint_rec_track3"
                     android:layout_toEndOf="@+id/mixint_rec_track3" />
 
+                <ImageButton
+                    android:id="@+id/mixint_stop_track3"
+                    android:src="@drawable/btn_global_stop"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@color/button_background"
+                    android:layout_centerVertical="true"
+                    android:visibility="gone"
+                    android:layout_toRightOf="@+id/mixint_rec_track3"
+                    android:layout_toEndOf="@+id/mixint_rec_track3" />
+
+
                 <TextView
                     android:id="@+id/mixint_title_track3"
                     android:text="Track3"
@@ -241,6 +276,18 @@
                     android:layout_centerVertical="true"
                     android:layout_toRightOf="@+id/mixint_rec_track4"
                     android:layout_toEndOf="@+id/mixint_rec_track4" />
+
+                <ImageButton
+                    android:id="@+id/mixint_stop_track4"
+                    android:src="@drawable/btn_global_stop"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@color/button_background"
+                    android:layout_centerVertical="true"
+                    android:visibility="gone"
+                    android:layout_toRightOf="@+id/mixint_rec_track4"
+                    android:layout_toEndOf="@+id/mixint_rec_track4" />
+
 
                 <TextView
                     android:id="@+id/mixint_title_track4"

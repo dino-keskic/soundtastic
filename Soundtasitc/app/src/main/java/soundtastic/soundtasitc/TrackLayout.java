@@ -10,6 +10,7 @@ import android.widget.TextView;
 public class TrackLayout {
     public RelativeLayout layoutTrack;
     public ImageButton buttonTrackPlay;
+    public ImageButton buttonTrackStop;
     public ImageButton buttonAddRec;
     public TextView buttonTrackTitle;
 }

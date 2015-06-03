@@ -4,6 +4,7 @@ package soundtastic.soundtasitc;
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.Intent;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -16,6 +17,7 @@ import android.widget.ImageButton;
 import android.widget.RelativeLayout;
 import android.widget.SeekBar;
 import android.widget.TextView;
+import android.util.Log;
 
 import soundtastic.soundtasitc.playmidi.PlayMIDI;
 import soundtastic.soundtasitc.playmidi.PlayMIDIActivity;
@@ -35,6 +37,7 @@ public class MixingInterface extends Activity implements View.OnClickListener {
     CheckBox enableCheckbox;
     SeekBar startAtBar;
     TextView startAtValue;
+    private MediaPlayer mixint_media_player = null;
 
     public int MAX_TRACK = 4;
     int resID = 0;
@@ -45,6 +48,7 @@ public class MixingInterface extends Activity implements View.OnClickListener {
         setContentView(R.layout.mixing_interface);
 
         ProjectInfos.getInstance().setSelectedTrackNr(1);
+        mixint_media_player = MediaPlayer.create(this, R.raw.song);
 
         // Initialisation of all elements
         trackLayouts = new TrackLayout[MAX_TRACK];
@@ -57,6 +61,7 @@ public class MixingInterface extends Activity implements View.OnClickListener {
         startAtBar = (SeekBar) findViewById(R.id.mi_start_at_bar);
         startAtValue = (TextView) findViewById(R.id.mi_start_at_value);
         enableCheckbox = (CheckBox) findViewById(R.id.mi_enabled);
+
 
         for(int i = 0;i < MAX_TRACK;i++)
         {
@@ -77,6 +82,10 @@ public class MixingInterface extends Activity implements View.OnClickListener {
             resID = getResources().getIdentifier("mixint_play_track" + Integer.toString(i+1),
                     "id", "soundtastic.soundtasitc");
             trackLayouts[i].buttonTrackPlay = ((ImageButton) findViewById(resID));
+
+            resID = getResources().getIdentifier("mixint_stop_track" + Integer.toString(i+1),
+                    "id", "soundtastic.soundtasitc");
+            trackLayouts[i].buttonTrackStop = ((ImageButton) findViewById(resID));
         }
 
         enableCheckbox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
@@ -116,6 +125,7 @@ public class MixingInterface extends Activity implements View.OnClickListener {
 
         for(int i=0;i<trackLayouts.length;i++) {
             trackLayouts[i].buttonTrackPlay.setOnClickListener(this);
+            trackLayouts[i].buttonTrackStop.setOnClickListener(this);
             trackLayouts[i].buttonAddRec.setOnClickListener(this);
             trackLayouts[i].buttonTrackTitle.setOnClickListener(this);
             trackLayouts[i].layoutTrack.setOnClickListener(this);
@@ -178,6 +188,20 @@ public class MixingInterface extends Activity implements View.OnClickListener {
         if(viewName.startsWith("mixint_play_track")) {
             trackNr = Integer.parseInt(viewName.replace("mixint_play_track", ""));
             ProjectInfos.getInstance().setSelectedTrackNr(trackNr);
+            trackLayouts[trackNr-1].buttonTrackPlay.setVisibility(View.INVISIBLE);
+            trackLayouts[trackNr-1].buttonTrackStop.setVisibility(View.VISIBLE);
+
+            PlayMIDI.play(mixint_media_player);
+            return;
+        }
+
+        if(viewName.startsWith("mixint_stop_track")) {
+            trackNr = Integer.parseInt(viewName.replace("mixint_stop_track", ""));
+            ProjectInfos.getInstance().setSelectedTrackNr(trackNr);
+            trackLayouts[trackNr-1].buttonTrackPlay.setVisibility(View.VISIBLE);
+            trackLayouts[trackNr-1].buttonTrackStop.setVisibility(View.INVISIBLE);
+
+            PlayMIDI.stop(mixint_media_player);
             return;
         }
 

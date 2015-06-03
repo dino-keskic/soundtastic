@@ -36,7 +36,7 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
                                                  getResources().getInteger(R.integer.min_bpm);
         dialog.setTitle("Create New Project");
         dialog.setCanceledOnTouchOutside(false);
-        Button okay = (Button) dialog.findViewById(R.id.Button01);
+        Button okay = (Button) dialog.findViewById(R.id.applyButton);
 
         final SeekBar seekBar = (SeekBar) dialog.findViewById(R.id.BPMseekBar);
         seekBar.setMax(diff);
@@ -113,10 +113,7 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
     }
 
     @Override
-    public void onBackPressed()
-    {
-
-        // super.onBackPressed(); // Comment this super call to avoid calling finish()
+    public void onBackPressed() {
     }
     public void newActivity(View view) {
         Intent mixing = new Intent(this, MixingInterface.class);

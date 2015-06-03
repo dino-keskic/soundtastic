@@ -9,6 +9,7 @@ import android.net.Uri;
 import android.os.Environment;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -21,7 +22,18 @@ import android.widget.ImageView;
 import android.widget.MediaController;
 import android.widget.SeekBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import java.util.AbstractMap;
+import java.util.List;
+
+import soundtastic.soundtasitc.midi.MidiValues;
+import soundtastic.soundtasitc.note.MusicalInstrument;
+import soundtastic.soundtasitc.note.MusicalKey;
+import soundtastic.soundtasitc.note.NoteEvent;
+import soundtastic.soundtasitc.note.NoteName;
+import soundtastic.soundtasitc.note.Project;
+import soundtastic.soundtasitc.note.Track;
 import soundtastic.soundtasitc.playmidi.PlayMIDI;
 import soundtastic.soundtasitc.playmidi.PlayMIDIActivity;
 import soundtastic.soundtasitc.recording.Recorder;
@@ -146,8 +158,36 @@ public class RecordInterface extends Activity implements View.OnClickListener,Me
                 }
                 break;
             case R.id.buttonSave:
+                WavConverter converter = new WavConverter();
+                MidiValues midiValues =  converter.convertToMidiNew("sampleRecording.wav");
+
+                if(midiValues != null) {
+                    List<AbstractMap.SimpleEntry<Integer, Integer>> noteMap = midiValues.generateNoteMap();
+                    Track firstTrack = new Track(MusicalKey.VIOLIN, MusicalInstrument.ACOUSTIC_GRAND_PIANO);
+
+                    int currentTicks = 0;
+
+                    for (int i = 0; i < noteMap.size(); i++) {
+                        NoteName noteName = NoteName.getNoteNameFromMidiValue(noteMap.get(i).getKey());
+                        NoteEvent note_begin = new NoteEvent(noteName, true);
+                        firstTrack.addNoteEvent(currentTicks, note_begin);
+                        currentTicks += midiValues.getNoteLength(noteMap.get(i).getValue()) * Project.getInstance().getBeatsPerMinute() * 8;
+
+                        Log.d("NOTELENGTH", Double.toString(midiValues.getNoteLength(noteMap.get(i).getValue())));
+                        Log.d("CURRENTTICKS", Integer.toString(currentTicks));
+
+                        NoteEvent note_end = new NoteEvent(noteName, false);
+                        firstTrack.addNoteEvent(currentTicks, note_end);
+                    }
+
+                    Project.getInstance().addTrack("first", firstTrack);
+
+                    RecordInterface.this.finish();
+                }
+                else{
+                    Toast.makeText(RecordInterface.this, "Conversion failed! Wav file available?", Toast.LENGTH_LONG).show();
+                }
                 // Convert wav to midi and return to MixingInterface
-                this.finish();
                 break;
             case R.id.buttonDiscard:
                 this.finish();

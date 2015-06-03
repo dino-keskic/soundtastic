@@ -43,7 +43,7 @@ public class Project implements Serializable {
         this.tracks = new HashMap<>();
     }
 
-    public Project(Project project) {
+    private Project(Project project) {
         name = project.getName();
         beatsPerMinute = project.getBeatsPerMinute();
         tracks = new HashMap<>();
@@ -53,7 +53,7 @@ public class Project implements Serializable {
         }
     }
 
-    public Project(Project project, String name) {
+    private Project(Project project, String name) {
         this(project);
         this.name = name;
     }

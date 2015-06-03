@@ -14,6 +14,9 @@ import android.widget.RadioGroup;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
+import soundtastic.soundtasitc.note.Project;
+import soundtastic.soundtasitc.ProjectInfos;
+
 
 public class MainActivity extends ActionBarActivity implements View.OnClickListener {
 
@@ -72,6 +75,8 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
                     errorMessage1.setText(R.string.setdial_error_time_option);
                 }
                 else {
+                    Project.getInstance().setName(project_name);
+                    Project.getInstance().setBeatsPerMinute(infos.getBpm());
                     infos.setProjectName(project_name);
                     infos.setTimeSignature(TimeSignatures.values()[rg.indexOfChild(radioButton)]);
                     dialog.cancel();

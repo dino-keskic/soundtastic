@@ -27,12 +27,20 @@
             android:label="MixingInterface"
             android:theme="@style/NoActionBar"
             android:screenOrientation="landscape"
-            android:name="MixingInterface" />
+            android:name="MixingInterface" >
+        </activity>
         <activity
             android:label="Record"
             android:theme="@style/NoActionBar"
             android:screenOrientation="landscape"
-            android:name="RecordInterface" />
+            android:name="RecordInterface" >
+        </activity>
+		<activity
+            android:label="GridView"
+            android:theme="@style/NoActionBar"
+            android:screenOrientation="landscape"
+            android:name="GridView" >
+        </activity>
     </application>
 
 </manifest>

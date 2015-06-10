@@ -45,6 +45,7 @@ public class Project implements Serializable {
 
     public Project() {
         // Exists only to defeat instantiation.
+        this.tracks = new HashMap<>();
     }
       private static Project instance = new Project();
     public static Project getInstance() {

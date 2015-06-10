@@ -159,7 +159,7 @@ public class RecordInterface extends Activity implements View.OnClickListener,Me
                 this.finish();
 
                 WavConverter converter = new WavConverter();
-                MidiValues midiValues =  converter.convertToMidi(Environment.getExternalStorageDirectory()+"/sampleRecording.wav");
+                MidiValues midiValues =  converter.convertToMidi(Environment.getExternalStorageDirectory()+"/SoundtasticTest6.wav");
                 trackName ="track01";
 
                 if(midiValues != null) {
@@ -208,8 +208,9 @@ public class RecordInterface extends Activity implements View.OnClickListener,Me
 
 */
 
-                    //Project.getInstance().
-                    //Project.getInstance().addTrack(trackName,firstTrack);
+                      ProjectInfos info = ProjectInfos.getInstance();
+
+                    info.getProject().addTrack(info.getSelectedTrack().getTrackName(),firstTrack);
 
 
                     RecordInterface.this.finish();

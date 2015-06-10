@@ -188,7 +188,7 @@ public class RecordInterface extends Activity implements View.OnClickListener,Me
 
 // Set the default text to a link of the Queen
 
-                   new AlertDialog.Builder(this)
+                   /*new AlertDialog.Builder(this)
                             .setTitle("Create a new Track")
                             .setMessage("")
 
@@ -206,8 +206,10 @@ public class RecordInterface extends Activity implements View.OnClickListener,Me
                                 }
                             }).show();
 
+*/
 
-                    Project.getInstance().addTrack(trackName,firstTrack);
+                    //Project.getInstance().
+                    //Project.getInstance().addTrack(trackName,firstTrack);
 
 
                     RecordInterface.this.finish();

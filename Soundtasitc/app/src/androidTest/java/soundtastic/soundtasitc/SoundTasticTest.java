@@ -42,10 +42,10 @@ public class SoundTasticTest extends ActivityInstrumentationTestCase2<MainActivi
 
         Assert.assertEquals("test", ProjectInfos.getInstance().getProjectName());
         Assert.assertEquals(120, ProjectInfos.getInstance().getBpm());
-        Assert.assertEquals(TimeSignatures.TWO_QUARTER, ProjectInfos.getInstance().getTimeSignature());
+        Assert.assertEquals(TimeSignatures.two_quarter, ProjectInfos.getInstance().getTimeSignature());
 
-        mySolo.clickOnView(mySolo.getView(R.id.mi_add_sounds));
-        mySolo.clickOnView(mySolo.getView(R.id.mi_add_sounds_title));
+        mySolo.clickOnView(mySolo.getView(R.id.mixint_add_sounds));
+        mySolo.clickOnView(mySolo.getView(R.id.mixint_add_sounds_title));
 
         char[] array2 = new char[4];
         array2 = "test".toCharArray();
@@ -56,7 +56,7 @@ public class SoundTasticTest extends ActivityInstrumentationTestCase2<MainActivi
             mySolo.sendKey(keycode - 68);
         }
 
-        mySolo.clickOnView(mySolo.getView(R.id.mi_add_sounds_mic));
+        mySolo.clickOnView(mySolo.getView(R.id.mixint_add_sounds_mic));
 
         mySolo.clickOnView(mySolo.getView(R.id.mixint_rec_track1));
         mySolo.sleep(2000);
@@ -78,18 +78,18 @@ public class SoundTasticTest extends ActivityInstrumentationTestCase2<MainActivi
         mySolo.clickOnView(mySolo.getView(R.id.mixint_stop_track1));
 
         mySolo.sleep(5000);
-        mySolo.clickOnView(mySolo.getView(R.id.mi_track_edit1));
+        mySolo.clickOnView(mySolo.getView(R.id.mixint_edit_track1));
 
-        mySolo.clickOnView(mySolo.getView(R.id.mi_play_all));
+        mySolo.clickOnView(mySolo.getView(R.id.mixint_play_all));
         mySolo.sleep(500);
-        mySolo.clickOnView(mySolo.getView(R.id.mi_track_copy));
+        mySolo.clickOnView(mySolo.getView(R.id.mixint_track_copy));
         mySolo.sleep(500);
         mySolo.setProgressBar(0, 60);
         mySolo.sleep(500);
-        mySolo.clickOnView(mySolo.getView(R.id.mi_enabled));
+        mySolo.clickOnView(mySolo.getView(R.id.mixint_enabled));
         mySolo.sleep(500);
 
-        mySolo.clickOnView(mySolo.getView(R.id.mi_track_delete));
+        mySolo.clickOnView(mySolo.getView(R.id.mixint_track_delete));
         mySolo.sleep(2000);
     }
 }

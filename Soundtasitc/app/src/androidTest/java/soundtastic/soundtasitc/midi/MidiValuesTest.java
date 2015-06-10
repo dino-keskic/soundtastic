@@ -36,22 +36,18 @@ public class MidiValuesTest extends TestCase {
         if (!folder.exists()) {
             folder.mkdir();
         }
-        if(file.exists())
-        {
+        if (file.exists()) {
             file.delete();
         }
         assertTrue(folder.exists());
     }
 
-  public void MidiValuesToMidiStruct()
-    {
+    public void MidiValuesToMidiStruct() {
         midiValues = new MidiValues(60, 1300, 44100);
 
         int note = 66;
-        for(int i = 0; i < 20; i++)
-        {
-            for(int j = 0; j < 34; j++)
-            {
+        for (int i = 0; i < 20; i++) {
+            for (int j = 0; j < 34; j++) {
                 midiValues.addMidiNum(note);
             }
             note++;
@@ -59,19 +55,18 @@ public class MidiValuesTest extends TestCase {
 
         // finished initializing
 
-        List<AbstractMap.SimpleEntry<Integer,Integer>> noteMap = midiValues.generateNoteMap();
+        List<AbstractMap.SimpleEntry<Integer, Integer>> noteMap = midiValues.generateNoteMap();
 
 
         Project testProject = Project.getInstance();
         testProject.setBeatsPerMinute(midiValues.getBeatsPerMinute());
         testProject.setName("testProject");
 
-       // Project testProject = new Project("testProject", midiValues.getBeatsPerMinute());
+        // Project testProject = new Project("testProject", midiValues.getBeatsPerMinute());
         Track firstTrack = new Track(MusicalKey.VIOLIN, MusicalInstrument.ACOUSTIC_GRAND_PIANO);
 
         int currentTicks = 0;
-        for(int i = 0; i < noteMap.size(); i++)
-        {
+        for (int i = 0; i < noteMap.size(); i++) {
             NoteName noteName = NoteName.getNoteNameFromMidiValue(noteMap.get(i).getKey());
             NoteEvent note_begin = new NoteEvent(noteName, true);
             firstTrack.addNoteEvent(currentTicks, note_begin);
@@ -87,9 +82,9 @@ public class MidiValuesTest extends TestCase {
         Project.getInstance().addTrack("first", firstTrack);
 
         ProjectToMidiConverter converter = new ProjectToMidiConverter();
-        try{
+        try {
             converter.writeProjectAsMidi(Project.getInstance(), file);
-        }catch(IOException e){
+        } catch (IOException e) {
             e.printStackTrace();
         } catch (MidiException e) {
             e.printStackTrace();
@@ -98,15 +93,13 @@ public class MidiValuesTest extends TestCase {
         assertTrue(file.exists());
 
 
-
     }
 
-    public void testMidiConversion()
-    {
+    public void testMidiConversion() {
         WavConverter converter = new WavConverter();
-        MidiValues midiValues1= converter.convertToMidiNew("TestFile4.wav");
+        MidiValues midiValues1 = converter.convertToMidi("TestFile4.wav");
 
-        List<AbstractMap.SimpleEntry<Integer,Integer>> noteMap = midiValues1.generateNoteMap();
+        List<AbstractMap.SimpleEntry<Integer, Integer>> noteMap = midiValues1.generateNoteMap();
 
         /*
         === print noteMap to Android Studio console
@@ -125,12 +118,13 @@ public class MidiValuesTest extends TestCase {
         Track firstTrack = new Track(MusicalKey.VIOLIN, MusicalInstrument.ACOUSTIC_GRAND_PIANO);
 
         int currentTicks = 0;
-        for(int i = 0; i < noteMap.size(); i++)
-        {
+        for (int i = 0; i < noteMap.size(); i++) {
             NoteName noteName = NoteName.getNoteNameFromMidiValue(noteMap.get(i).getKey());
             NoteEvent note_begin = new NoteEvent(noteName, true);
             firstTrack.addNoteEvent(currentTicks, note_begin);
             currentTicks += midiValues1.getNoteLength(noteMap.get(i).getValue()) * testProject.getBeatsPerMinute() * 8;
 
 
+        }
+    }
 }

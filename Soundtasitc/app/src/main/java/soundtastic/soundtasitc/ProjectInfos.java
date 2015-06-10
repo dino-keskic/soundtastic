@@ -69,16 +69,8 @@ public class ProjectInfos implements Serializable {
     public void setProject(Project project) {
         this.project = project;
     }
+    
 
-    private  Project project = new Project();
-
-    public Project getProject() {
-        return project;
-    }
-
-    public void setProject(Project project) {
-        this.project = project;
-    }
 
     public String getProjectName() {
         return project_name;

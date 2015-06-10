@@ -70,13 +70,13 @@ public class MixingInterfaceTest extends ActivityInstrumentationTestCase2<MainAc
 
         mySolo.clickOnView(mySolo.getView(R.id.mixint_play_track1));
         mySolo.sleep(5000);
-//        mySolo.clickOnView(mySolo.getView(R.id.mixint_edit_track1));
+        mySolo.clickOnView(mySolo.getView(R.id.mixint_stop_track1));
 
         mySolo.clickOnView(mySolo.getView(R.id.mixint_play_all));
         mySolo.sleep(500);
-        mySolo.clickOnView(mySolo.getView(R.id.mixint_track_copy));
+        mySolo.clickOnView(mySolo.getView(R.id.mixint_stop_all));
         mySolo.sleep(500);
-        mySolo.setProgressBar(0, 60);
+        mySolo.clickOnView(mySolo.getView(R.id.mixint_track_copy));
         mySolo.sleep(500);
         mySolo.clickOnView(mySolo.getView(R.id.mixint_enabled));
         mySolo.sleep(500);
@@ -86,6 +86,7 @@ public class MixingInterfaceTest extends ActivityInstrumentationTestCase2<MainAc
 
         mySolo.clickOnView(mySolo.getView(R.id.mixint_track_rename));
         mySolo.sleep(500);
+
         mySolo.clickOnView(mySolo.getView(R.id.mixint_rename_track_title));
 
 

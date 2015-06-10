@@ -157,6 +157,8 @@ public class WavConverter {
                     n--;
                 }
 
+
+
               // midiValues.addMidiNum(midiVal);
 
                 k++;

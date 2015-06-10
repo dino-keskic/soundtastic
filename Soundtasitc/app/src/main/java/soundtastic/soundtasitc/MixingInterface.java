@@ -18,6 +18,7 @@ import android.widget.RelativeLayout;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
+import soundtastic.soundtasitc.note.Track;
 import soundtastic.soundtasitc.playmidi.PlayMIDI;
 import soundtastic.soundtasitc.TrackInfo;
 
@@ -206,7 +207,8 @@ public class MixingInterface extends Activity implements View.OnClickListener {
             buttonPlayAll.setVisibility(View.INVISIBLE);
 
             for(int tracknr = 0; tracknr < MAX_TRACK; tracknr++) {
-                if(ProjectInfos.getInstance().getTrack(tracknr + 1).getEnabled() == true) {
+                TrackInfo ti = ProjectInfos.getInstance().getTrack(tracknr + 1);
+                if(ti != null && ti.getEnabled() == true) {
                     PlayMIDI.play(mixintMediaPlayer);
                     trackLayouts[tracknr].buttonTrackPlay.setVisibility(View.INVISIBLE);
                     trackLayouts[tracknr].buttonTrackStop.setVisibility(View.VISIBLE);

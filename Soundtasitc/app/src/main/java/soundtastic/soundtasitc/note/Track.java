@@ -23,7 +23,10 @@
 
 package soundtastic.soundtasitc.note;
 
+import android.util.Log;
+
 import java.io.Serializable;
+import java.util.AbstractMap;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
@@ -49,6 +52,10 @@ public class Track implements Serializable {
         this.instrument = instrument;
         this.key = key;
         this.lastTick = 0;
+    }
+
+    public void setRawMidiValues(MidiValues val) {
+        rawMidiValues = val;
     }
 
     public Track(Track track) {
@@ -185,5 +192,29 @@ public class Track implements Serializable {
     public List<Integer> getRawMidiValuesList()
     {
         return  rawMidiValues.getMidiValues();
+    }
+
+    public void setRawMidiValuesList(List<Integer> val)
+
+    {
+        rawMidiValues.setMidiValues(val);
+
+        int currentTicks =0;
+        List<AbstractMap.SimpleEntry<Integer,Integer>> noteMap =  rawMidiValues.generateNoteMap();
+        for(int i = 0; i < noteMap.size(); i++)
+        {
+            NoteName noteName = NoteName.getNoteNameFromMidiValue(noteMap.get(i).getKey());
+            NoteEvent note_begin = new NoteEvent(noteName, true);
+            this.addNoteEvent(currentTicks, note_begin);
+            currentTicks += rawMidiValues.getNoteLength(noteMap.get(i).getValue()) * Project.getInstance().getBeatsPerMinute() * 8;
+
+            Log.d("NOTELENGTH", Double.toString(rawMidiValues.getNoteLength(noteMap.get(i).getValue())));
+            Log.d("CURRENTTICKS", Integer.toString(currentTicks));
+
+            NoteEvent note_end = new NoteEvent(noteName, false);
+            this.addNoteEvent(currentTicks, note_end);
+        }
+
+
     }
 }

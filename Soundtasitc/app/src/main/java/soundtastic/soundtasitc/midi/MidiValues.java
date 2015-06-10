@@ -66,4 +66,6 @@ public class MidiValues {
         return midiNum;
     }
 
+    public void setMidiValues(List<Integer> val) {midiNum = val;}
+
 }

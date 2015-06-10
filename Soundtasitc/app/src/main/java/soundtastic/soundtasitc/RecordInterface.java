@@ -165,7 +165,7 @@ public class RecordInterface extends Activity implements View.OnClickListener,Me
                 if(midiValues != null) {
                     List<AbstractMap.SimpleEntry<Integer, Integer>> noteMap = midiValues.generateNoteMap();
                     Track firstTrack = new Track(MusicalKey.VIOLIN, MusicalInstrument.ACOUSTIC_GRAND_PIANO);
-
+                    firstTrack.setRawMidiValues(midiValues);
                     int currentTicks = 0;
 
                     for (int i = 0; i < noteMap.size(); i++) {

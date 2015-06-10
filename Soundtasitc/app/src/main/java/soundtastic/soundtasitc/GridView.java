@@ -39,8 +39,8 @@ public class GridView extends Activity{
             "c''''''"};
 
     int numTones = notes.length;
-    //List<Integer> rawMidiValues = ProjectInfos.getInstance().getProject().getTrackByName(ProjectInfos.getInstance().getSelectedTrack().getTrackName()).getRawMidiValuesList();
-    List<Integer> rawMidiValues = new ArrayList<Integer>();
+    List<Integer> rawMidiValues = ProjectInfos.getInstance().getProject().getTrackByName(ProjectInfos.getInstance().getSelectedTrack().getTrackName()).getRawMidiValuesList();
+    //List<Integer> rawMidiValues = new ArrayList<Integer>();
     List<Integer> outputMidiValues = new ArrayList<Integer>();
     int midiLength;
     int numBar;
@@ -84,10 +84,10 @@ public class GridView extends Activity{
 
         buttonIncrLength.setEnabled(false);
         buttonDecrLength.setEnabled(false);
-
+/*
         for (int i = getResources().getInteger(R.integer.midi_nr_offset_min); i < 100; i++)
             rawMidiValues.add(i);
-
+*/
         midiLength = rawMidiValues.size();
         numBar = 1 + midiLength / getResources().getInteger(R.integer.bar);
         gridLength = midiLength + numBar;
@@ -254,6 +254,7 @@ public class GridView extends Activity{
                     break;
                 case R.id.gridview_save:
                     writeGrid2Midi();
+                    ProjectInfos.getInstance().getProject().getTrackByName(ProjectInfos.getInstance().getSelectedTrack().getTrackName()).setRawMidiValuesList(outputMidiValues);
                     finish();
                     break;
                 case R.id.gridview_cancel:

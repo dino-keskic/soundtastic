@@ -156,10 +156,10 @@ public class RecordInterface extends Activity implements View.OnClickListener,Me
                 }
                 break;
             case R.id.buttonSave:
-                this.finish();
+                //this.finish();
 
                 WavConverter converter = new WavConverter();
-                MidiValues midiValues =  converter.convertToMidi(Environment.getExternalStorageDirectory()+"/SoundtasticTest6.wav");
+                MidiValues midiValues =  converter.convertToMidi(Environment.getExternalStorageDirectory()+"/sampleRecording.wav");
                 trackName ="track01";
 
                 if(midiValues != null) {

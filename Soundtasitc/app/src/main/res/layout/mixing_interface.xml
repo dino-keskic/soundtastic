@@ -336,35 +336,11 @@
             android:padding="@dimen/activity_vertical_margin"
             >
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/mixint_bar"
-                android:id="@+id/mixint_start_at_bar_title"/>
-
-            <SeekBar
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:max="60"
-                android:id="@+id/mixint_start_at_bar"
-                android:layout_marginRight="10dp"
-                android:layout_below="@+id/mixint_start_at_bar_title"/>
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="0"
-                android:id="@+id/mixint_start_at_value"
-                android:layout_alignTop="@+id/mixint_start_at_bar"
-                android:layout_alignRight="@+id/mixint_start_at_bar"
-                android:layout_alignEnd="@+id/mixint_start_at_bar" />
-
             <CheckBox
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/mixint_enabled"
-                android:id="@+id/mixint_enabled"
-                android:layout_below="@+id/mixint_start_at_bar" />
+                android:id="@+id/mixint_enabled" />
 
             <Button
                 android:layout_width="wrap_content"

@@ -34,8 +34,10 @@ public class createMidiStructTest extends AndroidTestCase {
 
     public void testCreateProject()
     {
-        Project.createNewInstance();
-        assertEquals(Project.getInstance().getName(), "Project.getInstance()");
+        Project testProject = Project.getInstance();
+        testProject.setBeatsPerMinute(60);
+        testProject.setName("testProject");
+        assertEquals(testProject.getName(), "testProject");
 
         Track firstTrack = new Track(MusicalKey.VIOLIN, MusicalInstrument.ACOUSTIC_GRAND_PIANO);
         assertEquals(firstTrack.getInstrument(), MusicalInstrument.ACOUSTIC_GRAND_PIANO);

@@ -80,9 +80,9 @@ public class ConversionTest extends TestCase {
         ===*/
 
 
-
-        Project.getInstance().setName("testProject");
-        Project.getInstance().setBeatsPerMinute(midiValues.getBeatsPerMinute());
+        Project testProject = Project.getInstance();
+        testProject.setBeatsPerMinute(midiValues.getBeatsPerMinute());
+        testProject.setName("testProject");
 
         Track firstTrack = new Track(MusicalKey.VIOLIN, MusicalInstrument.ACOUSTIC_GRAND_PIANO);
 

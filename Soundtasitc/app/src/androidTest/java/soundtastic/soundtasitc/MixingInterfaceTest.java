@@ -217,11 +217,58 @@ public class MixingInterfaceTest extends ActivityInstrumentationTestCase2<MainAc
         assertFalse(cb.isChecked());
     }
 
-    public void testRecord() {
+    public void testRecordTrack1() {
         testAddTracks();
 
         mySolo.clickOnText(trackOne);
+        mySolo.sleep(200);
 
+        mySolo.clickOnView(mySolo.getView(R.id.mixint_rec_track1));
+        mySolo.sleep(200);
+
+        mySolo.clickOnView(mySolo.getView(R.id.buttonRecord));
+        mySolo.sleep(3000);
+        mySolo.clickOnView(mySolo.getView(R.id.buttonRecord));
+
+        mySolo.clickOnView(mySolo.getView(R.id.buttonPlay));
+        mySolo.sleep(2000);
+        mySolo.clickOnView(mySolo.getView(R.id.buttonStop));
+        mySolo.sleep(2000);
+
+        mySolo.clickOnView(mySolo.getView(R.id.buttonSave));
+        mySolo.sleep(200);
+
+        mySolo.clickOnView(mySolo.getView(R.id.mixint_play_track1));
+        mySolo.sleep(3000);
+        mySolo.clickOnView(mySolo.getView(R.id.mixint_stop_track1));
+        mySolo.sleep(2000);
+    }
+
+    public void testRecordTrack2() {
+        testAddTracks();
+
+        mySolo.clickOnText(trackTwo);
+        mySolo.sleep(200);
+
+        mySolo.clickOnView(mySolo.getView(R.id.mixint_rec_track2));
+        mySolo.sleep(200);
+
+        mySolo.clickOnView(mySolo.getView(R.id.buttonRecord));
+        mySolo.sleep(3000);
+        mySolo.clickOnView(mySolo.getView(R.id.buttonRecord));
+
+        mySolo.clickOnView(mySolo.getView(R.id.buttonPlay));
+        mySolo.sleep(2000);
+        mySolo.clickOnView(mySolo.getView(R.id.buttonStop));
+        mySolo.sleep(2000);
+
+        mySolo.clickOnView(mySolo.getView(R.id.buttonSave));
+        mySolo.sleep(200);
+
+        mySolo.clickOnView(mySolo.getView(R.id.mixint_play_track2));
+        mySolo.sleep(3000);
+        mySolo.clickOnView(mySolo.getView(R.id.mixint_stop_track2));
+        mySolo.sleep(2000);
     }
 
 }

@@ -70,8 +70,11 @@ public class MidiValuesTest extends TestCase {
         }
         ===*/
 
+        Project testProject = Project.getInstance();
+        testProject.setBeatsPerMinute(midiValues.getBeatsPerMinute());
+        testProject.setName("testProject");
 
-        Project testProject = new Project("testProject", midiValues.getBeatsPerMinute());
+       // Project testProject = new Project("testProject", midiValues.getBeatsPerMinute());
         Track firstTrack = new Track(MusicalKey.VIOLIN, MusicalInstrument.ACOUSTIC_GRAND_PIANO);
 
         int currentTicks = 0;
@@ -124,7 +127,10 @@ public class MidiValuesTest extends TestCase {
         ===*/
 
 
-        Project testProject = new Project("testProject", midiValues1.getBeatsPerMinute());
+        Project testProject = Project.getInstance();
+        testProject.setBeatsPerMinute(midiValues1.getBeatsPerMinute());
+        testProject.setName("testProject");
+
         Track firstTrack = new Track(MusicalKey.VIOLIN, MusicalInstrument.ACOUSTIC_GRAND_PIANO);
 
         int currentTicks = 0;

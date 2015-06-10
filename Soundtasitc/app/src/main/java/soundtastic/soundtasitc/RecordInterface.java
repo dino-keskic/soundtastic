@@ -137,7 +137,7 @@ public class RecordInterface extends Activity implements View.OnClickListener,Me
                     isRecording = true;
                     boolean deleted = recorder.deleteLastRecording();
                     buffer_file = Uri.parse(Environment.getExternalStorageDirectory() + "/sampleRecording.wav");
-                    recorder = new Recorder(Environment.getExternalStorageDirectory()+"/sampleRecording.wav");
+                    recorder = new Recorder(Environment.getExternalStorageDirectory() + "/sampleRecording.wav");
                     recorder.startRecording();
                     ImageButton image = (ImageButton)findViewById(R.id.buttonRecord);
                     pulse = new AlphaAnimation(1, 0);

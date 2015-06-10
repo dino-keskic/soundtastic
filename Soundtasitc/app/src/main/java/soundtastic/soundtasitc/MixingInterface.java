@@ -27,6 +27,8 @@ import soundtastic.soundtasitc.ProjectInfos;
 public class MixingInterface extends Activity implements View.OnClickListener {
 
     ImageButton buttonPlayAll;
+    SeekBar startAtBar;
+    TextView startAtValue;
 
     TrackLayout[] trackLayouts;
 
@@ -35,8 +37,7 @@ public class MixingInterface extends Activity implements View.OnClickListener {
     Button buttonCopyTrack;
     Button buttonRenameTrack;
     CheckBox enableCheckbox;
-    SeekBar startAtBar;
-    TextView startAtValue;
+
     private MediaPlayer mixint_media_player = null;
 
     public int MAX_TRACK = 4;
@@ -53,14 +54,14 @@ public class MixingInterface extends Activity implements View.OnClickListener {
         // Initialisation of all elements
         trackLayouts = new TrackLayout[MAX_TRACK];
 
-        buttonPlayAll = (ImageButton) findViewById(R.id.mi_play_all);
-        buttonAddSounds = (ImageButton) findViewById(R.id.mi_add_sounds);
-        buttonDeleteTrack = (Button) findViewById(R.id.mi_track_delete);
-        buttonCopyTrack = (Button) findViewById(R.id.mi_track_copy);
-        buttonRenameTrack = (Button) findViewById(R.id.mi_track_rename);
-        startAtBar = (SeekBar) findViewById(R.id.mi_start_at_bar);
-        startAtValue = (TextView) findViewById(R.id.mi_start_at_value);
-        enableCheckbox = (CheckBox) findViewById(R.id.mi_enabled);
+        buttonPlayAll = (ImageButton) findViewById(R.id.mixint_play_all);
+        buttonAddSounds = (ImageButton) findViewById(R.id.mixint_add_sounds);
+        buttonDeleteTrack = (Button) findViewById(R.id.mixint_track_delete);
+        buttonCopyTrack = (Button) findViewById(R.id.mixint_track_copy);
+        buttonRenameTrack = (Button) findViewById(R.id.mixint_track_rename);
+        enableCheckbox = (CheckBox) findViewById(R.id.mixint_enabled);
+        startAtBar = (SeekBar) findViewById(R.id.mixint_start_at_bar);
+        startAtValue = (TextView) findViewById(R.id.mixint_start_at_value);
 
 
         for(int i = 0;i < MAX_TRACK;i++)
@@ -102,27 +103,6 @@ public class MixingInterface extends Activity implements View.OnClickListener {
               }
           }
         );
-        startAtBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener(){
-
-            @Override
-            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-               startAtValue.setText(String.valueOf(progress));
-                TrackInfo ti = ProjectInfos.getInstance().getSelectedTrack();
-                if(ti != null)
-                    ti.setStartAt(progress);
-            }
-
-            @Override
-            public void onStartTrackingTouch(SeekBar seekBar) {
-
-            }
-
-            @Override
-            public void onStopTrackingTouch(SeekBar seekBar) {
-
-            }
-        });
-
 
         // ClickListener
         buttonPlayAll.setOnClickListener(this);
@@ -219,19 +199,40 @@ public class MixingInterface extends Activity implements View.OnClickListener {
         }
 
         switch(v.getId()) {
-            case R.id.mi_track_delete:
+            case R.id.mixint_track_delete:
                 deleteTrack();
                 break;
-            case R.id.mi_track_copy:
+            case R.id.mixint_track_copy:
                 copyTrack();
                 break;
-            case R.id.mi_track_rename:
+            case R.id.mixint_track_rename:
                 renameTrack();
                 break;
-             case R.id.mi_add_sounds:
+             case R.id.mixint_add_sounds:
                  createTrack();
                 break;
         }
+
+        startAtBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener(){
+
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+                startAtValue.setText(String.valueOf(progress));
+                TrackInfo ti = ProjectInfos.getInstance().getSelectedTrack();
+                if(ti != null)
+                    ti.setStartAt(progress);
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+
+            }
+        });
     }
 
     private void selectCurrentTrack() {
@@ -329,15 +330,20 @@ public class MixingInterface extends Activity implements View.OnClickListener {
         dialog.setTitle("Add new track");
         dialog.show();
 
-        final Button mic = (Button) dialog.findViewById(R.id.mi_add_sounds_mic);
-        final EditText title = (EditText) dialog.findViewById(R.id.mi_add_sounds_title);
+        final Button mic = (Button) dialog.findViewById(R.id.mixint_add_sounds_mic);
+        final EditText title = (EditText) dialog.findViewById(R.id.mixint_add_sounds_title);
 
         if(mic != null)
         {
             mic.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    addTrack(title.getText().toString());
+                    if(title.getText().toString().isEmpty()) {
+                        addTrack(title.getHint().toString());
+                    }
+                    else {
+                        addTrack(title.getText().toString());
+                    }
                     dialog.cancel();
                 }
             });
@@ -358,9 +364,9 @@ public class MixingInterface extends Activity implements View.OnClickListener {
         dialog.setTitle("Rename track");
         dialog.show();
 
-        final Button mic = (Button) dialog.findViewById(R.id.mi_rename_track_save);
-        final EditText title = (EditText) dialog.findViewById(R.id.mi_rename_track_title);
-        final TextView old_title = (TextView) dialog.findViewById(R.id.mi_rename_track_oldtitle);
+        final Button mic = (Button) dialog.findViewById(R.id.mixint_rename_track_save);
+        final EditText title = (EditText) dialog.findViewById(R.id.mixint_rename_track_title);
+        final TextView old_title = (TextView) dialog.findViewById(R.id.mixint_rename_track_oldtitle);
 
         old_title.setText(ti.getTrackName().toString());
 
@@ -369,7 +375,12 @@ public class MixingInterface extends Activity implements View.OnClickListener {
             mic.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    editTrackName(title.getText().toString());
+                    if(title.getText().toString().isEmpty()) {
+                        editTrackName(title.getHint().toString());
+                    }
+                    else {
+                        editTrackName(title.getText().toString());
+                    }
                     dialog.cancel();
                 }
             });

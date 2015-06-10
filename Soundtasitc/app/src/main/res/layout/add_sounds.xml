@@ -5,7 +5,7 @@
     android:id="@+id/add_sounds">
 
     <TextView
-        android:id="@+id/mi_add_sounds_titletext"
+        android:id="@+id/mixint_add_sounds_titletext"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textSize="@dimen/add_sounds_titletext"
@@ -14,21 +14,22 @@
         />
 
     <EditText
-        android:id="@+id/mi_add_sounds_title"
+        android:id="@+id/mixint_add_sounds_title"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:textSize="@dimen/add_sounds_title"
         android:layout_alignParentTop="true"
-        android:layout_toRightOf="@+id/mi_add_sounds_titletext"
-        android:layout_toEndOf="@+id/mi_add_sounds_titletext"
-        android:padding="10dp"/>
+        android:layout_toRightOf="@+id/mixint_add_sounds_titletext"
+        android:layout_toEndOf="@+id/mixint_add_sounds_titletext"
+        android:padding="10dp"
+        android:hint="@string/mixint_emptytitle"/>
 
     <Button
-        android:id="@+id/mi_add_sounds_mic"
+        android:id="@+id/mixint_add_sounds_mic"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Mic"
-        android:layout_below="@+id/mi_add_sounds_title"
+        android:text="@string/mixint_save"
+        android:layout_below="@+id/mixint_add_sounds_title"
         android:layout_centerHorizontal="true"/>
 
 </RelativeLayout>

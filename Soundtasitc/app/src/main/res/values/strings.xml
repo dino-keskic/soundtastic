@@ -5,13 +5,17 @@
     <string name="title_activity_play_midi">Media Player</string>
 
     <!-- Mixing Interface -->
-    <string name="mixint_header">Mixing Interface</string>
+    <string name="mixint_header">Mixing</string>
     <string name="mixint_bar">Start at bar</string>
     <string name="mixint_enabled">Enabled</string>
     <string name="mixint_copy">Copy</string>
     <string name="mixint_del">Delete</string>
     <string name="mixint_edit">Edit</string>
     <string name="mixint_rename">Rename</string>
+    <string name="mixint_save">Save</string>
+    <string name="mixint_emptytitle">Empty Title</string>
+    <string name="mixint_newtitle">New:</string>
+    <string name="mixint_oldtitle">Old:</string>
 
     <!-- settings_dialog.xml -->
     <string name="setdial_ticks_min">Ticks/Min:</string>
@@ -26,6 +30,9 @@
 
     <!-- GridView -->
     <string name="gridview_header">Edit Track</string>
+
+    <!-- Record Interface -->
+    <string name="recint_header">Record</string>
 
 
 </resources>

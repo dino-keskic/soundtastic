@@ -46,7 +46,7 @@ public class ConvertingTestActivity extends ActionBarActivity implements View.On
                 file.delete();
             }
             WavConverter converter = new WavConverter();
-            MidiValues midiValues1= converter.convertToMidiNew("TestFile3.wav");
+            MidiValues midiValues1= converter.convertToMidi("TestFile3.wav");
 
             List<AbstractMap.SimpleEntry<Integer,Integer>> noteMap = midiValues1.generateNoteMap();
 
@@ -61,16 +61,17 @@ public class ConvertingTestActivity extends ActionBarActivity implements View.On
         ===*/
 
 
-            Project testProject = new Project("testProject", midiValues1.getBeatsPerMinute());
-            Track firstTrack = new Track(MusicalKey.VIOLIN, MusicalInstrument.ACOUSTIC_GRAND_PIANO);
 
+            Track firstTrack = new Track(MusicalKey.VIOLIN, MusicalInstrument.ACOUSTIC_GRAND_PIANO);
+        Project.getInstance().setName("Test project");
+            Project.getInstance().setBeatsPerMinute(60);
             int currentTicks = 0;
             for(int i = 0; i < noteMap.size(); i++)
             {
                 NoteName noteName = NoteName.getNoteNameFromMidiValue(noteMap.get(i).getKey());
                 NoteEvent note_begin = new NoteEvent(noteName, true);
                 firstTrack.addNoteEvent(currentTicks, note_begin);
-                currentTicks += midiValues1.getNoteLength(noteMap.get(i).getValue()) * testProject.getBeatsPerMinute() * 8;
+                currentTicks += midiValues1.getNoteLength(noteMap.get(i).getValue()) * Project.getInstance().getBeatsPerMinute() * 8;
 
                 Log.d("NOTELENGTH", Double.toString(midiValues1.getNoteLength(noteMap.get(i).getValue())));
                 Log.d("CURRENTTICKS", Integer.toString(currentTicks));
@@ -79,12 +80,13 @@ public class ConvertingTestActivity extends ActionBarActivity implements View.On
                 firstTrack.addNoteEvent(currentTicks, note_end);
             }
 
-            testProject.addTrack("first", firstTrack);
+            Project.getInstance().addTrack("first", firstTrack);
 
             ProjectToMidiConverter procConverter = new ProjectToMidiConverter();
 
             try{
-                procConverter.writeProjectAsMidi(testProject, file);
+                procConverter.writeProjectAsMidi(Project.getInstance(), file);
+
             }catch(IOException e){
                 e.printStackTrace();
             } catch (MidiException e) {

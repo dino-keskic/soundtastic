@@ -62,7 +62,8 @@ public class ConversionTest extends TestCase {
         }
 
         WavConverter converter = new WavConverter();
-        MidiValues midiValues =  converter.convertToMidiNew("TestFile2.wav");
+        converter.setBeatsPerMinute(120);
+        MidiValues midiValues =  converter.convertToMidi(Environment.getExternalStorageDirectory()+"/wistle.wav");
         /*WavConverter converter = new WavConverter();
         MidiValues midiValues1= converter.convertToMidiNew("TestFile4.wav");*/
 
@@ -79,7 +80,10 @@ public class ConversionTest extends TestCase {
         ===*/
 
 
-        Project testProject = new Project("testProject", midiValues.getBeatsPerMinute());
+        Project testProject = Project.getInstance();
+        testProject.setBeatsPerMinute(midiValues.getBeatsPerMinute());
+        testProject.setName("testProject");
+
         Track firstTrack = new Track(MusicalKey.VIOLIN, MusicalInstrument.ACOUSTIC_GRAND_PIANO);
 
         int currentTicks = 0;
@@ -88,7 +92,7 @@ public class ConversionTest extends TestCase {
             NoteName noteName = NoteName.getNoteNameFromMidiValue(noteMap.get(i).getKey());
             NoteEvent note_begin = new NoteEvent(noteName, true);
             firstTrack.addNoteEvent(currentTicks, note_begin);
-            currentTicks += midiValues.getNoteLength(noteMap.get(i).getValue()) * testProject.getBeatsPerMinute() * 8;
+            currentTicks += midiValues.getNoteLength(noteMap.get(i).getValue()) * Project.getInstance().getBeatsPerMinute() * 8;
 
             Log.d("NOTELENGTH", Double.toString(midiValues.getNoteLength(noteMap.get(i).getValue())));
             Log.d("CURRENTTICKS", Integer.toString(currentTicks));
@@ -97,12 +101,12 @@ public class ConversionTest extends TestCase {
             firstTrack.addNoteEvent(currentTicks, note_end);
         }
 
-        testProject.addTrack("first", firstTrack);
+        Project.getInstance().addTrack("first", firstTrack);
 
         ProjectToMidiConverter procConverter = new ProjectToMidiConverter();
 
         try{
-            procConverter.writeProjectAsMidi(testProject, file);
+            procConverter.writeProjectAsMidi(Project.getInstance(), file);
         }catch(IOException e){
             e.printStackTrace();
         } catch (MidiException e) {
@@ -113,12 +117,6 @@ public class ConversionTest extends TestCase {
 
     }
 
-    public void testSampleConversion()
-    {
-        WavConverter conv = new WavConverter();
-        int midi = conv.convertSampleToMidi();
-        Log.d("MIDI_VALUE","midi:"+midi);
-        assertEquals(true,true);
-    }
+
 
 }

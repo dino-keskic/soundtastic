@@ -32,6 +32,8 @@ import java.util.List;
 import java.util.Set;
 import java.util.TreeSet;
 
+import soundtastic.soundtasitc.midi.MidiValues;
+
 public class Track implements Serializable {
 
     private static final long serialVersionUID = 7483021689872527955L;
@@ -40,6 +42,7 @@ public class Track implements Serializable {
     private HashMap<Long, List<NoteEvent>> events;
     private MusicalKey key;
     private long lastTick;
+    private MidiValues rawMidiValues;
 
     public Track(MusicalKey key, MusicalInstrument instrument) {
         this.events = new HashMap<Long, List<NoteEvent>>();
@@ -177,5 +180,10 @@ public class Track implements Serializable {
 
     public void increaseLastTick(long difference) {
         lastTick += difference;
+    }
+
+    public List<Integer> getRawMidiValuesList()
+    {
+        return  rawMidiValues.getMidiValues();
     }
 }

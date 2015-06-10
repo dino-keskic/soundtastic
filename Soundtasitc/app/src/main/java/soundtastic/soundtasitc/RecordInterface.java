@@ -2,13 +2,13 @@ package soundtastic.soundtasitc;
 
 
 import android.app.Activity;
-import android.app.AlertDialog;
-import android.content.DialogInterface;
+import android.app.Dialog;
 import android.content.Intent;
 import android.media.MediaPlayer;
 import android.net.Uri;
-import android.os.Bundle;
 import android.os.Environment;
+import android.support.v7.app.ActionBarActivity;
+import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -17,8 +17,11 @@ import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
 import android.view.animation.LinearInterpolator;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.ImageView;
+import android.widget.MediaController;
+import android.widget.SeekBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.AbstractMap;
@@ -47,10 +50,7 @@ public class RecordInterface extends Activity implements View.OnClickListener,Me
 
     public MediaPlayer mediaPlayer = null;
     public Recorder recorder = null;
-
     public Uri buffer_file = null;
-    public String trackName="track01";
-
 
     public boolean isRecording = false;
 
@@ -115,6 +115,12 @@ public class RecordInterface extends Activity implements View.OnClickListener,Me
 
     }
 
+    // no return-button
+    @Override
+    public void onBackPressed()
+    {
+    }
+
     @Override
     public void onClick(View v) {
 
@@ -137,7 +143,7 @@ public class RecordInterface extends Activity implements View.OnClickListener,Me
                     isRecording = true;
                     boolean deleted = recorder.deleteLastRecording();
                     buffer_file = Uri.parse(Environment.getExternalStorageDirectory() + "/sampleRecording.wav");
-                    recorder = new Recorder(Environment.getExternalStorageDirectory() + "/sampleRecording.wav");
+                    recorder = new Recorder(Environment.getExternalStorageDirectory()+"/sampleRecording.wav");
                     recorder.startRecording();
                     ImageButton image = (ImageButton)findViewById(R.id.buttonRecord);
                     pulse = new AlphaAnimation(1, 0);
@@ -156,11 +162,11 @@ public class RecordInterface extends Activity implements View.OnClickListener,Me
                 }
                 break;
             case R.id.buttonSave:
+
                 //this.finish();
 
                 WavConverter converter = new WavConverter();
                 MidiValues midiValues =  converter.convertToMidi(Environment.getExternalStorageDirectory()+"/sampleRecording.wav");
-                trackName ="track01";
 
                 if(midiValues != null) {
                     List<AbstractMap.SimpleEntry<Integer, Integer>> noteMap = midiValues.generateNoteMap();
@@ -183,8 +189,6 @@ public class RecordInterface extends Activity implements View.OnClickListener,Me
 
 
 
-                  final EditText trackNameText = new EditText(this);
-                    trackNameText.setText(trackName);
 
 // Set the default text to a link of the Queen
 
@@ -219,6 +223,9 @@ public class RecordInterface extends Activity implements View.OnClickListener,Me
                     Toast.makeText(RecordInterface.this, "Conversion failed! Wav file available?", Toast.LENGTH_LONG).show();
                 }
                 // Convert wav to midi and return to MixingInterface
+
+                this.finish();
+
                 break;
             case R.id.buttonDiscard:
                 this.finish();

@@ -54,9 +54,7 @@ public class Track implements Serializable {
         this.lastTick = 0;
     }
 
-    public void setRawMidiValues(MidiValues val) {
-        rawMidiValues = val;
-    }
+
 
     public Track(Track track) {
         this.events = new HashMap<Long, List<NoteEvent>>();
@@ -199,10 +197,9 @@ public class Track implements Serializable {
     {
         rawMidiValues.setMidiValues(val);
 
-        int currentTicks =0;
-        List<AbstractMap.SimpleEntry<Integer,Integer>> noteMap =  rawMidiValues.generateNoteMap();
-        for(int i = 0; i < noteMap.size(); i++)
-        {
+        int currentTicks = 0;
+        List<AbstractMap.SimpleEntry<Integer, Integer>> noteMap = rawMidiValues.generateNoteMap();
+        for (int i = 0; i < noteMap.size(); i++) {
             NoteName noteName = NoteName.getNoteNameFromMidiValue(noteMap.get(i).getKey());
             NoteEvent note_begin = new NoteEvent(noteName, true);
             this.addNoteEvent(currentTicks, note_begin);
@@ -215,6 +212,11 @@ public class Track implements Serializable {
             this.addNoteEvent(currentTicks, note_end);
         }
 
+    }
+
+    public void setRawMidiValues(MidiValues midiValues)
+    {
+        rawMidiValues = midiValues;
 
     }
 }

@@ -7,6 +7,8 @@ import java.util.List;
 
 import soundtastic.soundtasitc.note.Project;
 
+import soundtastic.soundtasitc.note.Project;
+
 /**
  * Created by Dominik on 20.05.2015.
  */
@@ -57,6 +59,16 @@ public class ProjectInfos implements Serializable {
     }
 
     private ProjectInfos() {}
+
+    private  Project project = new Project();
+
+    public Project getProject() {
+        return project;
+    }
+
+    public void setProject(Project project) {
+        this.project = project;
+    }
 
     private  Project project = new Project();
 

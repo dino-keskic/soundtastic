@@ -34,8 +34,8 @@ public class createMidiStructTest extends AndroidTestCase {
 
     public void testCreateProject()
     {
-        Project testProject = new Project("testProject", 60);
-        assertEquals(testProject.getName(), "testProject");
+        Project.createNewInstance();
+        assertEquals(Project.getInstance().getName(), "Project.getInstance()");
 
         Track firstTrack = new Track(MusicalKey.VIOLIN, MusicalInstrument.ACOUSTIC_GRAND_PIANO);
         assertEquals(firstTrack.getInstrument(), MusicalInstrument.ACOUSTIC_GRAND_PIANO);
@@ -57,12 +57,12 @@ public class createMidiStructTest extends AndroidTestCase {
 
         firstTrack.addNoteEvent(960, note2_end);
 
-        testProject.addTrack("first", firstTrack);
+        Project.getInstance().addTrack("first", firstTrack);
 
         ProjectToMidiConverter converter = new ProjectToMidiConverter();
 
         try{
-            converter.writeProjectAsMidi(testProject, file);
+            converter.writeProjectAsMidi(Project.getInstance(), file);
         }catch(IOException e){
             e.printStackTrace();
         } catch (MidiException e) {

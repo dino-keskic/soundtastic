@@ -159,7 +159,7 @@ public class RecordInterface extends Activity implements View.OnClickListener,Me
                 this.finish();
 
                 WavConverter converter = new WavConverter();
-                MidiValues midiValues =  converter.convertToMidiNew(Environment.getExternalStorageDirectory()+"/sampleRecording.wav");
+                MidiValues midiValues =  converter.convertToMidi(Environment.getExternalStorageDirectory()+"/sampleRecording.wav");
                 trackName ="track01";
 
                 if(midiValues != null) {

@@ -61,5 +61,9 @@ public class MidiValues {
     {
         return beatsPerMinute;
     }
+    public List<Integer> getMidiValues()
+    {
+        return midiNum;
+    }
 
 }

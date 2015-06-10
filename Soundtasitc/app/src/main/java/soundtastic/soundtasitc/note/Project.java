@@ -144,4 +144,9 @@ public class Project implements Serializable {
     public String toString() {
         return "[Project] name=" + name + " beatsPerMinute=" + beatsPerMinute + " trackCount=" + size();
     }
+
+    public Track getTrackByName(String name)
+    {
+        return tracks.get(name);
+    }
 }

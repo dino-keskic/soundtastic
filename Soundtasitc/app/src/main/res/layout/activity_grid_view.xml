@@ -29,8 +29,21 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
+            android:layout_toLeftOf="@+id/gridview_cancel"
+            android:layout_toStartOf="@+id/gridview_cancel"/>
+
+
+        <ImageButton
+            android:id="@+id/gridview_cancel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/btn_trash"
             android:layout_alignParentRight="true"
-            android:layout_alignParentEnd="true" />
+            android:layout_alignParentEnd="true"
+            android:background="@null"
+            android:gravity="right"
+
+            android:text="Discard" />
 
     </RelativeLayout>
 

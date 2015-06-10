@@ -5,4 +5,10 @@
     <string name="min_bpm_string">60</string>
     <integer name="max_bpm">220</integer>
 
+    <!-- gridView.java -->
+    <integer name="bar">16</integer>
+    <integer name="bar_plus_1">17</integer>
+    <integer name="midi_nr_offset_min">21</integer>
+    <integer name="midi_nr_offset_max">108</integer>
+
 </resources>

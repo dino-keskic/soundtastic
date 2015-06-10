@@ -34,5 +34,11 @@
     <!-- Record Interface -->
     <string name="recint_header">Record</string>
 
+    <!-- gridView.java -->
+    <string name="white">"WH"</string>
+    <string name="green">"GR"</string>
+    <string name="blue">"BL"</string>
+    <string name="yellow">"YE"</string>
+
 
 </resources>

@@ -5,53 +5,53 @@
     android:id="@+id/rename_track">
 
     <TextView
-        android:id="@+id/mi_rename_track_oldtitletext"
+        android:id="@+id/mixint_rename_track_oldtitletext"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textSize="@dimen/add_sounds_titletext"
         android:padding="10dp"
-        android:text="Old Title:"
+        android:text="@string/mixint_oldtitle"
         />
 
     <TextView
-        android:id="@+id/mi_rename_track_oldtitle"
+        android:id="@+id/mixint_rename_track_oldtitle"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:textSize="@dimen/add_sounds_titletext"
         android:padding="10dp"
-        android:text="dfgdfgdfg"
 
-        android:layout_above="@+id/mi_rename_track_title"
-        android:layout_toRightOf="@+id/mi_rename_track_oldtitletext"
-        android:layout_toEndOf="@+id/mi_rename_track_oldtitletext" />
+        android:layout_above="@+id/mixint_rename_track_title"
+        android:layout_toRightOf="@+id/mixint_rename_track_oldtitletext"
+        android:layout_toEndOf="@+id/mixint_rename_track_oldtitletext" />
 
     <TextView
-        android:id="@+id/mi_rename_track_titletext"
+        android:id="@+id/mixint_rename_track_titletext"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textSize="@dimen/add_sounds_titletext"
         android:padding="10dp"
-        android:text="New Title:"
-        android:layout_below="@+id/mi_rename_track_oldtitletext"
-        android:layout_toLeftOf="@+id/mi_rename_track_title"
-        android:layout_toStartOf="@+id/mi_rename_track_title" />
+        android:text="@string/mixint_newtitle"
+        android:layout_below="@+id/mixint_rename_track_oldtitletext"
+        android:layout_toLeftOf="@+id/mixint_rename_track_title"
+        android:layout_toStartOf="@+id/mixint_rename_track_title" />
 
     <EditText
-        android:id="@+id/mi_rename_track_title"
+        android:id="@+id/mixint_rename_track_title"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:textSize="@dimen/add_sounds_title"
         android:padding="10dp"
-        android:layout_alignTop="@+id/mi_rename_track_titletext"
-        android:layout_toRightOf="@+id/mi_rename_track_oldtitletext"
-        android:layout_toEndOf="@+id/mi_rename_track_oldtitletext" />
+        android:layout_alignTop="@+id/mixint_rename_track_titletext"
+        android:layout_toRightOf="@+id/mixint_rename_track_oldtitletext"
+        android:layout_toEndOf="@+id/mixint_rename_track_oldtitletext"
+        android:hint="@string/mixint_emptytitle" />
 
     <Button
-        android:id="@+id/mi_rename_track_save"
+        android:id="@+id/mixint_rename_track_save"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Save"
-        android:layout_below="@+id/mi_rename_track_title"
+        android:text="@string/mixint_save"
+        android:layout_below="@+id/mixint_rename_track_title"
         android:layout_centerHorizontal="true" />
 
 </RelativeLayout>

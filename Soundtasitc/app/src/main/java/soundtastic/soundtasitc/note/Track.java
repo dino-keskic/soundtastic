@@ -186,4 +186,8 @@ public class Track implements Serializable {
     {
         return  rawMidiValues.getMidiValues();
     }
+    public void setRawMidiValues(MidiValues midiValues)
+    {
+        rawMidiValues = midiValues;
+    }
 }

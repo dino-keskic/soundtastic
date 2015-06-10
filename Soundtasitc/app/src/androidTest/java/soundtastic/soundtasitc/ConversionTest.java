@@ -80,7 +80,7 @@ public class ConversionTest extends TestCase {
         ===*/
 
 
-        Project testProject = Project.getInstance();
+        Project testProject =new Project();
         testProject.setBeatsPerMinute(midiValues.getBeatsPerMinute());
         testProject.setName("testProject");
 
@@ -101,12 +101,12 @@ public class ConversionTest extends TestCase {
             firstTrack.addNoteEvent(currentTicks, note_end);
         }
 
-        Project.getInstance().addTrack("first", firstTrack);
+       testProject.addTrack("track",firstTrack);
 
         ProjectToMidiConverter procConverter = new ProjectToMidiConverter();
 
         try{
-            procConverter.writeProjectAsMidi(Project.getInstance(), file);
+            procConverter.writeProjectAsMidi(testProject, file);
         }catch(IOException e){
             e.printStackTrace();
         } catch (MidiException e) {

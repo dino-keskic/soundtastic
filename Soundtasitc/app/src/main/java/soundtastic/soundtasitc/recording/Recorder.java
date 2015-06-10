@@ -20,7 +20,7 @@ PropertyChangeSupport pcs = new PropertyChangeSupport(this);
 
     private ExtAudioRecorder recorder;
     private String filePath;
-    private boolean uncompressed = false;
+    private boolean uncompressed = true;
     private int audioSource =  MediaRecorder.AudioSource.MIC;
     private int sampleRate = 44100;
     private long elapsedSeconds;

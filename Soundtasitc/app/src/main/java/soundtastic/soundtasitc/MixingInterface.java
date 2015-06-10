@@ -17,31 +17,28 @@ import android.widget.ImageButton;
 import android.widget.RelativeLayout;
 import android.widget.SeekBar;
 import android.widget.TextView;
-import android.util.Log;
 
 import soundtastic.soundtasitc.playmidi.PlayMIDI;
-import soundtastic.soundtasitc.playmidi.PlayMIDIActivity;
-import soundtastic.soundtasitc.recording.Recorder;
-import soundtastic.soundtasitc.ProjectInfos;
+import soundtastic.soundtasitc.TrackInfo;
 
 public class MixingInterface extends Activity implements View.OnClickListener {
 
-    ImageButton buttonPlayAll;
-    SeekBar startAtBar;
-    TextView startAtValue;
-
+    public int MAX_TRACK = 4;
+    int resID = 0;
+    
     TrackLayout[] trackLayouts;
 
+    ImageButton buttonPlayAll;
+    ImageButton buttonStopAll;
+    SeekBar startAtBar;
+    TextView startAtValue;
     ImageButton buttonAddSounds;
     Button buttonDeleteTrack;
     Button buttonCopyTrack;
     Button buttonRenameTrack;
     CheckBox enableCheckbox;
 
-    private MediaPlayer mixint_media_player = null;
-
-    public int MAX_TRACK = 4;
-    int resID = 0;
+    private MediaPlayer mixintMediaPlayer = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,12 +46,12 @@ public class MixingInterface extends Activity implements View.OnClickListener {
         setContentView(R.layout.mixing_interface);
 
         ProjectInfos.getInstance().setSelectedTrackNr(1);
-        mixint_media_player = MediaPlayer.create(this, R.raw.song);
+        mixintMediaPlayer = MediaPlayer.create(this, R.raw.song);
 
         // Initialisation of all elements
         trackLayouts = new TrackLayout[MAX_TRACK];
-
         buttonPlayAll = (ImageButton) findViewById(R.id.mixint_play_all);
+        buttonStopAll = (ImageButton) findViewById(R.id.mixint_stop_all);
         buttonAddSounds = (ImageButton) findViewById(R.id.mixint_add_sounds);
         buttonDeleteTrack = (Button) findViewById(R.id.mixint_track_delete);
         buttonCopyTrack = (Button) findViewById(R.id.mixint_track_copy);
@@ -106,8 +103,12 @@ public class MixingInterface extends Activity implements View.OnClickListener {
 
         // ClickListener
         buttonPlayAll.setOnClickListener(this);
+        buttonStopAll.setOnClickListener(this);
 
-        for(int i=0;i<trackLayouts.length;i++) {
+        buttonPlayAll.setVisibility(View.VISIBLE);
+        buttonStopAll.setVisibility(View.INVISIBLE);
+
+        for(int i=0;i< trackLayouts.length;i++) {
             trackLayouts[i].buttonTrackPlay.setOnClickListener(this);
             trackLayouts[i].buttonTrackStop.setOnClickListener(this);
             trackLayouts[i].buttonAddRec.setOnClickListener(this);
@@ -177,7 +178,7 @@ public class MixingInterface extends Activity implements View.OnClickListener {
             trackLayouts[trackNr-1].buttonTrackPlay.setVisibility(View.INVISIBLE);
             trackLayouts[trackNr-1].buttonTrackStop.setVisibility(View.VISIBLE);
 
-            PlayMIDI.play(mixint_media_player);
+            PlayMIDI.play(mixintMediaPlayer);
             return;
         }
 
@@ -186,8 +187,10 @@ public class MixingInterface extends Activity implements View.OnClickListener {
             ProjectInfos.getInstance().setSelectedTrackNr(trackNr);
             trackLayouts[trackNr-1].buttonTrackPlay.setVisibility(View.VISIBLE);
             trackLayouts[trackNr-1].buttonTrackStop.setVisibility(View.INVISIBLE);
+            buttonPlayAll.setVisibility(View.VISIBLE);
+            buttonStopAll.setVisibility(View.INVISIBLE);
 
-            PlayMIDI.stop(mixint_media_player);
+            PlayMIDI.stop(mixintMediaPlayer);
             return;
         }
 
@@ -195,6 +198,32 @@ public class MixingInterface extends Activity implements View.OnClickListener {
             trackNr = Integer.parseInt(viewName.replace("mixint_edit_track", ""));
             ProjectInfos.getInstance().setSelectedTrackNr(trackNr);
             startActivity(grid_view);
+            return;
+        }
+
+        if(viewName.startsWith("mixint_play_all")) {
+            buttonStopAll.setVisibility(View.VISIBLE);
+            buttonPlayAll.setVisibility(View.INVISIBLE);
+
+            for(int tracknr = 0; tracknr < MAX_TRACK; tracknr++) {
+                if(ProjectInfos.getInstance().getTrack(tracknr + 1).getEnabled() == true) {
+                    PlayMIDI.play(mixintMediaPlayer);
+                    trackLayouts[tracknr].buttonTrackPlay.setVisibility(View.INVISIBLE);
+                    trackLayouts[tracknr].buttonTrackStop.setVisibility(View.VISIBLE);
+                }
+            }
+            return;
+        }
+
+        if(viewName.startsWith("mixint_stop_all")) {
+            PlayMIDI.stop(mixintMediaPlayer);
+            buttonStopAll.setVisibility(View.INVISIBLE);
+            buttonPlayAll.setVisibility(View.VISIBLE);
+
+            for(int tracknr = 0; tracknr < MAX_TRACK; tracknr++) {
+                trackLayouts[tracknr].buttonTrackPlay.setVisibility(View.VISIBLE);
+                trackLayouts[tracknr].buttonTrackStop.setVisibility(View.INVISIBLE);
+            }
             return;
         }
 
@@ -208,9 +237,11 @@ public class MixingInterface extends Activity implements View.OnClickListener {
             case R.id.mixint_track_rename:
                 renameTrack();
                 break;
-             case R.id.mixint_add_sounds:
-                 createTrack();
+            case R.id.mixint_add_sounds:
+                createTrack();
                 break;
+            case R.id.mixint_export_midi:
+
         }
 
         startAtBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener(){
@@ -388,7 +419,7 @@ public class MixingInterface extends Activity implements View.OnClickListener {
     }
 
     private void refreshTracks() {
-        for(int i=0;i<trackLayouts.length;i++) {
+        for(int i=0;i< trackLayouts.length;i++) {
             TrackInfo ti = ProjectInfos.getInstance().getTrack(i+1);
             loadTrackInfo(trackLayouts[i].layoutTrack, trackLayouts[i].buttonTrackTitle, ti);
         }

@@ -103,6 +103,12 @@ public class RecordInterface extends Activity implements View.OnClickListener,Me
 
     }
 
+    // no return-button
+    @Override
+    public void onBackPressed()
+    {
+    }
+
     @Override
     public void onClick(View v) {
 

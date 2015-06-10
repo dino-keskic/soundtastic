@@ -38,6 +38,15 @@
             android:layout_centerHorizontal="true" />
 
         <ImageButton
+            android:src="@drawable/btn_global_stop"
+            android:id="@+id/mixint_stop_all"
+            android:background="@color/button_background"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true" />
+
+        <ImageButton
             android:src="@drawable/btn_add_sounds"
             android:id="@+id/mixint_add_sounds"
             android:background="@color/button_background"

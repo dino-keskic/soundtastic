@@ -124,7 +124,7 @@
                     android:layout_toEndOf="@+id/mixint_play_track1" />
 
                 <Button
-                    android:id="@+id/mi_track_edit1"
+                    android:id="@+id/mixint_edit_track1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Edit"
@@ -186,7 +186,7 @@
                     android:layout_toEndOf="@+id/mixint_play_track2" />
 
                 <Button
-                    android:id="@+id/mi_track_edit2"
+                    android:id="@+id/mixint_edit_track2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Edit"
@@ -248,7 +248,7 @@
                     android:layout_toEndOf="@+id/mixint_play_track3" />
 
                 <Button
-                    android:id="@+id/mi_track_edit3"
+                    android:id="@+id/mixint_edit_track3"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Edit"
@@ -308,7 +308,7 @@
                     android:layout_toEndOf="@+id/mixint_play_track4" />
 
                 <Button
-                    android:id="@+id/mi_track_edit4"
+                    android:id="@+id/mixint_edit_track4"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Edit"

@@ -13,7 +13,7 @@ import soundtastic.soundtasitc.note.Project;
  * Created by Dominik on 20.05.2015.
  */
 enum TimeSignatures {
-    TWO_QUARTER, THREE_QUARTER, FOUR_QUARTER
+    two_quarter, three_quarter, four_quarter
 }
 
 public class ProjectInfos implements Serializable {
